@@ -1,6 +1,5 @@
 package ir.taxi;
 
-import ir.taxi.dataAccess.DriverDataAccess;
 import ir.taxi.enumeration.MainMenu;
 import ir.taxi.model.Taxi;
 
@@ -19,8 +18,8 @@ public class Main {
             case 1:
                 System.out.println("Enter number of drivers:");
                 int numberOfDrivers = scanner.nextInt();
-                DriverDataAccess driverDao = new DriverDataAccess();
-                driverDao.addGroupOfDrivers(numberOfDrivers);
+                Taxi taxi = new Taxi();
+                taxi.addGroupOfDrivers(numberOfDrivers);
                 break;
         }
     }

@@ -5,5 +5,7 @@ package ir.taxi.model;
  */
 public class Taxi {
 
+    public void addGroupOfDrivers(int number){
 
+    }
 }
