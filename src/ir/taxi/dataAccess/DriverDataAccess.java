@@ -1,6 +1,8 @@
 package ir.taxi.dataAccess;
 
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
@@ -14,9 +16,15 @@ public class DriverDataAccess extends DataBaseConnection{
         this.connection = getConnection();
     }
 
-    public void addGroupOfDrivers(int number){
+    public void addDriver(int id, String username, String name, String family, int phoneNumber, int nationalCode,
+                          Date birthDate, int carId, String plaque, int colorId){
         if(connection != null){
-            Statement statement = connection.createStatement();
+            Statement statement = null;
+            try {
+                statement = connection.createStatement();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             String sql = "insert into drivers values()";
             int result = statement.executeUpdate()
         }
