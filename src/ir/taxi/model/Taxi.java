@@ -7,5 +7,7 @@ public class Taxi {
 
     public void addGroupOfDrivers(int number){
 
+        Driver[] drivers = new Driver[number];
+
     }
 }
