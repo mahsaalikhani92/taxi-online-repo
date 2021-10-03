@@ -9,18 +9,13 @@ import java.sql.SQLException;
  */
 public class DataBaseConnection {
 
-    public Connection getConnection(){
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        Connection connection = null;
-        try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/my_company","root","5103583");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    private Connection connection;
+    public DataBaseConnection() throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/my_company","root","5103583");
+    }
+
+    public Connection getConnection() {
         return connection;
     }
 }

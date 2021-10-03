@@ -10,10 +10,8 @@ import java.sql.Statement;
  */
 public class DriverDataAccess extends DataBaseConnection{
 
-    Connection connection;
-
     public DriverDataAccess() {
-        this.connection = getConnection();
+        super();
     }
 
     public void addDriver(String name, String family, String username, int phoneNumber, int nationalCode,
