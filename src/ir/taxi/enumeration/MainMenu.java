@@ -8,9 +8,8 @@ public enum MainMenu {
     TWO("2. Add a group of passengers"),
     THREE("3. Driver signup or login"),
     FOUR("4. Passenger signup or login"),
-    FIVE("5. Show ongoing travels"),
-    SIX("6. Show a list of drivers"),
-    SEVEN("Show a list of passengers");
+    FIVE("5. Show a list of drivers"),
+    SIX("6. Show a list of passengers");
 
     private String expression;
 
