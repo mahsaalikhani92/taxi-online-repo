@@ -16,4 +16,13 @@ public class Driver {
     private String plaque;
     private int colorId;
 
+    public Driver(String name, String family, String username, int phoneNumber, int nationalCode, Date birthDate, String plaque) {
+        this.name = name;
+        this.family = family;
+        this.username = username;
+        this.phoneNumber = phoneNumber;
+        this.nationalCode = nationalCode;
+        this.birthDate = birthDate;
+        this.plaque = plaque;
+    }
 }
