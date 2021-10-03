@@ -16,8 +16,9 @@ public class DriverDataAccess extends DataBaseConnection{
         this.connection = getConnection();
     }
 
-    public void addDriver(int id, String username, String name, String family, int phoneNumber, int nationalCode,
-                          Date birthDate, int carId, String plaque, int colorId){
+    public void addDriver(String name, String family, String username, int phoneNumber, int nationalCode,
+                          Date birthDate, String plaque){
+        int result = 0;
         if(connection != null){
             Statement statement = null;
             try {
@@ -25,8 +26,15 @@ public class DriverDataAccess extends DataBaseConnection{
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            String sql = "insert into drivers values()";
-            int result = statement.executeUpdate()
+            String sql = "insert into drivers (username, name, family, phone_number, national_code, birth_date, plaque)" +
+                    " values( "+username+","+name+","+family+","+phoneNumber+","+nationalCode+","+birthDate+","+plaque+")";
+            try {
+                result = statement.executeUpdate(sql);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Record " + result + " inserted.");
         }
+        return;
     }
 }
