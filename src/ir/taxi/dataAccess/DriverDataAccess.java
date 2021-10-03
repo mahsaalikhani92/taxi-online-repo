@@ -10,27 +10,24 @@ import java.sql.Statement;
  */
 public class DriverDataAccess extends DataBaseConnection{
 
-    public DriverDataAccess() {
+
+    public DriverDataAccess() throws ClassNotFoundException, SQLException {
         super();
     }
 
-    public void addDriver(String name, String family, String username, int phoneNumber, int nationalCode,
-                          Date birthDate, String plaque){
+    public void saveDriver(String name, String family, String username, int phoneNumber, int nationalCode,
+                           Date birthDate, String plaque) throws SQLException {
         int result = 0;
-        if(connection != null){
+        if(getConnection() != null){
             Statement statement = null;
             try {
-                statement = connection.createStatement();
+                statement = getConnection().createStatement();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            String sql = "insert into drivers (username, name, family, phone_number, national_code, birth_date, plaque)" +
-                    " values( "+username+","+name+","+family+","+phoneNumber+","+nationalCode+","+birthDate+","+plaque+")";
-            try {
-                result = statement.executeUpdate(sql);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            String sqlQuery = "insert into drivers (username, name, family, phone_number, national_code, birth_date, plaque)" +
+                    " values( '"+username+"','"+name+"','"+family+"','"+phoneNumber+"','"+nationalCode+"','"+birthDate+"','"+plaque+"')";
+            result = statement.executeUpdate(sqlQuery);
             System.out.println("Record " + result + " inserted.");
         }
         return;
