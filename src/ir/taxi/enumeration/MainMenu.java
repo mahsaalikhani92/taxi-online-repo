@@ -22,7 +22,7 @@ public enum MainMenu {
         return expression;
     }
 
-    public void showMainMenu(){
+    public static void showMainMenu(){
         for (MainMenu item:MainMenu.values()) {
             System.out.println(item.getExpression());
         }
