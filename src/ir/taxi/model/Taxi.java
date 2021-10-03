@@ -15,13 +15,20 @@ public class Taxi {
         Driver driver = findDriverByNationalCode(nationalCode);
         if(driver == null){
             driver = new Driver(name, family, username, phoneNumber, nationalCode, (java.sql.Date) birthDate, plaque);
+            drivers[driverIndex] = driver;
+            driverIndex++;
+            System.out.println("New driver " + nationalCode + " is added successfully.");
+        }else {
+            System.out.println("Driver " + nationalCode + " exists.");
         }
-
     }
 
     private Driver findDriverByNationalCode(int id){
         for (int i = 0; i < driverIndex; i++) {
-            if(drivers[i])
+            if(drivers[i].getNationalCode() == id){
+                return drivers[i];
+            }
         }
+        return null;
     }
 }
