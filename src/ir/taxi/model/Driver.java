@@ -26,5 +26,59 @@ public class Driver {
         this.plaque = plaque;
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getFamily() {
+        return family;
+    }
+
+    public void setFamily(String family) {
+        this.family = family;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public int getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(int phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public int getNationalCode() {
+        return nationalCode;
+    }
+
+    public void setNationalCode(int nationalCode) {
+        this.nationalCode = nationalCode;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getPlaque() {
+        return plaque;
+    }
+
+    public void setPlaque(String plaque) {
+        this.plaque = plaque;
+    }
 }
