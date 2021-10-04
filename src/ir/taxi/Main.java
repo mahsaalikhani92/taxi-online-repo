@@ -144,6 +144,7 @@ public class Main {
         Date birthDate = getDate();
         String plaque = getCarPlateNumber();
         driverDao.saveNewDriver(name, family, username, phoneNumber, nationalCode, (java.sql.Date) birthDate, plaque);
+        System.out.println("Your information was successfully registered.");
     }
 
     private static void passengerSignUpOrLogin() throws SQLException {
@@ -151,7 +152,9 @@ public class Main {
         String username = getUsername();
         PassengerDataAccess passengerDao = null;
         if(passengerDao.findPassengerByUsername(username) != null){
-            System.out.println("Successful login");
+            System.out.println(username);
+
+
         }else{
             int choiceNumber;
             do{
@@ -185,6 +188,7 @@ public class Main {
         int nationalCode = getNationalCode();
         Date birthDate = getDate();
         passengerDao.saveNewPassenger(name, family, username, phoneNumber, nationalCode, (java.sql.Date) birthDate);
+        System.out.println("Your information was successfully registered.");
     }
 
 
