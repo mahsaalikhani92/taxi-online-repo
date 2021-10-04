@@ -16,4 +16,10 @@ public enum PassengerLoginMenu {
     public String getExpression() {
         return expression;
     }
+
+    public static void showPassengerLoginMenu(){
+        for (PassengerLoginMenu item:PassengerLoginMenu.values()) {
+            System.out.println(item.getExpression());
+        }
+    }
 }
