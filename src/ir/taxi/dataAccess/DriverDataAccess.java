@@ -32,4 +32,11 @@ public class DriverDataAccess extends DataBaseConnection{
         }
         return;
     }
+    public void findDriverByUsername(String username) throws SQLException {
+        if(getConnection() != null){
+            Statement statement = getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery(String.format("select username from drivers where username = %s", username));
+
+        }
+    }
 }
