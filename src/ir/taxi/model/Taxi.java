@@ -18,11 +18,6 @@ public class Taxi {
     }
 
     private Driver findDriverByNationalCode(int id){
-        for (int i = 0; i < driverIndex; i++) {
-            if(drivers[i].getNationalCode() == id){
-                return drivers[i];
-            }
-        }
         return null;
     }
 }

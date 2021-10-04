@@ -21,7 +21,7 @@ public class Main {
     private static final Scanner scanner = new Scanner(System.in);
     private static final Taxi taxi = new Taxi();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         MainMenu.showMainMenu();
         String choice;
         do {
@@ -32,12 +32,12 @@ public class Main {
 
         switch (choiceNumber) {
             case 1:
-                addGroupOfDriversByAdmin();
+                addGroupOfDrivers();
                 break;
         }
     }
 
-    private static void addGroupOfDriversByAdmin() throws SQLException {
+    private static void addGroupOfDrivers() throws SQLException {
         String numberOfDrivers;
         do {
             System.out.println("Enter number of drivers:");
@@ -46,57 +46,90 @@ public class Main {
         int driverNumbers = Integer.parseInt(numberOfDrivers);
         List<Driver> drivers = new ArrayList<Driver>();
         for (int i = 0; i < driverNumbers; i++) {
-            String driverName;
-            do {
-                System.out.println("Enter driver name:");
-                driverName = scanner.next();
-            } while (ValidationUtil.isAlphabetic(driverName));
-            String driverFamily;
-            do {
-                System.out.println("Enter driver family:");
-                driverFamily = scanner.next();
-            } while (ValidationUtil.isAlphabetic(driverFamily));
-            String username;
-            do {
-                System.out.println("Enter driver username:");
-                username = scanner.next();
-            } while (ValidationUtil.isValidUsername(username));
-            String phoneNumber;
-            do {
-                System.out.println("Enter driver phone number:");
-                phoneNumber = scanner.next();
-            } while (ValidationUtil.isValidPhoneNumber(phoneNumber));
-            String nationalCode;
-            do {
-                System.out.println("Enter driver national code:");
-                nationalCode = scanner.next();
-            } while (ValidationUtil.isIranianNationalCode(nationalCode));
-            String date;
-            do {
-                System.out.println("Enter driver birth date:");
-                date = scanner.next();
-            } while (ValidationUtil.isPersianDate(date));
-            DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
-            Date birthDate = null;
-            try {
-                birthDate = df.parse(date);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            String plaque;
-            do {
-                System.out.println("Enter driver car plate number:");
-                plaque = scanner.next();
-            } while (ValidationUtil.isIranianCarPlateNumber(plaque));
-
-            Driver driver = taxi.addDriver(driverName, driverFamily, username, Integer.parseInt(phoneNumber),
-                    Integer.parseInt(nationalCode), birthDate, plaque);
+            String driverName = getName();
+            String driverFamily = getFamily();
+            String username = getUsername();
+            int phoneNumber = getPhoneNumber();
+            int nationalCode = getNationalCode();
+            Date birthDate = getDate();
+            String plaque = getCarPlateNumber();
+            Driver driver = taxi.addDriver(driverName, driverFamily, username, phoneNumber, nationalCode, birthDate, plaque);
             drivers.add(driver);
         }
         if(drivers.size() == driverNumbers){
             DriverDataAccess driverDao = null;
             driverDao.saveGroupOfDrivers(drivers);
+            System.out.println("New drivers saved successfully.");
         }
+    }
+
+    private static String getCarPlateNumber() {
+        String plaque;
+        do {
+            System.out.println("Enter driver car plate number:");
+            plaque = scanner.next();
+        } while (ValidationUtil.isIranianCarPlateNumber(plaque));
+    }
+
+    private static Date getDate() {
+        String date;
+        do {
+            System.out.println("Enter driver birth date:");
+            date = scanner.next();
+        } while (ValidationUtil.isPersianDate(date));
+        DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+        Date birthDate = null;
+        try {
+            birthDate = df.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return birthDate;
+    }
+
+    private static int getNationalCode() {
+        String nationalCode;
+        do {
+            System.out.println("Enter national code:");
+            nationalCode = scanner.next();
+        } while (ValidationUtil.isIranianNationalCode(nationalCode));
+        return Integer.parseInt(nationalCode);
+    }
+
+    private static int getPhoneNumber() {
+        String phoneNumber;
+        do {
+            System.out.println("Enter phone number:");
+            phoneNumber = scanner.next();
+        } while (ValidationUtil.isValidPhoneNumber(phoneNumber));
+        return Integer.parseInt(phoneNumber);
+    }
+
+    private static String getUsername() {
+        String username;
+        do {
+            System.out.println("Enter username:");
+            username = scanner.next();
+        } while (ValidationUtil.isValidUsername(username));
+        return username;
+    }
+
+    private static String getFamily() {
+        String family;
+        do {
+            System.out.println("Enter family:");
+            family = scanner.next();
+        } while (ValidationUtil.isAlphabetic(family));
+        return family;
+    }
+
+    private static String getName() {
+        String name;
+        do {
+            System.out.println("Enter name:");
+            name = scanner.next();
+        } while (ValidationUtil.isAlphabetic(name));
+        return name;
     }
 
 }

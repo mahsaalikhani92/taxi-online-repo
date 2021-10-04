@@ -15,8 +15,6 @@ public class DriverDataAccess extends DataBaseConnection{
         super();
     }
 
-    /*String name, String family, String username, int phoneNumber, int nationalCode,
-    Date birthDate, String plaque*/
     public void saveGroupOfDrivers(List<Driver> drivers) throws SQLException {
         if(getConnection() != null){
             String sqlQuery = "insert into drivers (username, name, family, phone_number, national_code, birth_date, plaque)" +
@@ -35,5 +33,3 @@ public class DriverDataAccess extends DataBaseConnection{
         return;
     }
 }
- /*String sqlQuery = "insert into drivers (username, name, family, phone_number, national_code, birth_date, plaque)" +
-                    " values( '"+username+"','"+name+"','"+family+"','"+phoneNumber+"','"+nationalCode+"','"+birthDate+"','"+plaque+"')";*/
