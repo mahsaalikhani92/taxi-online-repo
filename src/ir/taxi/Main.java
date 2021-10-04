@@ -25,24 +25,27 @@ public class Main {
     private static final Taxi taxi = new Taxi();
 
     public static void main(String[] args) throws SQLException {
-        MainMenu.showMainMenu();
-        String choice;
-        do {
-            choice = scanner.next();
-        } while (ValidationUtil.isNumeric(choice));
+        outer :
+        while (true){
+            MainMenu.showMainMenu();
+            String choice;
+            do {
+                choice = scanner.next();
+            } while (ValidationUtil.isNumeric(choice));
 
-        int choiceNumber = Integer.parseInt(choice);
+            int choiceNumber = Integer.parseInt(choice);
 
-        switch (choiceNumber) {
-            case 1:
-                addGroupOfDrivers();
-                break;
-            case 2:
-                addGroupOfPassengers();
-                break;
-            case 3:
-                DriverSignUpOrLogin();
+            switch (choiceNumber) {
+                case 1:
+                    addGroupOfDrivers();
+                    break;
+                case 2:
+                    addGroupOfPassengers();
+                    break;
+                case 3:
+                    DriverSignUpOrLogin();
 
+            }
         }
     }
 
@@ -104,7 +107,30 @@ public class Main {
         if(driverDao.findDriverByUsername(username) != null){
             System.out.println("Successful login");
         }else{
+            SignupMenu.showSignupMenu();
+            String choice;
+            do{
+                choice = scanner.next();
+            }while (ValidationUtil.isNumeric(choice));
+            int choiceNumber = Integer.parseInt(choice);
+            switch (choiceNumber){
+                case 1:
+                    String name = getName();
+                    String family = getFamily();
+                    do{
+                        username = getUsername();
+                    }while (driverDao.findDriverByUsername(username) != null);
+                    int phoneNumber = getPhoneNumber();
+                    int nationalCode = getNationalCode();
+                    Date birthDate = getDate();
+                    String plaque = getCarPlateNumber();
 
+                    break;
+                case 2:
+                    break;
+                default:
+                    System.out.println("Invalid number!");
+            }
         }
     }
 
@@ -114,6 +140,7 @@ public class Main {
             System.out.println("Enter driver car plate number:");
             plaque = scanner.next();
         } while (ValidationUtil.isIranianCarPlateNumber(plaque));
+        return plaque;
     }
 
     private static Date getDate() {
