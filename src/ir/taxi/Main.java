@@ -1,8 +1,10 @@
 package ir.taxi;
 
 import ir.taxi.dataAccess.DriverDataAccess;
+import ir.taxi.dataAccess.PassengerDataAccess;
 import ir.taxi.enumeration.MainMenu;
 import ir.taxi.model.Driver;
+import ir.taxi.model.Passenger;
 import ir.taxi.model.Taxi;
 
 import java.sql.SQLException;
@@ -35,7 +37,8 @@ public class Main {
                 addGroupOfDrivers();
                 break;
             case 2:
-
+                addGroupOfPassengers();
+                break;
         }
     }
 
@@ -62,6 +65,31 @@ public class Main {
             DriverDataAccess driverDao = null;
             driverDao.saveGroupOfDrivers(drivers);
             System.out.println("New drivers saved successfully.");
+        }
+    }
+
+    private static void addGroupOfPassengers() throws SQLException {
+        String numberOfPassengers;
+        do {
+            System.out.println("Enter number of passengers:");
+            numberOfPassengers = scanner.next();
+        } while (ValidationUtil.isNumeric(numberOfPassengers));
+        int passengerNumbers = Integer.parseInt(numberOfPassengers);
+        List<Passenger> passengers = new ArrayList<Passenger>();
+        for (int i = 0; i < passengerNumbers; i++) {
+            String driverName = getName();
+            String driverFamily = getFamily();
+            String username = getUsername();
+            int phoneNumber = getPhoneNumber();
+            int nationalCode = getNationalCode();
+            Date birthDate = getDate();
+            Passenger passenger = taxi.addPassenger(driverName, driverFamily, username, phoneNumber, nationalCode, birthDate);
+            passengers.add(passenger);
+        }
+        if(passengers.size() == passengerNumbers){
+            PassengerDataAccess passengerDao = null;
+            passengerDao.saveGroupOfPassengers(passengers);
+            System.out.println("New passengers saved successfully.");
         }
     }
 

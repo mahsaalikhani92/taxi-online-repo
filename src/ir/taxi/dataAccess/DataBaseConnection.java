@@ -1,8 +1,12 @@
 package ir.taxi.dataAccess;
 
+import ir.taxi.model.Passenger;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * @author Mahsa Alikhani m-58
@@ -18,4 +22,5 @@ public class DataBaseConnection {
     public Connection getConnection() {
         return connection;
     }
+
 }

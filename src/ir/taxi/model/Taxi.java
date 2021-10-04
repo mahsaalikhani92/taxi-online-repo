@@ -17,6 +17,13 @@ public class Taxi {
             return driver;
     }
 
+    public Passenger addPassenger(String name, String family, String username,
+                            int phoneNumber, int nationalCode, Date birthDate) {
+
+        Passenger passenger = new Passenger(name, family, username, phoneNumber, nationalCode, (java.sql.Date) birthDate);
+        return passenger;
+    }
+
     private Driver findDriverByNationalCode(int id){
         return null;
     }

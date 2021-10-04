@@ -18,7 +18,7 @@ public class PassengerDataAccess extends DataBaseConnection{
     public void saveGroupOfPassengers(List<Passenger> passengers) throws SQLException {
         if(getConnection() != null){
             String sqlQuery = "insert into passengers (username, name, family, phone_number, national_code, birth_date)" +
-                    "values(?, ?, ?, ?, ?, ?, ?)";
+                    "values(?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = getConnection().prepareStatement(sqlQuery);
             for (Passenger item:passengers) {
                 stmt.setString(1, item.getUsername());
