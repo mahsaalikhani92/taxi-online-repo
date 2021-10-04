@@ -2,8 +2,7 @@ package ir.taxi.dataAccess;
 
 import ir.taxi.model.Passenger;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 /**
@@ -27,6 +26,31 @@ public class PassengerDataAccess extends DataBaseAccess {
                 stmt.setInt(5, item.getNationalCode());
                 stmt.setDate(6, item.getBirthDate());
             }
+        }
+        return;
+    }
+
+    public String findPassengerByUsername(String username) throws SQLException {
+        if(getConnection() != null){
+            Statement statement = getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery(String.format("select username from passengers where username = %s", username));
+            while (resultSet.next()){
+                return resultSet.getString("username");
+            }
+        }
+        return null;
+    }
+    public void saveNewPassenger(String name, String family, String username, int phoneNumber, int nationalCode, Date birthDate) throws SQLException {
+        if(getConnection() != null){
+            String sqlQuery = "insert into drivers (username, name, family, phone_number, national_code, birth_date)" +
+                    "values(?, ?, ?, ?, ?, ?)";
+            PreparedStatement stmt = getConnection().prepareStatement(sqlQuery);
+            stmt.setString(1, username);
+            stmt.setString(2, name);
+            stmt.setString(3, family);
+            stmt.setInt(4, phoneNumber);
+            stmt.setInt(5, nationalCode);
+            stmt.setDate(6, birthDate);
         }
         return;
     }

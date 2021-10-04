@@ -46,6 +46,8 @@ public class Main {
                     DriverSignUpOrLogin();
                     break;
                 case 4:
+                    passengerSignUpOrLogin();
+                    break;
 
             }
         }
@@ -105,7 +107,7 @@ public class Main {
     private static void DriverSignUpOrLogin() throws SQLException {
         System.out.println("Username:");
         String username = getUsername();
-        DriverDataAccess driverDao = null;
+        DriverDataAccess driverDao = null; //DataBaseAccess DBDao;
         if(driverDao.findDriverByUsername(username) != null){
             System.out.println("Successful login");
         }else{
@@ -143,6 +145,48 @@ public class Main {
         String plaque = getCarPlateNumber();
         driverDao.saveNewDriver(name, family, username, phoneNumber, nationalCode, (java.sql.Date) birthDate, plaque);
     }
+
+    private static void passengerSignUpOrLogin() throws SQLException {
+        System.out.println("Username:");
+        String username = getUsername();
+        PassengerDataAccess passengerDao = null;
+        if(passengerDao.findPassengerByUsername(username) != null){
+            System.out.println("Successful login");
+        }else{
+            int choiceNumber;
+            do{
+                SignupMenu.showSignupMenu();
+                String choice;
+                do{
+                    choice = scanner.next();
+                }while (ValidationUtil.isNumeric(choice));
+                choiceNumber = Integer.parseInt(choice);
+                switch (choiceNumber){
+                    case 1:
+                        passengerRegister(passengerDao);
+                        break;
+                    case 2:
+                        break;
+                    default:
+                        System.out.println("Invalid number!");
+                }
+            }while (choiceNumber != 2);
+        }
+    }
+
+    private static void passengerRegister(PassengerDataAccess passengerDao) throws SQLException {
+        String username;
+        String name = getName();
+        String family = getFamily();
+        do{
+            username = getUsername();
+        }while (passengerDao.findPassengerByUsername(username) != null);
+        int phoneNumber = getPhoneNumber();
+        int nationalCode = getNationalCode();
+        Date birthDate = getDate();
+        passengerDao.saveNewPassenger(name, family, username, phoneNumber, nationalCode, (java.sql.Date) birthDate);
+    }
+
 
     private static String getCarPlateNumber() {
         String plaque;
