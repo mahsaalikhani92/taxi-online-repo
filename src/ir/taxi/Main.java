@@ -3,6 +3,7 @@ package ir.taxi;
 import ir.taxi.dataAccess.DriverDataAccess;
 import ir.taxi.dataAccess.PassengerDataAccess;
 import ir.taxi.enumeration.MainMenu;
+import ir.taxi.enumeration.SignupMenu;
 import ir.taxi.model.Driver;
 import ir.taxi.model.Passenger;
 import ir.taxi.model.Taxi;
@@ -96,10 +97,15 @@ public class Main {
         }
     }
 
-    private static void DriverSignUpOrLogin(){
+    private static void DriverSignUpOrLogin() throws SQLException {
         System.out.println("Username:");
-        DriverDataAccess driverDao;
+        String username = getUsername();
+        DriverDataAccess driverDao = null;
+        if(driverDao.findDriverByUsername(username) != null){
+            System.out.println("Successful login");
+        }else{
 
+        }
     }
 
     private static String getCarPlateNumber() {

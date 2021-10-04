@@ -1,4 +1,4 @@
-package ir.taxi.model;
+package ir.taxi.enumeration;
 
 /**
  * @author Mahsa Alikhani m-58
@@ -17,7 +17,7 @@ public enum SignupMenu {
         return expression;
     }
 
-    public void showSignupMenu(){
+    public static void showSignupMenu(){
         for (SignupMenu item:SignupMenu.values()) {
             System.out.println(item.getExpression());
         }
