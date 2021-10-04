@@ -11,10 +11,10 @@ import java.util.List;
 /**
  * @author Mahsa Alikhani m-58
  */
-public class DataBaseConnection {
+public class DataBaseAccess {
 
     private Connection connection;
-    public DataBaseConnection() throws ClassNotFoundException, SQLException {
+    public DataBaseAccess() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/my_company","root","5103583");
     }

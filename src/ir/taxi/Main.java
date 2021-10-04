@@ -37,19 +37,21 @@ public class Main {
 
             switch (choiceNumber) {
                 case 1:
-                    addGroupOfDrivers();
+                    addGroupOfDriversByAdmin();
                     break;
                 case 2:
-                    addGroupOfPassengers();
+                    addGroupOfPassengersByAdmin();
                     break;
                 case 3:
                     DriverSignUpOrLogin();
+                    break;
+                case 4:
 
             }
         }
     }
 
-    private static void addGroupOfDrivers() throws SQLException {
+    private static void addGroupOfDriversByAdmin() throws SQLException {
         String numberOfDrivers;
         do {
             System.out.println("Enter number of drivers:");
@@ -75,7 +77,7 @@ public class Main {
         }
     }
 
-    private static void addGroupOfPassengers() throws SQLException {
+    private static void addGroupOfPassengersByAdmin() throws SQLException {
         String numberOfPassengers;
         do {
             System.out.println("Enter number of passengers:");
@@ -107,31 +109,39 @@ public class Main {
         if(driverDao.findDriverByUsername(username) != null){
             System.out.println("Successful login");
         }else{
-            SignupMenu.showSignupMenu();
-            String choice;
+            int choiceNumber;
             do{
-                choice = scanner.next();
-            }while (ValidationUtil.isNumeric(choice));
-            int choiceNumber = Integer.parseInt(choice);
-            switch (choiceNumber){
-                case 1:
-                    String name = getName();
-                    String family = getFamily();
-                    do{
-                        username = getUsername();
-                    }while (driverDao.findDriverByUsername(username) != null);
-                    int phoneNumber = getPhoneNumber();
-                    int nationalCode = getNationalCode();
-                    Date birthDate = getDate();
-                    String plaque = getCarPlateNumber();
-
-                    break;
-                case 2:
-                    break;
-                default:
-                    System.out.println("Invalid number!");
-            }
+                SignupMenu.showSignupMenu();
+                String choice;
+                do{
+                    choice = scanner.next();
+                }while (ValidationUtil.isNumeric(choice));
+                choiceNumber = Integer.parseInt(choice);
+                switch (choiceNumber){
+                    case 1:
+                        driverRegister(driverDao);
+                        break;
+                    case 2:
+                        break;
+                    default:
+                        System.out.println("Invalid number!");
+                }
+            }while (choiceNumber != 2);
         }
+    }
+
+    private static void driverRegister(DriverDataAccess driverDao) throws SQLException {
+        String username;
+        String name = getName();
+        String family = getFamily();
+        do{
+            username = getUsername();
+        }while (driverDao.findDriverByUsername(username) != null);
+        int phoneNumber = getPhoneNumber();
+        int nationalCode = getNationalCode();
+        Date birthDate = getDate();
+        String plaque = getCarPlateNumber();
+        driverDao.saveNewDriver(name, family, username, phoneNumber, nationalCode, (java.sql.Date) birthDate, plaque);
     }
 
     private static String getCarPlateNumber() {

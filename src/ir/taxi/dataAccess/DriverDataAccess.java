@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author Mahsa Alikhani m-58
  */
-public class DriverDataAccess extends DataBaseConnection{
+public class DriverDataAccess extends DataBaseAccess {
 
 
     public DriverDataAccess() throws ClassNotFoundException, SQLException {
@@ -42,18 +42,18 @@ public class DriverDataAccess extends DataBaseConnection{
         }
         return null;
     }
-    public void saveNewDriver(Driver driver) throws SQLException {
+    public void saveNewDriver(String name, String family, String username, int phoneNumber, int nationalCode, Date birthDate, String plaque) throws SQLException {
         if(getConnection() != null){
             String sqlQuery = "insert into drivers (username, name, family, phone_number, national_code, birth_date, plaque)" +
                     "values(?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = getConnection().prepareStatement(sqlQuery);
-            stmt.setString(1, driver.getUsername());
-            stmt.setString(2, driver.getName());
-            stmt.setString(3, driver.getFamily());
-            stmt.setInt(4, driver.getPhoneNumber());
-            stmt.setInt(5, driver.getNationalCode());
-            stmt.setDate(6, driver.getBirthDate());
-            stmt.setString(7, driver.getPlaque());
+            stmt.setString(1, username);
+            stmt.setString(2, name);
+            stmt.setString(3, family);
+            stmt.setInt(4, phoneNumber);
+            stmt.setInt(5, nationalCode);
+            stmt.setDate(6, birthDate);
+            stmt.setString(7, plaque);
         }
         return;
     }

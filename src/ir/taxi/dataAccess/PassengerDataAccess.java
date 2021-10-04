@@ -1,6 +1,5 @@
 package ir.taxi.dataAccess;
 
-import ir.taxi.model.Driver;
 import ir.taxi.model.Passenger;
 
 import java.sql.PreparedStatement;
@@ -10,7 +9,7 @@ import java.util.List;
 /**
  * @author Mahsa Alikhani m-58
  */
-public class PassengerDataAccess extends DataBaseConnection{
+public class PassengerDataAccess extends DataBaseAccess {
 
     public PassengerDataAccess() throws ClassNotFoundException, SQLException {
         super();
