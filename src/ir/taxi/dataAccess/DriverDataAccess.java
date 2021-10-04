@@ -42,4 +42,19 @@ public class DriverDataAccess extends DataBaseConnection{
         }
         return null;
     }
+    public void saveNewDriver(Driver driver) throws SQLException {
+        if(getConnection() != null){
+            String sqlQuery = "insert into drivers (username, name, family, phone_number, national_code, birth_date, plaque)" +
+                    "values(?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement stmt = getConnection().prepareStatement(sqlQuery);
+            stmt.setString(1, driver.getUsername());
+            stmt.setString(2, driver.getName());
+            stmt.setString(3, driver.getFamily());
+            stmt.setInt(4, driver.getPhoneNumber());
+            stmt.setInt(5, driver.getNationalCode());
+            stmt.setDate(6, driver.getBirthDate());
+            stmt.setString(7, driver.getPlaque());
+        }
+        return;
+    }
 }
