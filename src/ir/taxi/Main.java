@@ -3,6 +3,7 @@ package ir.taxi;
 import ir.taxi.dataAccess.DriverDataAccess;
 import ir.taxi.dataAccess.PassengerDataAccess;
 import ir.taxi.enumeration.MainMenu;
+import ir.taxi.enumeration.PassengerLoginMenu;
 import ir.taxi.enumeration.SignupMenu;
 import ir.taxi.model.Driver;
 import ir.taxi.model.Passenger;
@@ -28,10 +29,7 @@ public class Main {
         outer :
         while (true){
             MainMenu.showMainMenu();
-            String choice;
-            do {
-                choice = scanner.next();
-            } while (ValidationUtil.isNumeric(choice));
+            String choice = getChoiceNumber();
 
             int choiceNumber = Integer.parseInt(choice);
 
@@ -114,10 +112,7 @@ public class Main {
             int choiceNumber;
             do{
                 SignupMenu.showSignupMenu();
-                String choice;
-                do{
-                    choice = scanner.next();
-                }while (ValidationUtil.isNumeric(choice));
+                String choice = getChoiceNumber();
                 choiceNumber = Integer.parseInt(choice);
                 switch (choiceNumber){
                     case 1:
@@ -153,16 +148,33 @@ public class Main {
         PassengerDataAccess passengerDao = null;
         if(passengerDao.findPassengerByUsername(username) != null){
             System.out.println(username);
+            int choiceNumber;
+            do {
+                PassengerLoginMenu.showPassengerLoginMenu();
+                String choice = getChoiceNumber();
+                choiceNumber = Integer.parseInt(choice);
+                switch (choiceNumber){
+                    case 1:
+                        String amount;
+                        do{
+                            System.out.println("Enter amount in RIAL:");
+                            amount = scanner.next();
+                        }while(ValidationUtil.isNumeric(amount));
+                        int amountNumber = Integer.parseInt(amount);
 
+                        break;
+                    case 2:
+                        break;
+                    default:
+                        System.out.println("Invalid number!");
+                }
+            }while (choiceNumber != 2);
 
         }else{
             int choiceNumber;
             do{
                 SignupMenu.showSignupMenu();
-                String choice;
-                do{
-                    choice = scanner.next();
-                }while (ValidationUtil.isNumeric(choice));
+                String choice = getChoiceNumber();
                 choiceNumber = Integer.parseInt(choice);
                 switch (choiceNumber){
                     case 1:
@@ -175,6 +187,14 @@ public class Main {
                 }
             }while (choiceNumber != 2);
         }
+    }
+
+    private static String getChoiceNumber() {
+        String choice;
+        do {
+            choice = scanner.next();
+        } while (ValidationUtil.isNumeric(choice));
+        return choice;
     }
 
     private static void passengerRegister(PassengerDataAccess passengerDao) throws SQLException {
