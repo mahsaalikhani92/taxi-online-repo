@@ -1,9 +1,9 @@
 package ir.taxi.dataAccess;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.SQLException;
-import java.sql.Statement;
+import ir.taxi.model.Driver;
+
+import java.sql.*;
+import java.util.List;
 
 /**
  * @author Mahsa Alikhani m-58
@@ -15,21 +15,25 @@ public class DriverDataAccess extends DataBaseConnection{
         super();
     }
 
-    public void saveDriver(String name, String family, String username, int phoneNumber, int nationalCode,
-                           Date birthDate, String plaque) throws SQLException {
-        int result = 0;
+    /*String name, String family, String username, int phoneNumber, int nationalCode,
+    Date birthDate, String plaque*/
+    public void saveGroupOfDrivers(List<Driver> drivers) throws SQLException {
         if(getConnection() != null){
-            Statement statement = null;
-            try {
-                statement = getConnection().createStatement();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
             String sqlQuery = "insert into drivers (username, name, family, phone_number, national_code, birth_date, plaque)" +
-                    " values( '"+username+"','"+name+"','"+family+"','"+phoneNumber+"','"+nationalCode+"','"+birthDate+"','"+plaque+"')";
-            result = statement.executeUpdate(sqlQuery);
-            System.out.println("Record " + result + " inserted.");
+                    "values(?, ?, ?, ?, ?, ?, ?)";
+           PreparedStatement stmt = getConnection().prepareStatement(sqlQuery);
+            for (Driver item:drivers) {
+                stmt.setString(1, item.getUsername());
+                stmt.setString(2, item.getName());
+                stmt.setString(3, item.getFamily());
+                stmt.setInt(4, item.getPhoneNumber());
+                stmt.setInt(5, item.getNationalCode());
+                stmt.setDate(6, item.getBirthDate());
+                stmt.setString(7, item.getPlaque());
+            }
         }
         return;
     }
 }
+ /*String sqlQuery = "insert into drivers (username, name, family, phone_number, national_code, birth_date, plaque)" +
+                    " values( '"+username+"','"+name+"','"+family+"','"+phoneNumber+"','"+nationalCode+"','"+birthDate+"','"+plaque+"')";*/
