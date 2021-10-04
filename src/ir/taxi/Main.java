@@ -163,7 +163,7 @@ public class Main {
                         }while(ValidationUtil.isNumeric(amount));
                         int amountNumber = Integer.parseInt(amount);
                         WalletAccess walletDao;
-                        walletDao.saveBalance();
+                        /////
                         break;
                     case 2:
                         break;
