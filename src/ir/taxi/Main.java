@@ -34,6 +34,8 @@ public class Main {
             case 1:
                 addGroupOfDrivers();
                 break;
+            case 2:
+
         }
     }
 
