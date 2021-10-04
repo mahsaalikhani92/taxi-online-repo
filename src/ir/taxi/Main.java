@@ -39,6 +39,9 @@ public class Main {
             case 2:
                 addGroupOfPassengers();
                 break;
+            case 3:
+                DriverSignUpOrLogin();
+
         }
     }
 
@@ -91,6 +94,12 @@ public class Main {
             passengerDao.saveGroupOfPassengers(passengers);
             System.out.println("New passengers saved successfully.");
         }
+    }
+
+    private static void DriverSignUpOrLogin(){
+        System.out.println("Username:");
+        DriverDataAccess driverDao;
+
     }
 
     private static String getCarPlateNumber() {
