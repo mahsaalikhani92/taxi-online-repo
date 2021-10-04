@@ -2,6 +2,7 @@ package ir.taxi;
 
 import ir.taxi.dataAccess.DriverDataAccess;
 import ir.taxi.dataAccess.PassengerDataAccess;
+import ir.taxi.dataAccess.WalletAccess;
 import ir.taxi.enumeration.MainMenu;
 import ir.taxi.enumeration.PassengerLoginMenu;
 import ir.taxi.enumeration.SignupMenu;
@@ -189,14 +190,6 @@ public class Main {
         }
     }
 
-    private static String getChoiceNumber() {
-        String choice;
-        do {
-            choice = scanner.next();
-        } while (ValidationUtil.isNumeric(choice));
-        return choice;
-    }
-
     private static void passengerRegister(PassengerDataAccess passengerDao) throws SQLException {
         String username;
         String name = getName();
@@ -208,9 +201,18 @@ public class Main {
         int nationalCode = getNationalCode();
         Date birthDate = getDate();
         passengerDao.saveNewPassenger(name, family, username, phoneNumber, nationalCode, (java.sql.Date) birthDate);
+        WalletAccess walletDao = null;
+        walletDao.updateBalance(nationalCode, 0);
         System.out.println("Your information was successfully registered.");
     }
 
+    private static String getChoiceNumber() {
+        String choice;
+        do {
+            choice = scanner.next();
+        } while (ValidationUtil.isNumeric(choice));
+        return choice;
+    }
 
     private static String getCarPlateNumber() {
         String plaque;

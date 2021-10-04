@@ -12,10 +12,11 @@ public class WalletAccess extends DataBaseAccess{
         super();
     }
 
-    public void updateBalance(int amount) throws SQLException {
+    public void updateBalance(int id, int amount) throws SQLException {
         if(getConnection() != null){
-            String sqlQuery = "insert into passenger_wallet (balance) values (?)";
+            String sqlQuery = "insert into passenger_wallet (wallet_id, balance) values (?, ?)";
             PreparedStatement stmt = getConnection().prepareStatement(sqlQuery);
+            stmt.setInt(1, id);
             stmt.setInt(1, amount);
         }
     }
