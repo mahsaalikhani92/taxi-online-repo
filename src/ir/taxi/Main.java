@@ -162,7 +162,8 @@ public class Main {
                             amount = scanner.next();
                         }while(ValidationUtil.isNumeric(amount));
                         int amountNumber = Integer.parseInt(amount);
-
+                        WalletAccess walletDao;
+                        walletDao.saveBalance();
                         break;
                     case 2:
                         break;
@@ -202,7 +203,7 @@ public class Main {
         Date birthDate = getDate();
         passengerDao.saveNewPassenger(name, family, username, phoneNumber, nationalCode, (java.sql.Date) birthDate);
         WalletAccess walletDao = null;
-        walletDao.updateBalance(nationalCode, 0);
+        walletDao.saveBalance(nationalCode, 0);
         System.out.println("Your information was successfully registered.");
     }
 
