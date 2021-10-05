@@ -1,11 +1,13 @@
 package ir.taxi;
 
+import ir.taxi.dataAccess.CarDataAccess;
 import ir.taxi.dataAccess.DriverDataAccess;
 import ir.taxi.dataAccess.PassengerDataAccess;
 import ir.taxi.enumeration.MainMenu;
 import ir.taxi.enumeration.PassengerLoginMenu;
 import ir.taxi.enumeration.SignupMenu;
 import ir.taxi.enumeration.Status;
+import ir.taxi.model.Car;
 import ir.taxi.model.Driver;
 import ir.taxi.model.Passenger;
 import ir.taxi.model.Taxi;
@@ -59,6 +61,7 @@ public class Main {
             numberOfDrivers = scanner.next();
         } while (ValidationUtil.isNumeric(numberOfDrivers));
         int driverNumbers = Integer.parseInt(numberOfDrivers);
+        addNewCar(driverNumbers);
 
         List<Driver> drivers = new ArrayList<Driver>();
         for (int i = 0; i < driverNumbers; i++) {
@@ -77,6 +80,22 @@ public class Main {
             driverDao.saveGroupOfDrivers(drivers);
             System.out.println("New drivers saved successfully.");
         }
+    }
+
+    private static void addNewCar(int number) throws SQLException {
+        String model;
+        do{
+            System.out.println("Enter model:");
+            model = scanner.next();
+        }while (!ValidationUtil.isAlphabetic(model));
+        String carColor;
+        do{
+            System.out.println("Enter color of car:");
+            carColor = scanner.next();
+        }while (!ValidationUtil.isLetter(carColor));
+        Car car = new Car(model, carColor);
+        CarDataAccess carDao = null;
+        carDao.saveNewCar(car);
     }
 
     private static void addGroupOfPassengersByAdmin() throws SQLException {
@@ -276,7 +295,7 @@ public class Main {
         do {
             System.out.println("Enter family:");
             family = scanner.next();
-        } while (ValidationUtil.isAlphabetic(family));
+        } while (ValidationUtil.isLetter(family));
         return family;
     }
 
@@ -285,7 +304,7 @@ public class Main {
         do {
             System.out.println("Enter name:");
             name = scanner.next();
-        } while (ValidationUtil.isAlphabetic(name));
+        } while (ValidationUtil.isLetter(name));
         return name;
     }
 

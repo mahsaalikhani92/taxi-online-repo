@@ -8,9 +8,10 @@ import ir.taxi.enumeration.CarColor;
 public class Car {
     private int carId;
     private String model;
-    private CarColor carColor;
+    //private CarColor carColor;
+    private String carColor;
 
-    public Car(String model, CarColor carColor) {
+    public Car(String model, String carColor) {
         this.model = model;
         this.carColor = carColor;
     }
@@ -31,11 +32,11 @@ public class Car {
         this.model = model;
     }
 
-    public CarColor getCarColor() {
+    public String getCarColor() {
         return carColor;
     }
 
-    public void setCarColor(CarColor carColor) {
+    public void setCarColor(String carColor) {
         this.carColor = carColor;
     }
 }
