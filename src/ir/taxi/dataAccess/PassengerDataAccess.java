@@ -46,8 +46,8 @@ public class PassengerDataAccess extends DataBaseAccess {
     }
     public void saveNewPassenger(String name, String family, String username, int phoneNumber, int nationalCode, Date birthDate) throws SQLException {
         if(getConnection() != null){
-            String sqlQuery = "insert into drivers (username, name, family, phone_number, national_code, birth_date, wallet_fk)" +
-                    "values(?, ?, ?, ?, ?, ?, ?)";
+            String sqlQuery = "insert into drivers (username, name, family, phone_number, national_code, birth_date, balance, status)" +
+                    "values(?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = getConnection().prepareStatement(sqlQuery);
             stmt.setString(1, username);
             stmt.setString(2, name);
@@ -55,7 +55,8 @@ public class PassengerDataAccess extends DataBaseAccess {
             stmt.setInt(4, phoneNumber);
             stmt.setInt(5, nationalCode);
             stmt.setDate(6, birthDate);
-            stmt.setInt(7,);
+            stmt.setInt(7, 0);
+            stmt.setString(8, "STOP");
         }
         return;
     }
