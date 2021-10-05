@@ -2,7 +2,6 @@ package ir.taxi;
 
 import ir.taxi.dataAccess.DriverDataAccess;
 import ir.taxi.dataAccess.PassengerDataAccess;
-import ir.taxi.dataAccess.WalletAccess;
 import ir.taxi.enumeration.MainMenu;
 import ir.taxi.enumeration.PassengerLoginMenu;
 import ir.taxi.enumeration.SignupMenu;
