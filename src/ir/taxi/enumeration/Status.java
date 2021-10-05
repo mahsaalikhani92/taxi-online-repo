@@ -5,5 +5,5 @@ package ir.taxi.enumeration;
  */
 public enum Status {
     ONGOING,
-    NOT;
+    STOP;
 }

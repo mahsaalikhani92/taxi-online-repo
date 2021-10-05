@@ -1,5 +1,6 @@
 package ir.taxi.dataAccess;
 
+import ir.taxi.enumeration.Status;
 import ir.taxi.model.Passenger;
 
 import java.sql.*;
@@ -15,8 +16,9 @@ public class PassengerDataAccess extends DataBaseAccess {
     }
     public void saveGroupOfPassengers(List<Passenger> passengers) throws SQLException {
         if(getConnection() != null){
-            String sqlQuery = "insert into passengers (username, name, family, phone_number, national_code, birth_date, wallet_fk)" +
-                    "values(?, ?, ?, ?, ?, ?, ?)";
+            String sqlQuery = "insert into passengers (username, name, family, phone_number, national_code, birth_date," +
+                    " balance, status)" +
+                    "values(?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = getConnection().prepareStatement(sqlQuery);
             for (Passenger item:passengers) {
                 stmt.setString(1, item.getUsername());
@@ -25,7 +27,8 @@ public class PassengerDataAccess extends DataBaseAccess {
                 stmt.setInt(4, item.getPhoneNumber());
                 stmt.setInt(5, item.getNationalCode());
                 stmt.setDate(6, item.getBirthDate());
-                stmt.setInt(7,);
+                stmt.setInt(7, 0);
+                stmt.setString(8, "STOP");
             }
         }
         return;

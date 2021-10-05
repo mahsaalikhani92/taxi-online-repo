@@ -202,8 +202,6 @@ public class Main {
         int nationalCode = getNationalCode();
         Date birthDate = getDate();
         passengerDao.saveNewPassenger(name, family, username, phoneNumber, nationalCode, (java.sql.Date) birthDate);
-        WalletAccess walletDao = null;
-        walletDao.saveBalance();
         System.out.println("Your information was successfully registered.");
     }
 
