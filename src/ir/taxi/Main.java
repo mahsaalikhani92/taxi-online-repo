@@ -59,6 +59,7 @@ public class Main {
             numberOfDrivers = scanner.next();
         } while (ValidationUtil.isNumeric(numberOfDrivers));
         int driverNumbers = Integer.parseInt(numberOfDrivers);
+
         List<Driver> drivers = new ArrayList<Driver>();
         for (int i = 0; i < driverNumbers; i++) {
             String driverName = getNameFromInput();
