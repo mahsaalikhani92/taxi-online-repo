@@ -23,8 +23,4 @@ public class Taxi {
         Passenger passenger = new Passenger(name, family, username, phoneNumber, nationalCode, (java.sql.Date) birthDate);
         return passenger;
     }
-
-    private Driver findDriverByNationalCode(int id){
-        return null;
-    }
 }

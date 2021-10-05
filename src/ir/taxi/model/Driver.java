@@ -9,11 +9,11 @@ public class Driver extends Person{
 
     private int carId;
     private String plaque;
-    private int colorId;
 
     public Driver(String name, String family, String username, int phoneNumber, int nationalCode, Date birthDate, String plaque) {
         super(name, family, username, phoneNumber, nationalCode, birthDate);
         this.plaque = plaque;
+        this.carId = carId;
     }
 
     public String getPlaque() {

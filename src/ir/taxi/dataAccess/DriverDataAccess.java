@@ -17,7 +17,7 @@ public class DriverDataAccess extends DataBaseAccess {
 
     public void saveGroupOfDrivers(List<Driver> drivers) throws SQLException {
         if(getConnection() != null){
-            String sqlQuery = "insert into drivers (username, name, family, phone_number, national_code, birth_date, plaque)" +
+            String sqlQuery = "insert into drivers (username, name, family, phone_number, national_code, birth_date, plaque, car_id)" +
                     "values(?, ?, ?, ?, ?, ?, ?)";
            PreparedStatement stmt = getConnection().prepareStatement(sqlQuery);
             for (Driver item:drivers) {
@@ -42,18 +42,19 @@ public class DriverDataAccess extends DataBaseAccess {
         }
         return null;
     }
-    public void saveNewDriver(String name, String family, String username, int phoneNumber, int nationalCode, Date birthDate, String plaque) throws SQLException {
+    public void saveNewDriver(Driver driver) throws SQLException {
         if(getConnection() != null){
-            String sqlQuery = "insert into drivers (username, name, family, phone_number, national_code, birth_date, plaque)" +
-                    "values(?, ?, ?, ?, ?, ?, ?)";
+            String sqlQuery = "insert into drivers (username, name, family, phone_number, national_code, birth_date, plaque, car_id)" +
+                    "values(?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = getConnection().prepareStatement(sqlQuery);
-            stmt.setString(1, username);
-            stmt.setString(2, name);
-            stmt.setString(3, family);
-            stmt.setInt(4, phoneNumber);
-            stmt.setInt(5, nationalCode);
-            stmt.setDate(6, birthDate);
-            stmt.setString(7, plaque);
+            stmt.setString(1, driver.getUsername());
+            stmt.setString(2, driver.getName());
+            stmt.setString(3, driver.getFamily());
+            stmt.setInt(4, driver.getPhoneNumber());
+            stmt.setInt(5, driver.getNationalCode());
+            stmt.setDate(6, driver.getBirthDate());
+            stmt.setString(7, driver.getPlaque());
+            stmt.setInt(8, );
         }
         return;
     }

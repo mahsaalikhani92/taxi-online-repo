@@ -31,4 +31,8 @@ public class Passenger extends Person {
     public void setStatus(Status status) {
         this.status = status;
     }
+
+    public void updateBalanceByPassenger(int amount){
+
+    }
 }

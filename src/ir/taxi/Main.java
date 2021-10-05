@@ -60,14 +60,14 @@ public class Main {
         int driverNumbers = Integer.parseInt(numberOfDrivers);
         List<Driver> drivers = new ArrayList<Driver>();
         for (int i = 0; i < driverNumbers; i++) {
-            String driverName = getName();
-            String driverFamily = getFamily();
-            String username = getUsername();
-            int phoneNumber = getPhoneNumber();
-            int nationalCode = getNationalCode();
-            Date birthDate = getDate();
-            String plaque = getCarPlateNumber();
-            Driver driver = taxi.addDriver(driverName, driverFamily, username, phoneNumber, nationalCode, birthDate, plaque);
+            String driverName = getNameFromInput();
+            String driverFamily = getFamilyFromInput();
+            String username = getUsernameFromInput();
+            int phoneNumber = getPhoneNumberFromInput();
+            int nationalCode = getNationalCodeFromInput();
+            Date birthDate = getDateFromInput();
+            String plaque = getCarPlaqueFromInput();
+            Driver driver = new Driver(driverName, driverFamily, username, phoneNumber, nationalCode, birthDate, plaque, );
             drivers.add(driver);
         }
         if(drivers.size() == driverNumbers){
@@ -86,12 +86,12 @@ public class Main {
         int passengerNumbers = Integer.parseInt(numberOfPassengers);
         List<Passenger> passengers = new ArrayList<Passenger>();
         for (int i = 0; i < passengerNumbers; i++) {
-            String driverName = getName();
-            String driverFamily = getFamily();
-            String username = getUsername();
-            int phoneNumber = getPhoneNumber();
-            int nationalCode = getNationalCode();
-            Date birthDate = getDate();
+            String driverName = getNameFromInput();
+            String driverFamily = getFamilyFromInput();
+            String username = getUsernameFromInput();
+            int phoneNumber = getPhoneNumberFromInput();
+            int nationalCode = getNationalCodeFromInput();
+            Date birthDate = getDateFromInput();
             Passenger passenger = taxi.addPassenger(driverName, driverFamily, username, phoneNumber, nationalCode, birthDate);
             passengers.add(passenger);
         }
@@ -104,8 +104,8 @@ public class Main {
 
     private static void DriverSignUpOrLogin() throws SQLException {
         System.out.println("Username:");
-        String username = getUsername();
-        DriverDataAccess driverDao = null; //DataBaseAccess DBDao;
+        String username = getUsernameFromInput();
+        DriverDataAccess driverDao = null;
         if(driverDao.findDriverByUsername(username) != null){
             System.out.println("Successful login");
         }else{
@@ -129,22 +129,23 @@ public class Main {
 
     private static void driverRegister(DriverDataAccess driverDao) throws SQLException {
         String username;
-        String name = getName();
-        String family = getFamily();
+        String name = getNameFromInput();
+        String family = getFamilyFromInput();
         do{
-            username = getUsername();
+            username = getUsernameFromInput();
         }while (driverDao.findDriverByUsername(username) != null);
-        int phoneNumber = getPhoneNumber();
-        int nationalCode = getNationalCode();
-        Date birthDate = getDate();
-        String plaque = getCarPlateNumber();
-        driverDao.saveNewDriver(name, family, username, phoneNumber, nationalCode, (java.sql.Date) birthDate, plaque);
+        int phoneNumber = getPhoneNumberFromInput();
+        int nationalCode = getNationalCodeFromInput();
+        Date birthDate = getDateFromInput();
+        String plaque = getCarPlaqueFromInput();
+        Driver driver = new Driver(name, family, username, phoneNumber, nationalCode, (java.sql.Date) birthDate, plaque,)
+        driverDao.saveNewDriver(driver);
         System.out.println("Your information was successfully registered.");
     }
 
     private static void passengerSignUpOrLogin() throws SQLException {
         System.out.println("Username:");
-        String username = getUsername();
+        String username = getUsernameFromInput();
         PassengerDataAccess passengerDao = null;
         if(passengerDao.findPassengerByUsername(username) != null){
             System.out.println(username);
@@ -155,13 +156,7 @@ public class Main {
                 choiceNumber = Integer.parseInt(choice);
                 switch (choiceNumber){
                     case 1:
-                        String amount;
-                        do{
-                            System.out.println("Enter amount in RIAL:");
-                            amount = scanner.next();
-                        }while(ValidationUtil.isNumeric(amount));
-                        int amountNumber = Integer.parseInt(amount);
-                        passengerDao.updateBalance(username, amountNumber);
+                        increasePassengerBalance(username, passengerDao);
                         break;
                     case 2:
                         break;
@@ -189,16 +184,26 @@ public class Main {
         }
     }
 
+    private static void increasePassengerBalance(String username, PassengerDataAccess passengerDao) throws SQLException {
+        String amount;
+        do{
+            System.out.println("Enter amount in RIAL:");
+            amount = scanner.next();
+        }while(ValidationUtil.isNumeric(amount));
+        int amountNumber = Integer.parseInt(amount);
+        passengerDao.updateBalance(username, amountNumber);
+    }
+
     private static void passengerRegister(PassengerDataAccess passengerDao) throws SQLException {
         String username;
-        String name = getName();
-        String family = getFamily();
+        String name = getNameFromInput();
+        String family = getFamilyFromInput();
         do{
-            username = getUsername();
+            username = getUsernameFromInput();
         }while (passengerDao.findPassengerByUsername(username) != null);
-        int phoneNumber = getPhoneNumber();
-        int nationalCode = getNationalCode();
-        Date birthDate = getDate();
+        int phoneNumber = getPhoneNumberFromInput();
+        int nationalCode = getNationalCodeFromInput();
+        Date birthDate = getDateFromInput();
         passengerDao.saveNewPassenger(name, family, username, phoneNumber, nationalCode, (java.sql.Date) birthDate);
         System.out.println("Your information was successfully registered.");
     }
@@ -211,7 +216,7 @@ public class Main {
         return choice;
     }
 
-    private static String getCarPlateNumber() {
+    private static String getCarPlaqueFromInput() {
         String plaque;
         do {
             System.out.println("Enter driver car plate number:");
@@ -220,7 +225,7 @@ public class Main {
         return plaque;
     }
 
-    private static Date getDate() {
+    private static Date getDateFromInput() {
         String date;
         do {
             System.out.println("Enter driver birth date:");
@@ -236,7 +241,7 @@ public class Main {
         return birthDate;
     }
 
-    private static int getNationalCode() {
+    private static int getNationalCodeFromInput() {
         String nationalCode;
         do {
             System.out.println("Enter national code:");
@@ -245,7 +250,7 @@ public class Main {
         return Integer.parseInt(nationalCode);
     }
 
-    private static int getPhoneNumber() {
+    private static int getPhoneNumberFromInput() {
         String phoneNumber;
         do {
             System.out.println("Enter phone number:");
@@ -254,7 +259,7 @@ public class Main {
         return Integer.parseInt(phoneNumber);
     }
 
-    private static String getUsername() {
+    private static String getUsernameFromInput() {
         String username;
         do {
             System.out.println("Enter username:");
@@ -263,7 +268,7 @@ public class Main {
         return username;
     }
 
-    private static String getFamily() {
+    private static String getFamilyFromInput() {
         String family;
         do {
             System.out.println("Enter family:");
@@ -272,7 +277,7 @@ public class Main {
         return family;
     }
 
-    private static String getName() {
+    private static String getNameFromInput() {
         String name;
         do {
             System.out.println("Enter name:");
