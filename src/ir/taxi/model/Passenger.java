@@ -12,8 +12,10 @@ public class Passenger extends Person {
     private int balance;
     private Status status;
 
-    public Passenger(String name, String family, String username, int phoneNumber, int nationalCode, Date birthDate) {
+    public Passenger(String name, String family, String username, int phoneNumber, int nationalCode, Date birthDate, int balance, Status status) {
         super(name, family, username, phoneNumber, nationalCode, birthDate);
+        this.balance = balance;
+        this.status = status;
     }
 
     public int getBalance() {

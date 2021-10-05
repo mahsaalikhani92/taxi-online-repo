@@ -5,6 +5,7 @@ import ir.taxi.dataAccess.PassengerDataAccess;
 import ir.taxi.enumeration.MainMenu;
 import ir.taxi.enumeration.PassengerLoginMenu;
 import ir.taxi.enumeration.SignupMenu;
+import ir.taxi.enumeration.Status;
 import ir.taxi.model.Driver;
 import ir.taxi.model.Passenger;
 import ir.taxi.model.Taxi;
@@ -86,13 +87,13 @@ public class Main {
         int passengerNumbers = Integer.parseInt(numberOfPassengers);
         List<Passenger> passengers = new ArrayList<Passenger>();
         for (int i = 0; i < passengerNumbers; i++) {
-            String driverName = getNameFromInput();
-            String driverFamily = getFamilyFromInput();
+            String passengerName = getNameFromInput();
+            String passengerFamily = getFamilyFromInput();
             String username = getUsernameFromInput();
             int phoneNumber = getPhoneNumberFromInput();
             int nationalCode = getNationalCodeFromInput();
             Date birthDate = getDateFromInput();
-            Passenger passenger = taxi.addPassenger(driverName, driverFamily, username, phoneNumber, nationalCode, birthDate);
+            Passenger passenger = new Passenger(passengerName, passengerFamily, username, phoneNumber, nationalCode, (java.sql.Date) birthDate, 0, Status.STOP);
             passengers.add(passenger);
         }
         if(passengers.size() == passengerNumbers){
@@ -195,16 +196,17 @@ public class Main {
     }
 
     private static void passengerRegister(PassengerDataAccess passengerDao) throws SQLException {
-        String username;
         String name = getNameFromInput();
         String family = getFamilyFromInput();
+        String username;
         do{
             username = getUsernameFromInput();
         }while (passengerDao.findPassengerByUsername(username) != null);
         int phoneNumber = getPhoneNumberFromInput();
         int nationalCode = getNationalCodeFromInput();
         Date birthDate = getDateFromInput();
-        passengerDao.saveNewPassenger(name, family, username, phoneNumber, nationalCode, (java.sql.Date) birthDate);
+        Passenger passenger = new Passenger(name, family, username, phoneNumber, nationalCode, (java.sql.Date) birthDate, 0, Status.STOP)
+        passengerDao.saveNewPassenger(passenger);
         System.out.println("Your information was successfully registered.");
     }
 

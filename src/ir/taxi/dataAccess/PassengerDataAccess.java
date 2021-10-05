@@ -27,7 +27,7 @@ public class PassengerDataAccess extends DataBaseAccess {
                 stmt.setInt(4, item.getPhoneNumber());
                 stmt.setInt(5, item.getNationalCode());
                 stmt.setDate(6, item.getBirthDate());
-                stmt.setInt(7, 0);
+                stmt.setInt(7, item.getBalance());
                 stmt.setString(8, "STOP");
             }
         }
@@ -44,18 +44,18 @@ public class PassengerDataAccess extends DataBaseAccess {
         }
         return null;
     }
-    public void saveNewPassenger(String name, String family, String username, int phoneNumber, int nationalCode, Date birthDate) throws SQLException {
+    public void saveNewPassenger(Passenger passenger) throws SQLException {
         if(getConnection() != null){
             String sqlQuery = "insert into passengers (username, name, family, phone_number, national_code, birth_date, balance, status)" +
                     "values(?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = getConnection().prepareStatement(sqlQuery);
-            stmt.setString(1, username);
-            stmt.setString(2, name);
-            stmt.setString(3, family);
-            stmt.setInt(4, phoneNumber);
-            stmt.setInt(5, nationalCode);
-            stmt.setDate(6, birthDate);
-            stmt.setInt(7, 0);
+            stmt.setString(1, passenger.getUsername());
+            stmt.setString(2, passenger.getName());
+            stmt.setString(3, passenger.getFamily());
+            stmt.setInt(4, passenger.getPhoneNumber());
+            stmt.setInt(5, passenger.getNationalCode());
+            stmt.setDate(6, passenger.getBirthDate());
+            stmt.setInt(7, passenger.getBalance());
             stmt.setString(8, "STOP");
         }
         return;
