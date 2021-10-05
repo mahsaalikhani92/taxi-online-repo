@@ -46,7 +46,7 @@ public class PassengerDataAccess extends DataBaseAccess {
     }
     public void saveNewPassenger(String name, String family, String username, int phoneNumber, int nationalCode, Date birthDate) throws SQLException {
         if(getConnection() != null){
-            String sqlQuery = "insert into drivers (username, name, family, phone_number, national_code, birth_date, balance, status)" +
+            String sqlQuery = "insert into passengers (username, name, family, phone_number, national_code, birth_date, balance, status)" +
                     "values(?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = getConnection().prepareStatement(sqlQuery);
             stmt.setString(1, username);
@@ -59,6 +59,26 @@ public class PassengerDataAccess extends DataBaseAccess {
             stmt.setString(8, "STOP");
         }
         return;
+    }
+
+    public void updateBalance(String username, int amount) throws SQLException {
+        int increasedBalance = findBalanceByUserName(username) + amount;
+        if(getConnection() != null){
+            Statement statement = getConnection().createStatement();
+            String sqlQuery = String.format( "update passengers set balance = %d where username = %s)", increasedBalance, username);
+            statement.executeUpdate(sqlQuery);
+            System.out.println("Your account balance has been updated.");
+        }
+    }
+
+    public int findBalanceByUserName(String username) throws SQLException {
+        if(getConnection() != null){
+            Statement statement = getConnection().createStatement();
+            String sqlQuery = String.format("select balance from passengers where username = %s", username);
+            ResultSet resultSet = statement.executeQuery(sqlQuery);
+            return resultSet.getInt("balance");
+        }
+        return 0;
     }
 
 }

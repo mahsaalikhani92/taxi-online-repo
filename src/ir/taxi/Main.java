@@ -162,8 +162,7 @@ public class Main {
                             amount = scanner.next();
                         }while(ValidationUtil.isNumeric(amount));
                         int amountNumber = Integer.parseInt(amount);
-                        WalletAccess walletDao = null;
-                        walletDao.updateBalance(username, amountNumber);
+                        passengerDao.updateBalance(username, amountNumber);
                         break;
                     case 2:
                         break;
