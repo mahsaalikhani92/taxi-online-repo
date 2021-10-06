@@ -96,7 +96,7 @@ public class PassengerDataAccess extends DataBaseAccess {
                         resultSet.getInt("national_code"),
                         resultSet.getDate("birth_date"),
                         resultSet.getInt("balance"),
-                        Status.valueOf(resultSet.getString("status")));
+                        Status.valueOf(resultSet.getString("status"))); //String to enum
                 passengers.add(passenger);
             }
             return passengers;
