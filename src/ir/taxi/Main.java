@@ -29,8 +29,8 @@ public class Main {
     private static final Taxi taxi = new Taxi();
 
     public static void main(String[] args) throws SQLException {
-        outer :
-        while (true){
+        outer:
+        while (true) {
             MainMenu.showMainMenu();
             String choice = getChoiceNumber();
 
@@ -64,16 +64,16 @@ public class Main {
 
     private static void showListOfDrivers() throws SQLException {
         DriverDataAccess driverDao = null;
-        List<Driver>drivers = driverDao.getListOfDrivers();
-        for (Driver item:drivers) {
+        List<Driver> drivers = driverDao.getListOfDrivers();
+        for (Driver item : drivers) {
             System.out.println(item.toString());
         }
     }
 
     private static void showListOfPassengers() throws SQLException {
         PassengerDataAccess passengerDao = null;
-        List<Passenger>passengers = passengerDao.getListOfPassengers();
-        for (Passenger item:passengers) {
+        List<Passenger> passengers = passengerDao.getListOfPassengers();
+        for (Passenger item : passengers) {
             System.out.println(item.toString());
         }
     }
@@ -99,7 +99,7 @@ public class Main {
             Driver driver = new Driver(driverName, driverFamily, username, phoneNumber, nationalCode, (java.sql.Date) birthDate, plaque, carId);
             drivers.add(driver);
         }
-        if(drivers.size() == driverNumbers){
+        if (drivers.size() == driverNumbers) {
             DriverDataAccess driverDao = null;
             driverDao.saveGroupOfDrivers(drivers);
             System.out.println("New drivers saved successfully.");
@@ -114,9 +114,9 @@ public class Main {
             Car car = new Car(model, carColor);
             cars.add(car);
         }
-        if(cars.size() == number){
+        if (cars.size() == number) {
             CarDataAccess carDao = null;
-            List<Integer>autoIds = carDao.saveGroupOfCar(cars);
+            List<Integer> autoIds = carDao.saveGroupOfCar(cars);
             return autoIds;
         }
         return null;
@@ -140,7 +140,7 @@ public class Main {
             Passenger passenger = new Passenger(passengerName, passengerFamily, username, phoneNumber, nationalCode, (java.sql.Date) birthDate, 0, Status.STOP);
             passengers.add(passenger);
         }
-        if(passengers.size() == passengerNumbers){
+        if (passengers.size() == passengerNumbers) {
             PassengerDataAccess passengerDao = null;
             passengerDao.saveGroupOfPassengers(passengers);
             System.out.println("New passengers saved successfully.");
@@ -151,15 +151,15 @@ public class Main {
         System.out.println("Username:");
         String username = getUsernameFromInput();
         DriverDataAccess driverDao = null;
-        if(driverDao.findDriverByUsername(username) != null){
+        if (driverDao.findDriverByUsername(username) != null) {
             System.out.println("Successful login");
-        }else{
+        } else {
             int choiceNumber;
-            do{
+            do {
                 SignupMenu.showSignupMenu();
                 String choice = getChoiceNumber();
                 choiceNumber = Integer.parseInt(choice);
-                switch (choiceNumber){
+                switch (choiceNumber) {
                     case 1:
                         driverRegister(driverDao);
                         break;
@@ -168,7 +168,7 @@ public class Main {
                     default:
                         System.out.println("Invalid number!");
                 }
-            }while (choiceNumber != 2);
+            } while (choiceNumber != 2);
         }
     }
 
@@ -183,19 +183,19 @@ public class Main {
 
     private static String getCarColorFromInput() {
         String carColor;
-        do{
+        do {
             System.out.println("Enter color of car:");
             carColor = scanner.next();
-        }while (!ValidationUtil.isLetter(carColor));
+        } while (!ValidationUtil.isLetter(carColor));
         return carColor;
     }
 
     private static String getCarModelFromInput() {
         String model;
-        do{
+        do {
             System.out.println("Enter model:");
             model = scanner.next();
-        }while (!ValidationUtil.isAlphabetic(model));
+        } while (!ValidationUtil.isAlphabetic(model));
         return model;
     }
 
@@ -204,14 +204,14 @@ public class Main {
         String username;
         String name = getNameFromInput();
         String family = getFamilyFromInput();
-        do{
+        do {
             username = getUsernameFromInput();
-        }while (driverDao.findDriverByUsername(username) != null);
+        } while (driverDao.findDriverByUsername(username) != null);
         int phoneNumber = getPhoneNumberFromInput();
         int nationalCode = getNationalCodeFromInput();
         Date birthDate = getDateFromInput();
         String plaque = getCarPlaqueFromInput();
-        Driver driver = new Driver(name, family, username, phoneNumber, nationalCode, (java.sql.Date) birthDate, plaque,carId);
+        Driver driver = new Driver(name, family, username, phoneNumber, nationalCode, (java.sql.Date) birthDate, plaque, carId);
         driverDao.saveNewDriver(driver);
         System.out.println("Your information was successfully registered.");
     }
@@ -220,14 +220,14 @@ public class Main {
         System.out.println("Username:");
         String username = getUsernameFromInput();
         PassengerDataAccess passengerDao = null;
-        if(passengerDao.findPassengerByUsername(username) != null){
+        if (passengerDao.findPassengerByUsername(username) != null) {
             System.out.println(username);
             int choiceNumber;
             do {
                 PassengerLoginMenu.showPassengerLoginMenu();
                 String choice = getChoiceNumber();
                 choiceNumber = Integer.parseInt(choice);
-                switch (choiceNumber){
+                switch (choiceNumber) {
                     case 1:
                         increasePassengerBalance(username, passengerDao);
                         break;
@@ -236,15 +236,14 @@ public class Main {
                     default:
                         System.out.println("Invalid number!");
                 }
-            }while (choiceNumber != 2);
-
-        }else{
+            } while (choiceNumber != 2);
+        } else {
             int choiceNumber;
-            do{
+            do {
                 SignupMenu.showSignupMenu();
                 String choice = getChoiceNumber();
                 choiceNumber = Integer.parseInt(choice);
-                switch (choiceNumber){
+                switch (choiceNumber) {
                     case 1:
                         passengerRegister(passengerDao);
                         break;
@@ -253,16 +252,16 @@ public class Main {
                     default:
                         System.out.println("Invalid number!");
                 }
-            }while (choiceNumber != 2);
+            } while (choiceNumber != 2);
         }
     }
 
     private static void increasePassengerBalance(String username, PassengerDataAccess passengerDao) throws SQLException {
         String amount;
-        do{
+        do {
             System.out.println("Enter amount in RIAL:");
             amount = scanner.next();
-        }while(ValidationUtil.isNumeric(amount));
+        } while (ValidationUtil.isNumeric(amount));
         int amountNumber = Integer.parseInt(amount);
         passengerDao.updateBalance(username, amountNumber);
     }
@@ -271,9 +270,9 @@ public class Main {
         String name = getNameFromInput();
         String family = getFamilyFromInput();
         String username;
-        do{
+        do {
             username = getUsernameFromInput();
-        }while (passengerDao.findPassengerByUsername(username) != null);
+        } while (passengerDao.findPassengerByUsername(username) != null);
         int phoneNumber = getPhoneNumberFromInput();
         int nationalCode = getNationalCodeFromInput();
         Date birthDate = getDateFromInput();
@@ -286,7 +285,7 @@ public class Main {
         String choice;
         do {
             choice = scanner.next();
-        } while (ValidationUtil.isNumeric(choice));
+        } while (!ValidationUtil.isNumeric(choice));
         return choice;
     }
 
@@ -295,7 +294,7 @@ public class Main {
         do {
             System.out.println("Enter driver car plate number:");
             plaque = scanner.next();
-        } while (ValidationUtil.isIranianCarPlateNumber(plaque));
+        } while (!ValidationUtil.isIranianCarPlateNumber(plaque));
         return plaque;
     }
 
@@ -304,11 +303,11 @@ public class Main {
         do {
             System.out.println("Enter driver birth date:");
             date = scanner.next();
-        } while (ValidationUtil.isPersianDate(date));
+        } while (!ValidationUtil.isPersianDate(date));
         DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
         Date birthDate = null;
         try {
-            birthDate = df.parse(date);
+            birthDate = df.parse(date); ///?
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -320,7 +319,7 @@ public class Main {
         do {
             System.out.println("Enter national code:");
             nationalCode = scanner.next();
-        } while (ValidationUtil.isIranianNationalCode(nationalCode));
+        } while (!ValidationUtil.isIranianNationalCode(nationalCode));
         return Integer.parseInt(nationalCode);
     }
 
@@ -329,7 +328,7 @@ public class Main {
         do {
             System.out.println("Enter phone number:");
             phoneNumber = scanner.next();
-        } while (ValidationUtil.isValidPhoneNumber(phoneNumber));
+        } while (!ValidationUtil.isValidPhoneNumber(phoneNumber));
         return Integer.parseInt(phoneNumber);
     }
 
@@ -338,7 +337,7 @@ public class Main {
         do {
             System.out.println("Enter username:");
             username = scanner.next();
-        } while (ValidationUtil.isValidUsername(username));
+        } while (!ValidationUtil.isValidUsername(username));
         return username;
     }
 
@@ -347,7 +346,7 @@ public class Main {
         do {
             System.out.println("Enter family:");
             family = scanner.next();
-        } while (ValidationUtil.isLetter(family));
+        } while (!ValidationUtil.isLetter(family));
         return family;
     }
 
@@ -356,7 +355,7 @@ public class Main {
         do {
             System.out.println("Enter name:");
             name = scanner.next();
-        } while (ValidationUtil.isLetter(name));
+        } while (!ValidationUtil.isLetter(name));
         return name;
     }
 
