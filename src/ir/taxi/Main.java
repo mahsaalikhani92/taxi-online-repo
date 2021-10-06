@@ -301,7 +301,7 @@ public class Main {
     private static Date getDateFromInput() {
         String date;
         do {
-            System.out.println("Enter driver birth date:");
+            System.out.println("Enter birth date:");
             date = scanner.next();
         } while (!ValidationUtil.isPersianDate(date));
         DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
@@ -319,7 +319,7 @@ public class Main {
         do {
             System.out.println("Enter national code:");
             nationalCode = scanner.next();
-        } while (!ValidationUtil.isIranianNationalCode(nationalCode));
+        } while (!ValidationUtil.isNumeric(nationalCode));
         return Long.parseLong(nationalCode);
     }
 
