@@ -10,10 +10,10 @@ public class Person {
     private String family;
     private String username;
     private String phoneNumber;
-    private int nationalCode;
+    private long nationalCode;
     private Date birthDate;
 
-    public Person(String name, String family, String username, String phoneNumber, int nationalCode, Date birthDate) {
+    public Person(String name, String family, String username, String phoneNumber, long nationalCode, Date birthDate) {
         this.name = name;
         this.family = family;
         this.username = username;
@@ -54,11 +54,11 @@ public class Person {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getNationalCode() {
+    public long getNationalCode() {
         return nationalCode;
     }
 
-    public void setNationalCode(int nationalCode) {
+    public void setNationalCode(long nationalCode) {
         this.nationalCode = nationalCode;
     }
 

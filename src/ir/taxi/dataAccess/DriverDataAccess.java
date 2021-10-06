@@ -26,7 +26,7 @@ public class DriverDataAccess extends DataBaseAccess {
                 stmt.setString(2, item.getName());
                 stmt.setString(3, item.getFamily());
                 stmt.setString(4, item.getPhoneNumber());
-                stmt.setInt(5, item.getNationalCode());
+                stmt.setLong(5, item.getNationalCode());
                 stmt.setDate(6, item.getBirthDate());
                 stmt.setString(7, item.getPlaque());
                 stmt.setInt(8, item.getCarId());
@@ -54,7 +54,7 @@ public class DriverDataAccess extends DataBaseAccess {
             stmt.setString(2, driver.getName());
             stmt.setString(3, driver.getFamily());
             stmt.setString(4, driver.getPhoneNumber());
-            stmt.setInt(5, driver.getNationalCode());
+            stmt.setLong(5, driver.getNationalCode());
             stmt.setDate(6, driver.getBirthDate());
             stmt.setString(7, driver.getPlaque());
             stmt.setInt(8, driver.getCarId());

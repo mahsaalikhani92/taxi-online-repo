@@ -10,7 +10,7 @@ public class Driver extends Person{
     private String plaque;
     private int carId;
 
-    public Driver(String name, String family, String username, String phoneNumber, int nationalCode, Date birthDate, String plaque, int carId) {
+    public Driver(String name, String family, String username, String phoneNumber, long nationalCode, Date birthDate, String plaque, int carId) {
         super(name, family, username, phoneNumber, nationalCode, birthDate);
         this.plaque = plaque;
         this.carId = carId;

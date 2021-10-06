@@ -92,7 +92,7 @@ public class Main {
             String driverFamily = getFamilyFromInput();
             String username = getUsernameFromInput();
             String phoneNumber = getPhoneNumberFromInput();
-            int nationalCode = getNationalCodeFromInput();
+            long nationalCode = getNationalCodeFromInput();
             Date birthDate = getDateFromInput();
             String plaque = getCarPlaqueFromInput();
             int carId = autoIds.get(i);
@@ -135,7 +135,7 @@ public class Main {
             String passengerFamily = getFamilyFromInput();
             String username = getUsernameFromInput();
             String phoneNumber = getPhoneNumberFromInput();
-            int nationalCode = getNationalCodeFromInput();
+            long nationalCode = getNationalCodeFromInput();
             Date birthDate = getDateFromInput();
             Passenger passenger = new Passenger(passengerName, passengerFamily, username, phoneNumber, nationalCode, (java.sql.Date) birthDate, 0, Status.STOP);
             passengers.add(passenger);
@@ -208,7 +208,7 @@ public class Main {
             username = getUsernameFromInput();
         } while (driverDao.findDriverByUsername(username) != null);
         String phoneNumber = getPhoneNumberFromInput();
-        int nationalCode = getNationalCodeFromInput();
+        long nationalCode = getNationalCodeFromInput();
         Date birthDate = getDateFromInput();
         String plaque = getCarPlaqueFromInput();
         Driver driver = new Driver(name, family, username, phoneNumber, nationalCode, (java.sql.Date) birthDate, plaque, carId);
@@ -274,7 +274,7 @@ public class Main {
             username = getUsernameFromInput();
         } while (passengerDao.findPassengerByUsername(username) != null);
         String phoneNumber = getPhoneNumberFromInput();
-        int nationalCode = getNationalCodeFromInput();
+        long nationalCode = getNationalCodeFromInput();
         Date birthDate = getDateFromInput();
         Passenger passenger = new Passenger(name, family, username, phoneNumber, nationalCode, (java.sql.Date) birthDate, 0, Status.STOP);
         passengerDao.saveNewPassenger(passenger);
@@ -314,13 +314,13 @@ public class Main {
         return birthDate;
     }
 
-    private static int getNationalCodeFromInput() {
+    private static long getNationalCodeFromInput() {
         String nationalCode;
         do {
             System.out.println("Enter national code:");
             nationalCode = scanner.next();
         } while (!ValidationUtil.isIranianNationalCode(nationalCode));
-        return Integer.parseInt(nationalCode);
+        return Long.parseLong(nationalCode);
     }
 
     private static String getPhoneNumberFromInput() {

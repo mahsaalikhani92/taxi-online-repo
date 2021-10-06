@@ -27,7 +27,7 @@ public class PassengerDataAccess extends DataBaseAccess {
                 stmt.setString(2, item.getName());
                 stmt.setString(3, item.getFamily());
                 stmt.setString(4, item.getPhoneNumber());
-                stmt.setInt(5, item.getNationalCode());
+                stmt.setLong(5, item.getNationalCode());
                 stmt.setDate(6, item.getBirthDate());
                 stmt.setInt(7, item.getBalance());
                 stmt.setString(8, item.getStatus().name()); //to string
@@ -55,7 +55,7 @@ public class PassengerDataAccess extends DataBaseAccess {
             stmt.setString(2, passenger.getName());
             stmt.setString(3, passenger.getFamily());
             stmt.setString(4, passenger.getPhoneNumber());
-            stmt.setInt(5, passenger.getNationalCode());
+            stmt.setLong(5, passenger.getNationalCode());
             stmt.setDate(6, passenger.getBirthDate());
             stmt.setInt(7, passenger.getBalance());
             stmt.setString(8, passenger.getStatus().name()); //to string
