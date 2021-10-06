@@ -53,7 +53,7 @@ public class Main {
                     showListOfDrivers();
                     break;
                 case 6:
-
+                    showListOfPassengers();
                     break;
                 default:
                     System.out.println("Invalid input!");

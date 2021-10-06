@@ -37,4 +37,12 @@ public class Passenger extends Person {
     public void updateBalanceByPassenger(int amount){
 
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "{" +
+                "balance=" + balance +
+                ", status=" + status +
+                '}';
+    }
 }
