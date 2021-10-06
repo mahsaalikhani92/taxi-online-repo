@@ -32,5 +32,11 @@ public class Driver extends Person{
         this.carId = carId;
     }
 
-
+    @Override
+    public String toString() {
+        return super.toString() + "{" +
+                "plaque='" + plaque + '\'' +
+                ", carId=" + carId +
+                '}';
+    }
 }
