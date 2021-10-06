@@ -298,19 +298,13 @@ public class Main {
         return plaque;
     }
 
-    private static Date getDateFromInput() {
+    private static Date getDateFromInput() throws ParseException {
         String date;
         do {
             System.out.println("Enter birth date:");
             date = scanner.next();
         } while (!ValidationUtil.isPersianDate(date));
-        DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
-        Date birthDate = null;
-        try {
-            birthDate = df.parse(date); ///?
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        Date birthDate = new SimpleDateFormat("dd-mm-yyyy").parse(date);
         return birthDate;
     }
 
