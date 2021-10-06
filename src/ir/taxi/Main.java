@@ -155,12 +155,13 @@ public class Main {
         }
     }
 
-    private static void addNewCar() throws SQLException {
+    private static Integer addNewCar() throws SQLException {
         String model = getCarModelFromInput();
         String carColor = getCarColorFromInput();
         Car car = new Car(model, carColor);
         CarDataAccess carDao = null;
-        carDao.saveNewCar(car);
+        int carId = carDao.saveNewCar(car);
+        return carId;
     }
 
     private static String getCarColorFromInput() {
@@ -182,7 +183,7 @@ public class Main {
     }
 
     private static void driverRegister(DriverDataAccess driverDao) throws SQLException {
-        addNewCar();
+        int carId = addNewCar();
         String username;
         String name = getNameFromInput();
         String family = getFamilyFromInput();
@@ -193,7 +194,7 @@ public class Main {
         int nationalCode = getNationalCodeFromInput();
         Date birthDate = getDateFromInput();
         String plaque = getCarPlaqueFromInput();
-        Driver driver = new Driver(name, family, username, phoneNumber, nationalCode, (java.sql.Date) birthDate, plaque,)
+        Driver driver = new Driver(name, family, username, phoneNumber, nationalCode, (java.sql.Date) birthDate, plaque,carId);
         driverDao.saveNewDriver(driver);
         System.out.println("Your information was successfully registered.");
     }
