@@ -49,6 +49,14 @@ public class Main {
                 case 4:
                     passengerSignUpOrLogin();
                     break;
+                case 5:
+                    //TODO
+                    break;
+                case 6:
+                    //TODO
+                    break;
+                default:
+                    System.out.println("Invalid input!");
 
             }
         }
@@ -61,7 +69,7 @@ public class Main {
             numberOfDrivers = scanner.next();
         } while (ValidationUtil.isNumeric(numberOfDrivers));
         int driverNumbers = Integer.parseInt(numberOfDrivers);
-        addNewCar(driverNumbers);
+        addGroupOfCarByAdmin(numberOfDrivers);
 
         List<Driver> drivers = new ArrayList<Driver>();
         for (int i = 0; i < driverNumbers; i++) {
@@ -82,17 +90,9 @@ public class Main {
         }
     }
 
-    private static void addNewCar(int number) throws SQLException {
-        String model;
-        do{
-            System.out.println("Enter model:");
-            model = scanner.next();
-        }while (!ValidationUtil.isAlphabetic(model));
-        String carColor;
-        do{
-            System.out.println("Enter color of car:");
-            carColor = scanner.next();
-        }while (!ValidationUtil.isLetter(carColor));
+    public static void addGroupOfCarByAdmin(int number){
+        String model = getCarModelFromInput();
+        String carColor = getCarColorFromInput();
         Car car = new Car(model, carColor);
         CarDataAccess carDao = null;
         carDao.saveNewCar(car);
@@ -148,7 +148,34 @@ public class Main {
         }
     }
 
+    private static void addNewCar() throws SQLException {
+        String model = getCarModelFromInput();
+        String carColor = getCarColorFromInput();
+        Car car = new Car(model, carColor);
+        CarDataAccess carDao = null;
+        carDao.saveNewCar(car);
+    }
+
+    private static String getCarColorFromInput() {
+        String carColor;
+        do{
+            System.out.println("Enter color of car:");
+            carColor = scanner.next();
+        }while (!ValidationUtil.isLetter(carColor));
+        return carColor;
+    }
+
+    private static String getCarModelFromInput() {
+        String model;
+        do{
+            System.out.println("Enter model:");
+            model = scanner.next();
+        }while (!ValidationUtil.isAlphabetic(model));
+        return model;
+    }
+
     private static void driverRegister(DriverDataAccess driverDao) throws SQLException {
+        addNewCar();
         String username;
         String name = getNameFromInput();
         String family = getFamilyFromInput();
