@@ -70,6 +70,14 @@ public class Main {
         }
     }
 
+    private static void showListOfPassengers() throws SQLException {
+        PassengerDataAccess passengerDao = null;
+        List<Passenger>passengers = passengerDao.getListOfPassengers();
+        for (Passenger item:passengers) {
+            System.out.println(item.toString());
+        }
+    }
+
     private static void addGroupOfDriversByAdmin() throws SQLException {
         String numberOfDrivers;
         do {
