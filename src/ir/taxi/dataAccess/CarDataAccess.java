@@ -36,12 +36,18 @@ public class CarDataAccess extends DataBaseAccess{
         return null;
     }
 
-    public void saveNewCar(Car car) throws SQLException {
+    public Integer saveNewCar(Car car) throws SQLException {
         if(getConnection() != null){
             String sqlQuery = "insert into cars (model , color) values (?, ?)";
-            PreparedStatement stmt = getConnection().prepareStatement(sqlQuery);
+            PreparedStatement stmt = getConnection().prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, car.getModel());
             stmt.setString(2, car.getCarColor());
+            stmt.executeUpdate(); //?
+            ResultSet autoKey = stmt.getGeneratedKeys();
+            autoKey.next();
+            int autoId = autoKey.getInt(1);
+            return autoId;
         }
+        return null;
     }
 }
