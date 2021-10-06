@@ -69,4 +69,16 @@ public class Person {
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", family='" + family + '\'' +
+                ", username='" + username + '\'' +
+                ", phoneNumber=" + phoneNumber +
+                ", nationalCode=" + nationalCode +
+                ", birthDate=" + birthDate +
+                '}';
+    }
 }
