@@ -28,7 +28,7 @@ public class Main {
     private static final Scanner scanner = new Scanner(System.in);
     private static final Taxi taxi = new Taxi();
 
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException, ParseException {
         outer:
         while (true) {
             MainMenu.showMainMenu();
@@ -78,7 +78,7 @@ public class Main {
         }
     }
 
-    private static void addGroupOfDriversByAdmin() throws SQLException, ClassNotFoundException {
+    private static void addGroupOfDriversByAdmin() throws SQLException, ClassNotFoundException, ParseException {
         String numberOfDrivers;
         do {
             System.out.println("Enter number of drivers:");
@@ -122,7 +122,7 @@ public class Main {
         return null;
     }
 
-    private static void addGroupOfPassengersByAdmin() throws SQLException {
+    private static void addGroupOfPassengersByAdmin() throws SQLException, ParseException {
         String numberOfPassengers;
         do {
             System.out.println("Enter number of passengers:");
@@ -147,7 +147,7 @@ public class Main {
         }
     }
 
-    private static void DriverSignUpOrLogin() throws SQLException {
+    private static void DriverSignUpOrLogin() throws SQLException, ParseException {
         System.out.println("Username:");
         String username = getUsernameFromInput();
         DriverDataAccess driverDao = null;
@@ -199,7 +199,7 @@ public class Main {
         return model;
     }
 
-    private static void driverRegister(DriverDataAccess driverDao) throws SQLException {
+    private static void driverRegister(DriverDataAccess driverDao) throws SQLException, ParseException {
         int carId = addNewCar();
         String username;
         String name = getNameFromInput();
@@ -216,7 +216,7 @@ public class Main {
         System.out.println("Your information was successfully registered.");
     }
 
-    private static void passengerSignUpOrLogin() throws SQLException {
+    private static void passengerSignUpOrLogin() throws SQLException, ParseException {
         System.out.println("Username:");
         String username = getUsernameFromInput();
         PassengerDataAccess passengerDao = null;
@@ -266,7 +266,7 @@ public class Main {
         passengerDao.updateBalance(username, amountNumber);
     }
 
-    private static void passengerRegister(PassengerDataAccess passengerDao) throws SQLException {
+    private static void passengerRegister(PassengerDataAccess passengerDao) throws SQLException, ParseException {
         String name = getNameFromInput();
         String family = getFamilyFromInput();
         String username;
