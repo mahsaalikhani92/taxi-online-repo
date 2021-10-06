@@ -13,11 +13,8 @@ import ir.taxi.model.Passenger;
 import ir.taxi.model.Taxi;
 
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -28,7 +25,7 @@ public class Main {
     private static final Scanner scanner = new Scanner(System.in);
     private static final Taxi taxi = new Taxi();
 
-    public static void main(String[] args) throws SQLException, ClassNotFoundException, ParseException {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException{
         outer:
         while (true) {
             MainMenu.showMainMenu();
@@ -78,7 +75,7 @@ public class Main {
         }
     }
 
-    private static void addGroupOfDriversByAdmin() throws SQLException, ClassNotFoundException, ParseException {
+    private static void addGroupOfDriversByAdmin() throws SQLException, ClassNotFoundException{
         String numberOfDrivers;
         do {
             System.out.println("Enter number of drivers:");
@@ -96,7 +93,7 @@ public class Main {
             Date birthDate = getDateFromInput();
             String plaque = getCarPlaqueFromInput();
             int carId = autoIds.get(i);
-            Driver driver = new Driver(driverName, driverFamily, username, phoneNumber, nationalCode, (java.sql.Date) birthDate, plaque, carId);
+            Driver driver = new Driver(driverName, driverFamily, username, phoneNumber, nationalCode, birthDate, plaque, carId);
             drivers.add(driver);
         }
         if (drivers.size() == driverNumbers) {
@@ -122,7 +119,7 @@ public class Main {
         return null;
     }
 
-    private static void addGroupOfPassengersByAdmin() throws SQLException, ParseException {
+    private static void addGroupOfPassengersByAdmin() throws SQLException{
         String numberOfPassengers;
         do {
             System.out.println("Enter number of passengers:");
@@ -137,7 +134,7 @@ public class Main {
             String phoneNumber = getPhoneNumberFromInput();
             long nationalCode = getNationalCodeFromInput();
             Date birthDate = getDateFromInput();
-            Passenger passenger = new Passenger(passengerName, passengerFamily, username, phoneNumber, nationalCode, (java.sql.Date) birthDate, 0, Status.STOP);
+            Passenger passenger = new Passenger(passengerName, passengerFamily, username, phoneNumber, nationalCode, birthDate, 0, Status.STOP);
             passengers.add(passenger);
         }
         if (passengers.size() == passengerNumbers) {
@@ -147,7 +144,7 @@ public class Main {
         }
     }
 
-    private static void DriverSignUpOrLogin() throws SQLException, ParseException {
+    private static void DriverSignUpOrLogin() throws SQLException{
         System.out.println("Username:");
         String username = getUsernameFromInput();
         DriverDataAccess driverDao = null;
@@ -199,7 +196,7 @@ public class Main {
         return model;
     }
 
-    private static void driverRegister(DriverDataAccess driverDao) throws SQLException, ParseException {
+    private static void driverRegister(DriverDataAccess driverDao) throws SQLException{
         int carId = addNewCar();
         String username;
         String name = getNameFromInput();
@@ -211,12 +208,12 @@ public class Main {
         long nationalCode = getNationalCodeFromInput();
         Date birthDate = getDateFromInput();
         String plaque = getCarPlaqueFromInput();
-        Driver driver = new Driver(name, family, username, phoneNumber, nationalCode, (java.sql.Date) birthDate, plaque, carId);
+        Driver driver = new Driver(name, family, username, phoneNumber, nationalCode, birthDate, plaque, carId);
         driverDao.saveNewDriver(driver);
         System.out.println("Your information was successfully registered.");
     }
 
-    private static void passengerSignUpOrLogin() throws SQLException, ParseException {
+    private static void passengerSignUpOrLogin() throws SQLException{
         System.out.println("Username:");
         String username = getUsernameFromInput();
         PassengerDataAccess passengerDao = null;
@@ -266,7 +263,7 @@ public class Main {
         passengerDao.updateBalance(username, amountNumber);
     }
 
-    private static void passengerRegister(PassengerDataAccess passengerDao) throws SQLException, ParseException {
+    private static void passengerRegister(PassengerDataAccess passengerDao) throws SQLException{
         String name = getNameFromInput();
         String family = getFamilyFromInput();
         String username;
@@ -276,7 +273,7 @@ public class Main {
         String phoneNumber = getPhoneNumberFromInput();
         long nationalCode = getNationalCodeFromInput();
         Date birthDate = getDateFromInput();
-        Passenger passenger = new Passenger(name, family, username, phoneNumber, nationalCode, (java.sql.Date) birthDate, 0, Status.STOP);
+        Passenger passenger = new Passenger(name, family, username, phoneNumber, nationalCode, birthDate, 0, Status.STOP);
         passengerDao.saveNewPassenger(passenger);
         System.out.println("Your information was successfully registered.");
     }
@@ -298,13 +295,13 @@ public class Main {
         return plaque;
     }
 
-    private static Date getDateFromInput() throws ParseException {
+    private static Date getDateFromInput(){
         String date;
         do {
-            System.out.println("Enter birth date:");
+            System.out.println("Enter birth date like 12-03-1370:");
             date = scanner.next();
         } while (!ValidationUtil.isPersianDate(date));
-        Date birthDate = new SimpleDateFormat("dd-mm-yyyy").parse(date);
+        Date birthDate = Date.valueOf(date);//converting string into sql date
         return birthDate;
     }
 
