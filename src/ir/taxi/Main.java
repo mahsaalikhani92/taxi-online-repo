@@ -28,7 +28,7 @@ public class Main {
     private static final Scanner scanner = new Scanner(System.in);
     private static final Taxi taxi = new Taxi();
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
         outer:
         while (true) {
             MainMenu.showMainMenu();
@@ -78,12 +78,12 @@ public class Main {
         }
     }
 
-    private static void addGroupOfDriversByAdmin() throws SQLException {
+    private static void addGroupOfDriversByAdmin() throws SQLException, ClassNotFoundException {
         String numberOfDrivers;
         do {
             System.out.println("Enter number of drivers:");
             numberOfDrivers = scanner.next();
-        } while (ValidationUtil.isNumeric(numberOfDrivers));
+        } while (!ValidationUtil.isNumeric(numberOfDrivers));
         int driverNumbers = Integer.parseInt(numberOfDrivers);
         List<Integer> autoIds = addGroupOfCarByAdmin(driverNumbers);
         List<Driver> drivers = new ArrayList<Driver>();
@@ -91,7 +91,7 @@ public class Main {
             String driverName = getNameFromInput();
             String driverFamily = getFamilyFromInput();
             String username = getUsernameFromInput();
-            int phoneNumber = getPhoneNumberFromInput();
+            String phoneNumber = getPhoneNumberFromInput();
             int nationalCode = getNationalCodeFromInput();
             Date birthDate = getDateFromInput();
             String plaque = getCarPlaqueFromInput();
@@ -106,7 +106,7 @@ public class Main {
         }
     }
 
-    public static List<Integer> addGroupOfCarByAdmin(int number) throws SQLException {
+    public static List<Integer> addGroupOfCarByAdmin(int number) throws SQLException, ClassNotFoundException {
         List<Car> cars = new ArrayList<Car>();
         for (int i = 0; i < number; i++) {
             String model = getCarModelFromInput();
@@ -115,7 +115,7 @@ public class Main {
             cars.add(car);
         }
         if (cars.size() == number) {
-            CarDataAccess carDao = null;
+            CarDataAccess carDao = new CarDataAccess();
             List<Integer> autoIds = carDao.saveGroupOfCar(cars);
             return autoIds;
         }
@@ -127,14 +127,14 @@ public class Main {
         do {
             System.out.println("Enter number of passengers:");
             numberOfPassengers = scanner.next();
-        } while (ValidationUtil.isNumeric(numberOfPassengers));
+        } while (!ValidationUtil.isNumeric(numberOfPassengers));
         int passengerNumbers = Integer.parseInt(numberOfPassengers);
         List<Passenger> passengers = new ArrayList<Passenger>();
         for (int i = 0; i < passengerNumbers; i++) {
             String passengerName = getNameFromInput();
             String passengerFamily = getFamilyFromInput();
             String username = getUsernameFromInput();
-            int phoneNumber = getPhoneNumberFromInput();
+            String phoneNumber = getPhoneNumberFromInput();
             int nationalCode = getNationalCodeFromInput();
             Date birthDate = getDateFromInput();
             Passenger passenger = new Passenger(passengerName, passengerFamily, username, phoneNumber, nationalCode, (java.sql.Date) birthDate, 0, Status.STOP);
@@ -207,7 +207,7 @@ public class Main {
         do {
             username = getUsernameFromInput();
         } while (driverDao.findDriverByUsername(username) != null);
-        int phoneNumber = getPhoneNumberFromInput();
+        String phoneNumber = getPhoneNumberFromInput();
         int nationalCode = getNationalCodeFromInput();
         Date birthDate = getDateFromInput();
         String plaque = getCarPlaqueFromInput();
@@ -273,7 +273,7 @@ public class Main {
         do {
             username = getUsernameFromInput();
         } while (passengerDao.findPassengerByUsername(username) != null);
-        int phoneNumber = getPhoneNumberFromInput();
+        String phoneNumber = getPhoneNumberFromInput();
         int nationalCode = getNationalCodeFromInput();
         Date birthDate = getDateFromInput();
         Passenger passenger = new Passenger(name, family, username, phoneNumber, nationalCode, (java.sql.Date) birthDate, 0, Status.STOP);
@@ -323,13 +323,13 @@ public class Main {
         return Integer.parseInt(nationalCode);
     }
 
-    private static int getPhoneNumberFromInput() {
+    private static String getPhoneNumberFromInput() {
         String phoneNumber;
         do {
             System.out.println("Enter phone number:");
             phoneNumber = scanner.next();
         } while (!ValidationUtil.isValidPhoneNumber(phoneNumber));
-        return Integer.parseInt(phoneNumber);
+        return phoneNumber;
     }
 
     private static String getUsernameFromInput() {

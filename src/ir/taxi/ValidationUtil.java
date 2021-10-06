@@ -8,7 +8,7 @@ import java.util.function.IntUnaryOperator;
 public class ValidationUtil {
 
     public static boolean isValidPhoneNumber(String phoneNumber) {
-        return phoneNumber.matches("^[0-9]+(.|//)?[0-9]?$");
+        return phoneNumber.matches("^(\\+98|0)?9\\d{9}$");
     }
 
     public static boolean isLetter(String input) {
@@ -24,7 +24,7 @@ public class ValidationUtil {
     }
 
     public static boolean isValidUsername(String input){
-        return input.matches("^[A-Za-z]\\w{5,29}$");
+        return input.matches("^[A-Za-z]\\w{3,29}$");
     }
     public static boolean isIranianNationalCode(String input){
         return input.matches("^[0-9]{10}$\n");

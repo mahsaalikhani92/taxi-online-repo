@@ -26,7 +26,7 @@ public class PassengerDataAccess extends DataBaseAccess {
                 stmt.setString(1, item.getUsername());
                 stmt.setString(2, item.getName());
                 stmt.setString(3, item.getFamily());
-                stmt.setInt(4, item.getPhoneNumber());
+                stmt.setString(4, item.getPhoneNumber());
                 stmt.setInt(5, item.getNationalCode());
                 stmt.setDate(6, item.getBirthDate());
                 stmt.setInt(7, item.getBalance());
@@ -54,7 +54,7 @@ public class PassengerDataAccess extends DataBaseAccess {
             stmt.setString(1, passenger.getUsername());
             stmt.setString(2, passenger.getName());
             stmt.setString(3, passenger.getFamily());
-            stmt.setInt(4, passenger.getPhoneNumber());
+            stmt.setString(4, passenger.getPhoneNumber());
             stmt.setInt(5, passenger.getNationalCode());
             stmt.setDate(6, passenger.getBirthDate());
             stmt.setInt(7, passenger.getBalance());
@@ -92,7 +92,7 @@ public class PassengerDataAccess extends DataBaseAccess {
                 ir.taxi.model.Passenger passenger = new Passenger(resultSet.getString("name"),
                         resultSet.getString("family"),
                         resultSet.getString("username"),
-                        resultSet.getInt("phone_number"),
+                        resultSet.getString("phone_number"),
                         resultSet.getInt("national_code"),
                         resultSet.getDate("birth_date"),
                         resultSet.getInt("balance"),

@@ -25,7 +25,7 @@ public class DriverDataAccess extends DataBaseAccess {
                 stmt.setString(1, item.getUsername());
                 stmt.setString(2, item.getName());
                 stmt.setString(3, item.getFamily());
-                stmt.setInt(4, item.getPhoneNumber());
+                stmt.setString(4, item.getPhoneNumber());
                 stmt.setInt(5, item.getNationalCode());
                 stmt.setDate(6, item.getBirthDate());
                 stmt.setString(7, item.getPlaque());
@@ -53,7 +53,7 @@ public class DriverDataAccess extends DataBaseAccess {
             stmt.setString(1, driver.getUsername());
             stmt.setString(2, driver.getName());
             stmt.setString(3, driver.getFamily());
-            stmt.setInt(4, driver.getPhoneNumber());
+            stmt.setString(4, driver.getPhoneNumber());
             stmt.setInt(5, driver.getNationalCode());
             stmt.setDate(6, driver.getBirthDate());
             stmt.setString(7, driver.getPlaque());
@@ -71,7 +71,7 @@ public class DriverDataAccess extends DataBaseAccess {
                 Driver driver = new Driver(resultSet.getString("name"),
                         resultSet.getString("family"),
                         resultSet.getString("username"),
-                        resultSet.getInt("phone_number"),
+                        resultSet.getString("phone_number"),
                         resultSet.getInt("national_code"),
                         resultSet.getDate("birth_date"),
                         resultSet.getString("plaque"),

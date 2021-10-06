@@ -9,11 +9,11 @@ public class Person {
     private String name;
     private String family;
     private String username;
-    private int phoneNumber;
+    private String phoneNumber;
     private int nationalCode;
     private Date birthDate;
 
-    public Person(String name, String family, String username, int phoneNumber, int nationalCode, Date birthDate) {
+    public Person(String name, String family, String username, String phoneNumber, int nationalCode, Date birthDate) {
         this.name = name;
         this.family = family;
         this.username = username;
@@ -46,11 +46,11 @@ public class Person {
         this.username = username;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
