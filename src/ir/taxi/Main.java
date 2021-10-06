@@ -301,7 +301,7 @@ public class Main {
             System.out.println("Enter birth date like 12-03-1370:");
             date = scanner.next();
         } while (!ValidationUtil.isPersianDate(date));
-        Date birthDate = Date.valueOf(date);//converting string into sql date
+        Date birthDate = java.sql.Date.valueOf(date);//converting string into sql date
         return birthDate;
     }
 
