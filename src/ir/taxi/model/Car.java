@@ -6,7 +6,7 @@ import ir.taxi.enumeration.CarColor;
  * @author Mahsa Alikhani m-58
  */
 public class Car {
-    private int carId;
+    private int id;
     private String model;
     //private CarColor carColor;
     private String carColor;
@@ -17,11 +17,11 @@ public class Car {
     }
 
     public int getCarId() {
-        return carId;
+        return id;
     }
 
     public void setCarId(int carId) {
-        this.carId = carId;
+        this.id = id;
     }
 
     public String getModel() {

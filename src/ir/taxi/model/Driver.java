@@ -7,10 +7,10 @@ import java.sql.Date;
  */
 public class Driver extends Person{
 
-    private int carId;
     private String plaque;
+    private int carId;
 
-    public Driver(String name, String family, String username, int phoneNumber, int nationalCode, Date birthDate, String plaque) {
+    public Driver(String name, String family, String username, int phoneNumber, int nationalCode, Date birthDate, String plaque, int carId) {
         super(name, family, username, phoneNumber, nationalCode, birthDate);
         this.plaque = plaque;
         this.carId = carId;
@@ -22,5 +22,13 @@ public class Driver extends Person{
 
     public void setPlaque(String plaque) {
         this.plaque = plaque;
+    }
+
+    public int getCarId() {
+        return carId;
+    }
+
+    public void setCarId(int carId) {
+        this.carId = carId;
     }
 }

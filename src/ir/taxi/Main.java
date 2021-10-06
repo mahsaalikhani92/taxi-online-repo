@@ -69,8 +69,7 @@ public class Main {
             numberOfDrivers = scanner.next();
         } while (ValidationUtil.isNumeric(numberOfDrivers));
         int driverNumbers = Integer.parseInt(numberOfDrivers);
-        addGroupOfCarByAdmin(driverNumbers);
-
+        List<Integer> autoIds = addGroupOfCarByAdmin(driverNumbers);
         List<Driver> drivers = new ArrayList<Driver>();
         for (int i = 0; i < driverNumbers; i++) {
             String driverName = getNameFromInput();
@@ -80,7 +79,8 @@ public class Main {
             int nationalCode = getNationalCodeFromInput();
             Date birthDate = getDateFromInput();
             String plaque = getCarPlaqueFromInput();
-            Driver driver = new Driver(driverName, driverFamily, username, phoneNumber, nationalCode, birthDate, plaque, );
+            int carId = autoIds.get(i);
+            Driver driver = new Driver(driverName, driverFamily, username, phoneNumber, nationalCode, (java.sql.Date) birthDate, plaque, carId);
             drivers.add(driver);
         }
         if(drivers.size() == driverNumbers){
@@ -90,7 +90,7 @@ public class Main {
         }
     }
 
-    public static void addGroupOfCarByAdmin(int number) throws SQLException {
+    public static List<Integer> addGroupOfCarByAdmin(int number) throws SQLException {
         List<Car> cars = new ArrayList<Car>();
         for (int i = 0; i < number; i++) {
             String model = getCarModelFromInput();
@@ -100,7 +100,8 @@ public class Main {
         }
         if(cars.size() == number){
             CarDataAccess carDao = null;
-            carDao.saveGroupOfCar(cars);
+            List<Integer>autoIds = carDao.saveGroupOfCar(cars);
+            return autoIds;
         }
     }
 
