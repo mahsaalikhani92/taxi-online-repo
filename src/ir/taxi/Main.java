@@ -50,15 +50,23 @@ public class Main {
                     passengerSignUpOrLogin();
                     break;
                 case 5:
-
+                    showListOfDrivers();
                     break;
                 case 6:
-                    //TODO
+
                     break;
                 default:
                     System.out.println("Invalid input!");
 
             }
+        }
+    }
+
+    private static void showListOfDrivers() throws SQLException {
+        DriverDataAccess driverDao = null;
+        List<Driver>drivers = driverDao.getListOfDrivers();
+        for (Driver item:drivers) {
+            System.out.println(item.toString());
         }
     }
 
