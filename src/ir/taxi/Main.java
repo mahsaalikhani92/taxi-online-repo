@@ -69,7 +69,7 @@ public class Main {
             numberOfDrivers = scanner.next();
         } while (ValidationUtil.isNumeric(numberOfDrivers));
         int driverNumbers = Integer.parseInt(numberOfDrivers);
-        addGroupOfCarByAdmin(numberOfDrivers);
+        addGroupOfCarByAdmin(driverNumbers);
 
         List<Driver> drivers = new ArrayList<Driver>();
         for (int i = 0; i < driverNumbers; i++) {
@@ -91,11 +91,17 @@ public class Main {
     }
 
     public static void addGroupOfCarByAdmin(int number){
-        String model = getCarModelFromInput();
-        String carColor = getCarColorFromInput();
-        Car car = new Car(model, carColor);
-        CarDataAccess carDao = null;
-        carDao.saveNewCar(car);
+        List<Car> cars = new ArrayList<Car>();
+        for (int i = 0; i < number; i++) {
+            String model = getCarModelFromInput();
+            String carColor = getCarColorFromInput();
+            Car car = new Car(model, carColor);
+            cars.add(car);
+        }
+        if(cars.size() == number){
+            CarDataAccess carDao = null;
+            carDao.saveGroupOfCar(cars);
+        }
     }
 
     private static void addGroupOfPassengersByAdmin() throws SQLException {
