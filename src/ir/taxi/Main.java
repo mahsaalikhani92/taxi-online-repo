@@ -50,7 +50,7 @@ public class Main {
                     passengerSignUpOrLogin();
                     break;
                 case 5:
-                    //TODO
+
                     break;
                 case 6:
                     //TODO
@@ -103,6 +103,7 @@ public class Main {
             List<Integer>autoIds = carDao.saveGroupOfCar(cars);
             return autoIds;
         }
+        return null;
     }
 
     private static void addGroupOfPassengersByAdmin() throws SQLException {
@@ -260,7 +261,7 @@ public class Main {
         int phoneNumber = getPhoneNumberFromInput();
         int nationalCode = getNationalCodeFromInput();
         Date birthDate = getDateFromInput();
-        Passenger passenger = new Passenger(name, family, username, phoneNumber, nationalCode, (java.sql.Date) birthDate, 0, Status.STOP)
+        Passenger passenger = new Passenger(name, family, username, phoneNumber, nationalCode, (java.sql.Date) birthDate, 0, Status.STOP);
         passengerDao.saveNewPassenger(passenger);
         System.out.println("Your information was successfully registered.");
     }
