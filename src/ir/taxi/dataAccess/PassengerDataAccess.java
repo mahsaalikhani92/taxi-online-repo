@@ -1,9 +1,11 @@
 package ir.taxi.dataAccess;
 
 import ir.taxi.enumeration.Status;
+import ir.taxi.model.Driver;
 import ir.taxi.model.Passenger;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -81,4 +83,24 @@ public class PassengerDataAccess extends DataBaseAccess {
         return 0;
     }
 
+    public List<ir.taxi.model.Passenger> getListOfPassengers() throws SQLException {
+        if (getConnection() != null) {
+            Statement statement = getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery("selest * from passengers");
+            List<ir.taxi.model.Passenger> passengers = new ArrayList<>();
+            while (resultSet.next()) {
+                ir.taxi.model.Passenger passenger = new Passenger(resultSet.getString("name"),
+                        resultSet.getString("family"),
+                        resultSet.getString("username"),
+                        resultSet.getInt("phone_number"),
+                        resultSet.getInt("national_code"),
+                        resultSet.getDate("birth_date"),
+                        resultSet.getInt("balance"),
+                        Status.valueOf(resultSet.getString("status")));
+                passengers.add(passenger);
+            }
+            return passengers;
+        }
+        return null;
+    }
 }
