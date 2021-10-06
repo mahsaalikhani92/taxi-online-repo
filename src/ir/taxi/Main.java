@@ -90,7 +90,7 @@ public class Main {
         }
     }
 
-    public static void addGroupOfCarByAdmin(int number){
+    public static void addGroupOfCarByAdmin(int number) throws SQLException {
         List<Car> cars = new ArrayList<Car>();
         for (int i = 0; i < number; i++) {
             String model = getCarModelFromInput();

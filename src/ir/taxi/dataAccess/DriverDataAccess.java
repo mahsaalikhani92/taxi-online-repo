@@ -30,7 +30,6 @@ public class DriverDataAccess extends DataBaseAccess {
                 stmt.setString(7, item.getPlaque());
             }
         }
-        return;
     }
     public String findDriverByUsername(String username) throws SQLException {
         if(getConnection() != null){
