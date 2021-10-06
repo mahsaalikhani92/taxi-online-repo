@@ -1,14 +1,11 @@
 package ir.taxi.model;
 
-import ir.taxi.enumeration.CarColor;
-
 /**
  * @author Mahsa Alikhani m-58
  */
 public class Car {
     private int id;
     private String model;
-    //private CarColor carColor;
     private String carColor;
 
     public Car(String model, String carColor) {
