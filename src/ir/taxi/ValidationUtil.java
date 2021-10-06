@@ -42,7 +42,7 @@ public class ValidationUtil {
         return (sum < 2 && check == sum) || (sum >= 2 && check + sum == 11);*/
     }
     public static boolean isPersianDate(String input){
-        return input.matches("/^[1-4]\\d{3}\\/((0[1-6]\\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\\/(30|([1-2][0-9])|(0[1-9]))))$/");
+        return input.matches("[0-9]{1,2}(/|-)[0-9]{1,2}(/|-)[0-9]{4}");
     }
 
     public static boolean isIranianCarPlateNumber(String input){
