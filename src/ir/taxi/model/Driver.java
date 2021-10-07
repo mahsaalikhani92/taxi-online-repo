@@ -16,6 +16,9 @@ public class Driver extends Person{
         this.carId = carId;
     }
 
+    public Driver() {
+    }
+
     public String getPlaque() {
         return plaque;
     }

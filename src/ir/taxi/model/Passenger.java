@@ -18,6 +18,9 @@ public class Passenger extends Person {
         this.status = status;
     }
 
+    public Passenger() {
+    }
+
     public int getBalance() {
         return balance;
     }

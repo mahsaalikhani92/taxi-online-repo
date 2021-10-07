@@ -70,7 +70,9 @@ public class DriverDataAccess extends DataBaseAccess {
             ResultSet resultSet = statement.executeQuery("selest * from drivers");
             List<Driver> drivers = new ArrayList<>();
             while (resultSet.next()) {
-                Driver driver = new Driver(resultSet.getString("name"),
+                Driver driver = new Driver();
+                driver.setId(resultSet.getInt("driver_id"));
+                        (resultSet.getString("name"),
                         resultSet.getString("family"),
                         resultSet.getString("username"),
                         resultSet.getString("phone_number"),
