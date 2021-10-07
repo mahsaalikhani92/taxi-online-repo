@@ -3,10 +3,7 @@ package ir.taxi;
 import ir.taxi.dataAccess.CarDataAccess;
 import ir.taxi.dataAccess.DriverDataAccess;
 import ir.taxi.dataAccess.PassengerDataAccess;
-import ir.taxi.enumeration.MainMenu;
-import ir.taxi.enumeration.PassengerLoginMenu;
-import ir.taxi.enumeration.SignupMenu;
-import ir.taxi.enumeration.Status;
+import ir.taxi.enumeration.*;
 import ir.taxi.model.Car;
 import ir.taxi.model.Driver;
 import ir.taxi.model.Passenger;
@@ -234,6 +231,9 @@ public class Main {
                         increasePassengerBalance(username, passengerDao);
                         break;
                     case 2:
+                        chooseVehicleByPassenger();
+                        break;
+                    case 3:
                         break;
                     default:
                         System.out.println("Invalid number!");
@@ -354,6 +354,32 @@ public class Main {
             name = scanner.next();
         } while (!ValidationUtil.isLetter(name));
         return name;
+    }
+
+    private static void chooseVehicleByPassenger(){
+        Vehicle.showVehicleMenu();
+        String choice = getChoiceNumber();
+        int choiceNumber = Integer.parseInt(choice);
+        switch (choiceNumber){
+            case 1:
+                System.out.println("Car");
+                //TODO
+                break;
+            case 2:
+                System.out.println("Motor cycle");
+                //TODO
+                break;
+            case 3:
+                System.out.println("Van");
+                //TODO
+                break;
+            case 4:
+                System.out.println("RV");
+                //TODO
+                break;
+            default:
+                System.out.println("Invalid value!");
+        }
     }
 
 }

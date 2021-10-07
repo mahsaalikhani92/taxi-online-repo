@@ -19,7 +19,7 @@ public enum Vehicle {
         return expression;
     }
 
-    public void showVehicleMenu(){
+    public static void showVehicleMenu(){
         for (Vehicle item:Vehicle.values()) {
             System.out.println(item.getExpression());
         }
