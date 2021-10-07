@@ -43,7 +43,7 @@ public class Passenger extends Person {
 
     @Override
     public String toString() {
-        return super.toString() + "{" +
+        return super.toString() + "," +
                 "balance=" + balance +
                 ", status=" + status +
                 '}';
