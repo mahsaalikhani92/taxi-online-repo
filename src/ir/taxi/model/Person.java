@@ -14,14 +14,16 @@ public class Person {
     private long nationalCode;
     private Date birthDate;
 
-    public Person(int id, String name, String family, String username, String phoneNumber, long nationalCode, Date birthDate) {
-        this.id = id;
+    public Person(String name, String family, String username, String phoneNumber, long nationalCode, Date birthDate) {
         this.name = name;
         this.family = family;
         this.username = username;
         this.phoneNumber = phoneNumber;
         this.nationalCode = nationalCode;
         this.birthDate = birthDate;
+    }
+
+    public Person() {
     }
 
     public int getId() {
