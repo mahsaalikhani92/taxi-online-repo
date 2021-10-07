@@ -18,7 +18,7 @@ public class DriverDataAccess extends DataBaseAccess {
 
     public void saveGroupOfDrivers(List<Driver> drivers) throws SQLException {
         if (getConnection() != null) {
-            String sqlQuery = "insert into drivers (username, name, family, phone_number, national_code, birth_date, plaque, car_id)" +
+            String sqlQuery = "insert into drivers (username, name, family, phone_number, national_code, birth_date, car_fk, plaque)" +
                     "values(?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = getConnection().prepareStatement(sqlQuery);
             for (Driver item : drivers) {
@@ -28,8 +28,8 @@ public class DriverDataAccess extends DataBaseAccess {
                 stmt.setString(4, item.getPhoneNumber());
                 stmt.setLong(5, item.getNationalCode());
                 stmt.setDate(6, item.getBirthDate());
-                stmt.setString(7, item.getPlaque());
-                stmt.setInt(8, item.getCarId());
+                stmt.setInt(7, item.getCarId());
+                stmt.setString(8, item.getPlaque());
                 stmt.executeUpdate();
             }
         }
@@ -48,7 +48,7 @@ public class DriverDataAccess extends DataBaseAccess {
 
     public void saveNewDriver(Driver driver) throws SQLException {
         if (getConnection() != null) {
-            String sqlQuery = "insert into drivers (username, name, family, phone_number, national_code, birth_date, plaque, car_id)" +
+            String sqlQuery = "insert into drivers (username, name, family, phone_number, national_code, birth_date, car_fk, plaque)" +
                     "values(?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = getConnection().prepareStatement(sqlQuery);
             stmt.setString(1, driver.getUsername());
@@ -57,8 +57,8 @@ public class DriverDataAccess extends DataBaseAccess {
             stmt.setString(4, driver.getPhoneNumber());
             stmt.setLong(5, driver.getNationalCode());
             stmt.setDate(6, driver.getBirthDate());
-            stmt.setString(7, driver.getPlaque());
-            stmt.setInt(8, driver.getCarId());
+            stmt.setInt(7, driver.getCarId());
+            stmt.setString(8, driver.getPlaque());
             stmt.executeUpdate();
         }
         return;
