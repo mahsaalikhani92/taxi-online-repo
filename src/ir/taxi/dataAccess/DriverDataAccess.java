@@ -66,9 +66,9 @@ public class DriverDataAccess extends DataBaseAccess {
 
     public List<Driver> getListOfDrivers() throws SQLException {
         if (getConnection() != null) {
-            Statement statement = getConnection().createStatement();
-            ResultSet resultSet = statement.executeQuery("selest * from drivers");
             List<Driver> drivers = new ArrayList<>();
+            Statement statement = getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from drivers");
             while (resultSet.next()) {
                 Driver driver = new Driver();
                 driver.setId(resultSet.getInt("driver_id"));
