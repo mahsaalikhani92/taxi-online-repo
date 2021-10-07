@@ -309,7 +309,7 @@ public class Main {
         do {
             System.out.println("Enter national code:");
             nationalCode = scanner.next();
-        } while (!ValidationUtil.isNumeric(nationalCode));
+        } while (!ValidationUtil.isNumeric(nationalCode) && !ValidationUtil.isIranianNationalCode(nationalCode));
         return Long.parseLong(nationalCode);
     }
 
