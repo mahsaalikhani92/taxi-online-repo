@@ -263,7 +263,7 @@ public class Main {
         do {
             System.out.println("Enter amount in RIAL:");
             amount = scanner.next();
-        } while (ValidationUtil.isNumeric(amount));
+        } while (!ValidationUtil.isNumeric(amount));
         double amountNumber = Double.parseDouble(amount);
         passengerDao.updateBalance(username, amountNumber);
     }

@@ -80,7 +80,9 @@ public class PassengerDataAccess extends DataBaseAccess {
             Statement statement = getConnection().createStatement();
             String sqlQuery = String.format("select balance from passengers where username = '%s'", username);
             ResultSet resultSet = statement.executeQuery(sqlQuery);
-            return resultSet.getDouble("balance");
+            while (resultSet.next()){
+                return resultSet.getDouble("balance");
+            }
         }
         return 0;
     }

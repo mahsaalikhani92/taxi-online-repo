@@ -16,7 +16,7 @@ public class ValidationUtil {
     }
 
     public static boolean isNumeric(String input) {
-        return input.matches("[1-9]+");
+        return input.matches("[0-9]+");
     }
 
     public static boolean isAlphabetic(String input) {
