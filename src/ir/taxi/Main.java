@@ -299,7 +299,7 @@ public class Main {
         do {
             System.out.println("Enter birth date like 1370-02-12:");
             date = scanner.next();
-        } while (!ValidationUtil.isPersianDate(date));
+        } while (!ValidationUtil.isValidFormatDate(date));
         Date birthDate = java.sql.Date.valueOf(date);//converting string into sql date
         return birthDate;
     }

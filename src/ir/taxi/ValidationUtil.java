@@ -24,7 +24,7 @@ public class ValidationUtil {
     }
 
     public static boolean isValidUsername(String input) {
-        return input.matches("^[A-Za-z]\\w{3,29}$");
+        return input.matches("^[A-Za-z]\\w{4,29}$");
     }
 
     public static boolean isIranianNationalCode(String input) {
@@ -89,8 +89,9 @@ public class ValidationUtil {
         return false;
     }
 
-    public static boolean isPersianDate(String input) {
-        return input.matches("[0-9]{1,2}(/|-)[0-9]{1,2}(/|-)[0-9]{4}");
+    public static boolean isValidFormatDate(String input) {
+        return input.matches("[0-9]{4}(-)[0-9]{1,2}(-)[0-9]{1,2}");
+
     }
 
     public static boolean isIranianCarPlateNumber(String input) {
