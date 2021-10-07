@@ -69,7 +69,7 @@ public class PassengerDataAccess extends DataBaseAccess {
         double increasedBalance = findBalanceByUserName(username) + amount;
         if(getConnection() != null){
             Statement statement = getConnection().createStatement();
-            String sqlQuery = String.format( "update passengers set balance = %.2f where username = '%s')", increasedBalance, username);
+            String sqlQuery = ("update passengers set balance = '"+increasedBalance+"' where username ='"+ username+"'");
             statement.executeUpdate(sqlQuery);
             System.out.println("Your account balance has been updated.");
         }

@@ -240,6 +240,7 @@ public class Main {
                 }
             } while (choiceNumber != 2);
         } else {
+            System.out.println("Username " + username + " doesn't exist, Register or Exit");
             int choiceNumber;
             do {
                 SignupMenu.showSignupMenu();

@@ -74,7 +74,7 @@ public class DriverDataAccess extends DataBaseAccess {
                         resultSet.getString("family"),
                         resultSet.getString("username"),
                         resultSet.getString("phone_number"),
-                        resultSet.getInt("national_code"),
+                        resultSet.getLong("national_code"),
                         resultSet.getDate("birth_date"),
                         resultSet.getString("plaque"),
                         resultSet.getInt("car_fk"));
