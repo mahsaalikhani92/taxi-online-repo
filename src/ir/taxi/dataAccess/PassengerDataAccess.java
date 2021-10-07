@@ -31,6 +31,7 @@ public class PassengerDataAccess extends DataBaseAccess {
                 stmt.setDate(6, item.getBirthDate());
                 stmt.setInt(7, item.getBalance());
                 stmt.setString(8, item.getStatus().name()); //to string
+                stmt.executeUpdate();
             }
         }
         return;
@@ -59,26 +60,27 @@ public class PassengerDataAccess extends DataBaseAccess {
             stmt.setDate(6, passenger.getBirthDate());
             stmt.setInt(7, passenger.getBalance());
             stmt.setString(8, passenger.getStatus().name()); //to string
+            stmt.executeUpdate();
         }
         return;
     }
 
-    public void updateBalance(String username, int amount) throws SQLException {
-        int increasedBalance = findBalanceByUserName(username) + amount;
+    public void updateBalance(String username, double amount) throws SQLException {
+        double increasedBalance = findBalanceByUserName(username) + amount;
         if(getConnection() != null){
             Statement statement = getConnection().createStatement();
-            String sqlQuery = String.format( "update passengers set balance = %d where username = %s)", increasedBalance, username);
+            String sqlQuery = String.format( "update passengers set balance = %.2f where username = %s)", increasedBalance, username);
             statement.executeUpdate(sqlQuery);
             System.out.println("Your account balance has been updated.");
         }
     }
 
-    public int findBalanceByUserName(String username) throws SQLException {
+    public double findBalanceByUserName(String username) throws SQLException {
         if(getConnection() != null){
             Statement statement = getConnection().createStatement();
             String sqlQuery = String.format("select balance from passengers where username = %s", username);
             ResultSet resultSet = statement.executeQuery(sqlQuery);
-            return resultSet.getInt("balance");
+            return resultSet.getDouble("balance");
         }
         return 0;
     }

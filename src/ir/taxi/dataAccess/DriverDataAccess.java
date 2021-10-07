@@ -30,6 +30,7 @@ public class DriverDataAccess extends DataBaseAccess {
                 stmt.setDate(6, item.getBirthDate());
                 stmt.setString(7, item.getPlaque());
                 stmt.setInt(8, item.getCarId());
+                stmt.executeUpdate();
             }
         }
     }
@@ -58,6 +59,7 @@ public class DriverDataAccess extends DataBaseAccess {
             stmt.setDate(6, driver.getBirthDate());
             stmt.setString(7, driver.getPlaque());
             stmt.setInt(8, driver.getCarId());
+            stmt.executeUpdate();
         }
         return;
     }

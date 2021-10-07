@@ -66,8 +66,4 @@ public class ValidationUtil {
         return input.matches("[0-9]{4}(-)[0-9]{1,2}(-)[0-9]{1,2}");
 
     }
-
-    public static boolean isIranianCarPlateNumber(String input) {
-        return input.matches("\\d{2}[\\u0600-\\u06FF]\\d{3}\\-d{2}"); //? - ?
-    }
 }

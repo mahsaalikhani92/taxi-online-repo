@@ -58,16 +58,16 @@ public class Main {
         }
     }
 
-    private static void showListOfDrivers() throws SQLException {
-        DriverDataAccess driverDao = null;
+    private static void showListOfDrivers() throws SQLException, ClassNotFoundException {
+        DriverDataAccess driverDao = new DriverDataAccess();
         List<Driver> drivers = driverDao.getListOfDrivers();
         for (Driver item : drivers) {
             System.out.println(item.toString());
         }
     }
 
-    private static void showListOfPassengers() throws SQLException {
-        PassengerDataAccess passengerDao = null;
+    private static void showListOfPassengers() throws SQLException, ClassNotFoundException {
+        PassengerDataAccess passengerDao = new PassengerDataAccess();
         List<Passenger> passengers = passengerDao.getListOfPassengers();
         for (Passenger item : passengers) {
             System.out.println(item.toString());
@@ -77,11 +77,12 @@ public class Main {
     private static void addGroupOfDriversByAdmin() throws SQLException, ClassNotFoundException{
         String numberOfDrivers;
         do {
-            System.out.println("Enter number of drivers:");
+            System.out.println("Enter number of drivers");
             numberOfDrivers = scanner.next();
         } while (!ValidationUtil.isNumeric(numberOfDrivers));
         int driverNumbers = Integer.parseInt(numberOfDrivers);
         List<Integer> autoIds = addGroupOfCarByAdmin(driverNumbers);
+        System.out.println("Enter drivers information");
         List<Driver> drivers = new ArrayList<Driver>();
         for (int i = 0; i < driverNumbers; i++) {
             String driverName = getNameFromInput();
@@ -96,13 +97,14 @@ public class Main {
             drivers.add(driver);
         }
         if (drivers.size() == driverNumbers) {
-            DriverDataAccess driverDao = null;
+            DriverDataAccess driverDao = new DriverDataAccess();
             driverDao.saveGroupOfDrivers(drivers);
             System.out.println("New drivers saved successfully.");
         }
     }
 
     public static List<Integer> addGroupOfCarByAdmin(int number) throws SQLException, ClassNotFoundException {
+        System.out.println("Enter cars information");
         List<Car> cars = new ArrayList<Car>();
         for (int i = 0; i < number; i++) {
             String model = getCarModelFromInput();
@@ -113,12 +115,13 @@ public class Main {
         if (cars.size() == number) {
             CarDataAccess carDao = new CarDataAccess();
             List<Integer> autoIds = carDao.saveGroupOfCar(cars);
+            System.out.println("Cars are saved successfully.");
             return autoIds;
         }
         return null;
     }
 
-    private static void addGroupOfPassengersByAdmin() throws SQLException{
+    private static void addGroupOfPassengersByAdmin() throws SQLException, ClassNotFoundException {
         String numberOfPassengers;
         do {
             System.out.println("Enter number of passengers:");
@@ -137,16 +140,16 @@ public class Main {
             passengers.add(passenger);
         }
         if (passengers.size() == passengerNumbers) {
-            PassengerDataAccess passengerDao = null;
+            PassengerDataAccess passengerDao = new PassengerDataAccess();
             passengerDao.saveGroupOfPassengers(passengers);
             System.out.println("New passengers saved successfully.");
         }
     }
 
-    private static void DriverSignUpOrLogin() throws SQLException{
+    private static void DriverSignUpOrLogin() throws SQLException, ClassNotFoundException {
         System.out.println("Username:");
         String username = getUsernameFromInput();
-        DriverDataAccess driverDao = null;
+        DriverDataAccess driverDao = new DriverDataAccess();
         if (driverDao.findDriverByUsername(username) != null) {
             System.out.println("Successful login");
         } else {
@@ -168,12 +171,14 @@ public class Main {
         }
     }
 
-    private static Integer addNewCar() throws SQLException {
+    private static Integer addNewCar() throws SQLException, ClassNotFoundException {
+        System.out.println("Enter car information");
         String model = getCarModelFromInput();
         String carColor = getCarColorFromInput();
         Car car = new Car(model, carColor);
-        CarDataAccess carDao = null;
+        CarDataAccess carDao = new CarDataAccess();
         int carId = carDao.saveNewCar(car);
+        System.out.println("New car is saved successfully.");
         return carId;
     }
 
@@ -189,14 +194,15 @@ public class Main {
     private static String getCarModelFromInput() {
         String model;
         do {
-            System.out.println("Enter model:");
+            System.out.println("Enter model of car:");
             model = scanner.next();
         } while (!ValidationUtil.isAlphabetic(model));
         return model;
     }
 
-    private static void driverRegister(DriverDataAccess driverDao) throws SQLException{
+    private static void driverRegister(DriverDataAccess driverDao) throws SQLException, ClassNotFoundException {
         int carId = addNewCar();
+        System.out.println("Enter your information");
         String username;
         String name = getNameFromInput();
         String family = getFamilyFromInput();
@@ -212,10 +218,10 @@ public class Main {
         System.out.println("Your information was successfully registered.");
     }
 
-    private static void passengerSignUpOrLogin() throws SQLException{
+    private static void passengerSignUpOrLogin() throws SQLException, ClassNotFoundException {
         System.out.println("Username:");
         String username = getUsernameFromInput();
-        PassengerDataAccess passengerDao = null;
+        PassengerDataAccess passengerDao = new PassengerDataAccess();
         if (passengerDao.findPassengerByUsername(username) != null) {
             System.out.println(username);
             int choiceNumber;
@@ -258,7 +264,7 @@ public class Main {
             System.out.println("Enter amount in RIAL:");
             amount = scanner.next();
         } while (ValidationUtil.isNumeric(amount));
-        int amountNumber = Integer.parseInt(amount);
+        double amountNumber = Double.parseDouble(amount);
         passengerDao.updateBalance(username, amountNumber);
     }
 
@@ -290,7 +296,7 @@ public class Main {
         do {
             System.out.println("Enter driver car plate number:");
             plaque = scanner.next();
-        } while (!ValidationUtil.isIranianCarPlateNumber(plaque));
+        } while (!ValidationUtil.isAlphabetic(plaque));
         return plaque;
     }
 
@@ -325,7 +331,7 @@ public class Main {
     private static String getUsernameFromInput() {
         String username;
         do {
-            System.out.println("Enter username:");
+            System.out.println("Enter username:\nUsername must be longer than 4 character.");
             username = scanner.next();
         } while (!ValidationUtil.isValidUsername(username));
         return username;
