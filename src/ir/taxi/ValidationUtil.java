@@ -29,60 +29,33 @@ public class ValidationUtil {
 
     public static boolean isIranianNationalCode(String input) {
         if (input.length() == 10) {
-           int p10 = Character.getNumericValue(input.charAt(0)) * 10;
-           int p9 = Character.getNumericValue(input.charAt(1)) * 9;
-           int p8 = Character.getNumericValue(input.charAt(2)) * 8;
-           int p7 = Character.getNumericValue(input.charAt(3)) * 7;
-           int p6 = Character.getNumericValue(input.charAt(4)) * 6;
-           int p5 = Character.getNumericValue(input.charAt(5)) * 5;
-           int p4 = Character.getNumericValue(input.charAt(6)) * 4;
-           int p3 = Character.getNumericValue(input.charAt(7)) * 3;
-           int p2 = Character.getNumericValue(input.charAt(8)) * 2;
-           int sum = p10 + p9 + p8 + p7+ p6 + p5 + p4 + p3+ p2;
-           int remaining = sum % 11;
-           if(remaining < 2){
-                if(Character.getNumericValue(input.charAt(9)) == 2){
-                    return true;
-                }
-           }else{
-               if(Character.getNumericValue(input.charAt(9)) == 11 - remaining);
-               return true;
-           }
-        }else if(input.length() == 9){
-            int p9 = Character.getNumericValue(input.charAt(0)) * 9;
-            int p8 = Character.getNumericValue(input.charAt(1)) * 8;
-            int p7 = Character.getNumericValue(input.charAt(2)) * 7;
-            int p6 = Character.getNumericValue(input.charAt(3)) * 6;
-            int p5 = Character.getNumericValue(input.charAt(4)) * 5;
-            int p4 = Character.getNumericValue(input.charAt(5)) * 4;
-            int p3 = Character.getNumericValue(input.charAt(6)) * 3;
-            int p2 = Character.getNumericValue(input.charAt(7)) * 2;
-            int sum = p9 + p8 + p7+ p6 + p5 + p4 + p3+ p2;
-            int remaining = sum % 11;
-            if(remaining < 2){
-                if(Character.getNumericValue(input.charAt(8)) == 2){
-                    return true;
-                }
-            }else{
-                if(Character.getNumericValue(input.charAt(8)) == 11 - remaining);
+            int sum = 0;
+            int value = 10;
+            for (int i = 0; i < 10; i++) {
+                sum = sum + Character.getNumericValue(input.charAt(i)) * value;
+                value--;
+            }
+            if (sum % 11 == 0) {
                 return true;
             }
-        }else if(input.length() == 8){
-            int p8 = Character.getNumericValue(input.charAt(0)) * 8;
-            int p7 = Character.getNumericValue(input.charAt(1)) * 7;
-            int p6 = Character.getNumericValue(input.charAt(2)) * 6;
-            int p5 = Character.getNumericValue(input.charAt(3)) * 5;
-            int p4 = Character.getNumericValue(input.charAt(4)) * 4;
-            int p3 = Character.getNumericValue(input.charAt(5)) * 3;
-            int p2 = Character.getNumericValue(input.charAt(6)) * 2;
-            int sum = p8 + p7+ p6 + p5 + p4 + p3+ p2;
-            int remaining = sum % 11;
-            if(remaining < 2){
-                if(Character.getNumericValue(input.charAt(7)) == 2){
-                    return true;
-                }
-            }else{
-                if(Character.getNumericValue(input.charAt(7)) == 11 - remaining);
+        }else if(input.length() == 9){
+            int sum = 0;
+            int value = 9;
+            for (int i = 0; i < 9; i++) {
+                sum = sum + Character.getNumericValue(input.charAt(i)) * value;
+                value--;
+            }
+            if (sum % 11 == 0) {
+                return true;
+            }
+        }else if(input.length() == 9){
+            int sum = 0;
+            int value = 8;
+            for (int i = 0; i < 8; i++) {
+                sum = sum + Character.getNumericValue(input.charAt(i)) * value;
+                value--;
+            }
+            if (sum % 11 == 0) {
                 return true;
             }
         }
