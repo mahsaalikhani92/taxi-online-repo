@@ -72,14 +72,14 @@ public class DriverDataAccess extends DataBaseAccess {
             while (resultSet.next()) {
                 Driver driver = new Driver();
                 driver.setId(resultSet.getInt("driver_id"));
-                        (resultSet.getString("name"),
-                        resultSet.getString("family"),
-                        resultSet.getString("username"),
-                        resultSet.getString("phone_number"),
-                        resultSet.getLong("national_code"),
-                        resultSet.getDate("birth_date"),
-                        resultSet.getString("plaque"),
-                        resultSet.getInt("car_fk"));
+                driver.setName(resultSet.getString("name"));
+                driver.setFamily(resultSet.getString("family"));
+                driver.setUsername(resultSet.getString("username"));
+                driver.setPhoneNumber(resultSet.getString("phone_number"));
+                driver.setNationalCode(resultSet.getLong("national_code"));
+                driver.setBirthDate(resultSet.getDate("birth_date"));
+                driver.setPlaque(resultSet.getString("plaque"));
+                driver.setCarId(resultSet.getInt("car_fk"));
                 drivers.add(driver);
             }
             return drivers;
