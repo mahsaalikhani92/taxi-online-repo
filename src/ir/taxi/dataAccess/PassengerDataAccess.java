@@ -89,18 +89,20 @@ public class PassengerDataAccess extends DataBaseAccess {
 
     public List<ir.taxi.model.Passenger> getListOfPassengers() throws SQLException {
         if (getConnection() != null) {
-            Statement statement = getConnection().createStatement();
-            ResultSet resultSet = statement.executeQuery("selest * from passengers");
             List<ir.taxi.model.Passenger> passengers = new ArrayList<>();
+            Statement statement = getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from passengers");
             while (resultSet.next()) {
-                ir.taxi.model.Passenger passenger = new Passenger(resultSet.getString("name"),
-                        resultSet.getString("family"),
-                        resultSet.getString("username"),
-                        resultSet.getString("phone_number"),
-                        resultSet.getInt("national_code"),
-                        resultSet.getDate("birth_date"),
-                        resultSet.getInt("balance"),
-                        Status.valueOf(resultSet.getString("status"))); //String to enum
+                Passenger passenger = new Passenger();
+                passenger.setId(resultSet.getInt("passenger_id"));
+                passenger.setName(resultSet.getString("name"));
+                passenger.setFamily(resultSet.getString("family"));
+                passenger.setUsername(resultSet.getString("username"));
+                passenger.setPhoneNumber(resultSet.getString("phone_number"));
+                passenger.setNationalCode(resultSet.getLong("national_code"));
+                passenger.setBirthDate(resultSet.getDate("birth_date"));
+                passenger.setBalance(resultSet.getInt("balance"));
+                passenger.setStatus(Status.valueOf(resultSet.getString("status"))); //String to enum
                 passengers.add(passenger);
             }
             return passengers;
