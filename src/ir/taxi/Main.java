@@ -26,7 +26,6 @@ public class Main {
     private static final Taxi taxi = new Taxi();
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException{
-        outer:
         while (true) {
             MainMenu.showMainMenu();
             String choice = getChoiceNumber();
@@ -298,7 +297,7 @@ public class Main {
     private static Date getDateFromInput(){
         String date;
         do {
-            System.out.println("Enter birth date like 12-03-1370:");
+            System.out.println("Enter birth date like 1370-02-12:");
             date = scanner.next();
         } while (!ValidationUtil.isPersianDate(date));
         Date birthDate = java.sql.Date.valueOf(date);//converting string into sql date
