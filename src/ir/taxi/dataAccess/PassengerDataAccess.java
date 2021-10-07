@@ -40,7 +40,7 @@ public class PassengerDataAccess extends DataBaseAccess {
     public String findPassengerByUsername(String username) throws SQLException {
         if(getConnection() != null){
             Statement statement = getConnection().createStatement();
-            ResultSet resultSet = statement.executeQuery(String.format("select username from passengers where username = %s", username));
+            ResultSet resultSet = statement.executeQuery(String.format("select username from passengers where username = '%s'", username));
             while (resultSet.next()){
                 return resultSet.getString("username");
             }
@@ -69,7 +69,7 @@ public class PassengerDataAccess extends DataBaseAccess {
         double increasedBalance = findBalanceByUserName(username) + amount;
         if(getConnection() != null){
             Statement statement = getConnection().createStatement();
-            String sqlQuery = String.format( "update passengers set balance = %.2f where username = %s)", increasedBalance, username);
+            String sqlQuery = String.format( "update passengers set balance = %.2f where username = '%s')", increasedBalance, username);
             statement.executeUpdate(sqlQuery);
             System.out.println("Your account balance has been updated.");
         }
@@ -78,7 +78,7 @@ public class PassengerDataAccess extends DataBaseAccess {
     public double findBalanceByUserName(String username) throws SQLException {
         if(getConnection() != null){
             Statement statement = getConnection().createStatement();
-            String sqlQuery = String.format("select balance from passengers where username = %s", username);
+            String sqlQuery = String.format("select balance from passengers where username = '%s'", username);
             ResultSet resultSet = statement.executeQuery(sqlQuery);
             return resultSet.getDouble("balance");
         }
