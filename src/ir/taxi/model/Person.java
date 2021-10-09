@@ -102,6 +102,7 @@ public class Person {
                 ", username='" + username + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", nationalCode=" + nationalCode +
-                ", birthDate=" + birthDate;
+                ", birthDate=" + birthDate +
+                ", status='" + status + '\'';
     }
 }
