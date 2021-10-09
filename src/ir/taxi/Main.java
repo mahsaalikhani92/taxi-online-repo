@@ -157,7 +157,7 @@ public class Main {
                     choiceNumber = Integer.parseInt(choice);
                 }while (choiceNumber != 1);
             }else if(driverDao.findStatusByUsername(username) == Status.ONGOING){
-
+                System.out.println(driverDao.getDriverInformationByUsername(username));
                 int choiceNumber;
                 do{
                     DriverLoginMenu.showDriverLoginMenu();
