@@ -169,7 +169,7 @@ public class Main {
                             confirmCashReceiptByDriver(username);
                             break;
                         case 2:
-                            //TODO
+                            TravelFinishByDriver(username);
                             break;
                         case 3:
                             break;
@@ -202,6 +202,10 @@ public class Main {
         if(tripDao.findPayStatusByDriverUsername(username) == PayStatus.CASH){
             tripDao.updatePayStatusAfterPayingCash(username);
         }
+    }
+
+    private static void TravelFinishByDriver(String username){
+
     }
 
     private static Integer addNewCar() throws SQLException, ClassNotFoundException {
