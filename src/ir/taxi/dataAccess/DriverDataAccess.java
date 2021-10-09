@@ -48,6 +48,18 @@ public class DriverDataAccess extends DataBaseAccess {
         return null;
     }
 
+    public Status findStatusByUsername(String username) throws SQLException {
+        Status status = Status.WAIT;
+        if(getConnection() != null){
+            Statement statement = getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery(String.format("select status from drivers where username = '%s'", username));
+            while (resultSet.next()) {
+                status = Status.valueOf(resultSet.getString("status"));
+            }
+        }
+        return status;
+    }
+
     public void saveNewDriver(Driver driver) throws SQLException {
         if (getConnection() != null) {
             String sqlQuery = "insert into drivers (username, name, family, phone_number, national_code, birth_date, car_fk, plaque, status)" +
