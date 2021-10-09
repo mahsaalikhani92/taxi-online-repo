@@ -1,5 +1,7 @@
 package ir.taxi.model;
 
+import ir.taxi.enumeration.Status;
+
 import java.sql.Date;
 
 /**
@@ -13,10 +15,9 @@ public class Person {
     private String phoneNumber;
     private long nationalCode;
     private Date birthDate;
-    private String status;
+    private Status status;
 
-    public Person(int id, String name, String family, String username, String phoneNumber, long nationalCode, Date birthDate, String status) {
-        this.id = id;
+    public Person(String name, String family, String username, String phoneNumber, long nationalCode, Date birthDate, Status status) {
         this.name = name;
         this.family = family;
         this.username = username;
@@ -85,11 +86,11 @@ public class Person {
         this.birthDate = birthDate;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 

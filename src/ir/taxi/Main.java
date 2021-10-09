@@ -90,7 +90,7 @@ public class Main {
             Date birthDate = getDateFromInput();
             String plaque = getCarPlaqueFromInput();
             int carId = autoIds.get(i);
-            Driver driver = new Driver(driverName, driverFamily, username, phoneNumber, nationalCode, birthDate, plaque, carId);
+            Driver driver = new Driver(driverName, driverFamily, username, phoneNumber, nationalCode, birthDate, Status.STOP, plaque, carId);
             drivers.add(driver);
         }
         if (drivers.size() == driverNumbers) {
@@ -133,7 +133,7 @@ public class Main {
             String phoneNumber = getPhoneNumberFromInput();
             long nationalCode = getNationalCodeFromInput();
             Date birthDate = getDateFromInput();
-            Passenger passenger = new Passenger(passengerName, passengerFamily, username, phoneNumber, nationalCode, birthDate, 0, Status.STOP);
+            Passenger passenger = new Passenger(passengerName, passengerFamily, username, phoneNumber, nationalCode, birthDate, Status.STOP, 0);
             passengers.add(passenger);
         }
         if (passengers.size() == passengerNumbers) {
@@ -228,7 +228,7 @@ public class Main {
         long nationalCode = getNationalCodeFromInput();
         Date birthDate = getDateFromInput();
         String plaque = getCarPlaqueFromInput();
-        Driver driver = new Driver(name, family, username, phoneNumber, nationalCode, birthDate, plaque, carId);
+        Driver driver = new Driver(name, family, username, phoneNumber, nationalCode, birthDate, Status.STOP, plaque, carId);
         driverDao.saveNewDriver(driver);
         System.out.println("Your information was successfully registered.");
     }
@@ -297,7 +297,7 @@ public class Main {
         String phoneNumber = getPhoneNumberFromInput();
         long nationalCode = getNationalCodeFromInput();
         Date birthDate = getDateFromInput();
-        Passenger passenger = new Passenger(name, family, username, phoneNumber, nationalCode, birthDate, 0, Status.STOP);
+        Passenger passenger = new Passenger(name, family, username, phoneNumber, nationalCode, birthDate, Status.STOP, 0);
         passengerDao.saveNewPassenger(passenger);
         System.out.println("Your information was successfully registered.");
     }

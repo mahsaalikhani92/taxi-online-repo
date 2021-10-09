@@ -1,5 +1,7 @@
 package ir.taxi.model;
 
+import ir.taxi.enumeration.Status;
+
 import java.sql.Date;
 
 /**
@@ -10,8 +12,8 @@ public class Driver extends Person{
     private String plaque;
     private int carId;
 
-    public Driver(String name, String family, String username, String phoneNumber, long nationalCode, Date birthDate, String plaque, int carId) {
-        super(name, family, username, phoneNumber, nationalCode, birthDate);
+    public Driver(String name, String family, String username, String phoneNumber, long nationalCode, Date birthDate, Status status, String plaque, int carId) {
+        super(name, family, username, phoneNumber, nationalCode, birthDate, status);
         this.plaque = plaque;
         this.carId = carId;
     }

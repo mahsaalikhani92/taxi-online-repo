@@ -18,8 +18,8 @@ public class DriverDataAccess extends DataBaseAccess {
 
     public void saveGroupOfDrivers(List<Driver> drivers) throws SQLException {
         if (getConnection() != null) {
-            String sqlQuery = "insert into drivers (username, name, family, phone_number, national_code, birth_date, car_fk, plaque)" +
-                    "values(?, ?, ?, ?, ?, ?, ?, ?)";
+            String sqlQuery = "insert into drivers (username, name, family, phone_number, national_code, birth_date, car_fk, plaque, status)" +
+                    "values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = getConnection().prepareStatement(sqlQuery);
             for (Driver item : drivers) {
                 stmt.setString(1, item.getUsername());
@@ -30,6 +30,7 @@ public class DriverDataAccess extends DataBaseAccess {
                 stmt.setDate(6, item.getBirthDate());
                 stmt.setInt(7, item.getCarId());
                 stmt.setString(8, item.getPlaque());
+                stmt.setString(8, item.getStatus().name()); //to string
                 stmt.executeUpdate();
             }
         }
