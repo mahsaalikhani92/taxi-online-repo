@@ -148,7 +148,24 @@ public class Main {
         String username = getUsernameFromInput();
         DriverDataAccess driverDao = new DriverDataAccess();
         if (driverDao.findDriverByUsername(username) != null) {
-            DriverLoginMenu.showDriverLoginMenu();
+            int choiceNumber;
+            do{
+                DriverLoginMenu.showDriverLoginMenu();
+                String choice = getChoiceNumber();
+                choiceNumber = Integer.parseInt(choice);
+                switch (choiceNumber){
+                    case 1:
+                        //TODO
+                        break;
+                    case 2:
+                        //TODO
+                        break;
+                    case 3:
+                        break;
+                    default:
+                        System.out.println("Invalid number!");
+                }
+            }while (choiceNumber != 3);
         } else {
             int choiceNumber;
             do {
