@@ -1,5 +1,6 @@
 package ir.taxi.dataAccess;
 
+import ir.taxi.enumeration.Status;
 import ir.taxi.model.Driver;
 
 import java.sql.*;
@@ -82,6 +83,7 @@ public class DriverDataAccess extends DataBaseAccess {
                 driver.setBirthDate(resultSet.getDate("birth_date"));
                 driver.setPlaque(resultSet.getString("plaque"));
                 driver.setCarId(resultSet.getInt("car_fk"));
+                driver.setStatus(Status.valueOf(resultSet.getString("status"))); //String to enum
                 drivers.add(driver);
             }
             return drivers;
