@@ -17,4 +17,9 @@ public enum DriverLoginMenu {
     public String getExpression() {
         return expression;
     }
+    public static void showDriverLoginMenu(){
+        for (DriverLoginMenu item:DriverLoginMenu.values()) {
+            System.out.println(item.getExpression());
+        }
+    }
 }
