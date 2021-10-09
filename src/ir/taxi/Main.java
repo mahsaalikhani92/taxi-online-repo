@@ -197,10 +197,10 @@ public class Main {
         }
     }
 
-    private void confirmCashReceiptByDriver(String username) throws SQLException, ClassNotFoundException {
+    private static void confirmCashReceiptByDriver(String username) throws SQLException, ClassNotFoundException {
         TripDataAccess tripDao = new TripDataAccess();
         if(tripDao.findPayStatusByDriverUsername(username) == PayStatus.CASH){
-
+            tripDao.updatePayStatusAfterPayingCash(username);
         }
     }
 
