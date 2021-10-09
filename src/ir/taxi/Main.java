@@ -148,6 +148,7 @@ public class Main {
         String username = getUsernameFromInput();
         DriverDataAccess driverDao = new DriverDataAccess();
         if (driverDao.findDriverByUsername(username) != null) {
+
             int choiceNumber;
             do{
                 DriverLoginMenu.showDriverLoginMenu();

@@ -10,12 +10,10 @@ import java.sql.Date;
 public class Passenger extends Person {
 
     private int balance;
-    private Status status;
 
     public Passenger(String name, String family, String username, String phoneNumber, long nationalCode, Date birthDate, int balance, Status status) {
         super(name, family, username, phoneNumber, nationalCode, birthDate);
         this.balance = balance;
-        this.status = status;
     }
 
     public Passenger() {
@@ -27,18 +25,6 @@ public class Passenger extends Person {
 
     public void setBalance(int balance) {
         this.balance = balance;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public void updateBalanceByPassenger(int amount){
-
     }
 
     @Override
