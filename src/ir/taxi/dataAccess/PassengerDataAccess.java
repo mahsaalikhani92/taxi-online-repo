@@ -1,5 +1,6 @@
 package ir.taxi.dataAccess;
 
+import ir.taxi.enumeration.PayStatus;
 import ir.taxi.enumeration.TripStatus;
 import ir.taxi.model.Passenger;
 
@@ -84,6 +85,10 @@ public class PassengerDataAccess extends DataBaseAccess {
             }
         }
         return 0;
+    }
+
+    public PayStatus getPassengerPayStatus(){
+
     }
 
     public List<ir.taxi.model.Passenger> getListOfPassengers() throws SQLException {
