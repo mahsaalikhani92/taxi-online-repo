@@ -156,25 +156,26 @@ public class Main {
                     String choice = getChoiceNumber();
                     choiceNumber = Integer.parseInt(choice);
                 }while (choiceNumber != 1);
+            }else if(driverDao.findStatusByUsername(username) == Status.ONGOING){
+                int choiceNumber;
+                do{
+                    DriverLoginMenu.showDriverLoginMenu();
+                    String choice = getChoiceNumber();
+                    choiceNumber = Integer.parseInt(choice);
+                    switch (choiceNumber){
+                        case 1:
+                            //TODO
+                            break;
+                        case 2:
+                            //TODO
+                            break;
+                        case 3:
+                            break;
+                        default:
+                            System.out.println("Invalid number!");
+                    }
+                }while (choiceNumber != 3);
             }
-            int choiceNumber;
-            do{
-                DriverLoginMenu.showDriverLoginMenu();
-                String choice = getChoiceNumber();
-                choiceNumber = Integer.parseInt(choice);
-                switch (choiceNumber){
-                    case 1:
-                        //TODO
-                        break;
-                    case 2:
-                        //TODO
-                        break;
-                    case 3:
-                        break;
-                    default:
-                        System.out.println("Invalid number!");
-                }
-            }while (choiceNumber != 3);
         } else {
             int choiceNumber;
             do {
