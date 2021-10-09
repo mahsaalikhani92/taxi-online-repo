@@ -87,10 +87,6 @@ public class PassengerDataAccess extends DataBaseAccess {
         return 0;
     }
 
-    public PayStatus getPassengerPayStatus(){
-
-    }
-
     public List<ir.taxi.model.Passenger> getListOfPassengers() throws SQLException {
         if (getConnection() != null) {
             List<ir.taxi.model.Passenger> passengers = new ArrayList<>();
