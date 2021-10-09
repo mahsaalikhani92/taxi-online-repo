@@ -1,7 +1,6 @@
 package ir.taxi.dataAccess;
 
-import ir.taxi.enumeration.Status;
-import ir.taxi.model.Driver;
+import ir.taxi.enumeration.TripStatus;
 import ir.taxi.model.Passenger;
 
 import java.sql.*;
@@ -102,7 +101,7 @@ public class PassengerDataAccess extends DataBaseAccess {
                 passenger.setNationalCode(resultSet.getLong("national_code"));
                 passenger.setBirthDate(resultSet.getDate("birth_date"));
                 passenger.setBalance(resultSet.getInt("balance"));
-                passenger.setStatus(Status.valueOf(resultSet.getString("status"))); //String to enum
+                passenger.setStatus(TripStatus.valueOf(resultSet.getString("status"))); //String to enum
                 passengers.add(passenger);
             }
             return passengers;

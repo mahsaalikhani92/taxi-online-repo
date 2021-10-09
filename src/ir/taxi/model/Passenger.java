@@ -1,6 +1,6 @@
 package ir.taxi.model;
 
-import ir.taxi.enumeration.Status;
+import ir.taxi.enumeration.TripStatus;
 
 import java.sql.Date;
 
@@ -11,7 +11,7 @@ public class Passenger extends Person {
 
     private int balance;
 
-    public Passenger(String name, String family, String username, String phoneNumber, long nationalCode, Date birthDate, Status status, int balance) {
+    public Passenger(String name, String family, String username, String phoneNumber, long nationalCode, Date birthDate, TripStatus status, int balance) {
         super(name, family, username, phoneNumber, nationalCode, birthDate, status);
         this.balance = balance;
     }

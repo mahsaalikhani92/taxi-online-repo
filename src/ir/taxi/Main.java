@@ -90,7 +90,7 @@ public class Main {
             Date birthDate = getDateFromInput();
             String plaque = getCarPlaqueFromInput();
             int carId = autoIds.get(i);
-            Driver driver = new Driver(driverName, driverFamily, username, phoneNumber, nationalCode, birthDate, Status.STOP, plaque, carId);
+            Driver driver = new Driver(driverName, driverFamily, username, phoneNumber, nationalCode, birthDate, TripStatus.STOP, plaque, carId);
             drivers.add(driver);
         }
         if (drivers.size() == driverNumbers) {
@@ -133,7 +133,7 @@ public class Main {
             String phoneNumber = getPhoneNumberFromInput();
             long nationalCode = getNationalCodeFromInput();
             Date birthDate = getDateFromInput();
-            Passenger passenger = new Passenger(passengerName, passengerFamily, username, phoneNumber, nationalCode, birthDate, Status.STOP, 0);
+            Passenger passenger = new Passenger(passengerName, passengerFamily, username, phoneNumber, nationalCode, birthDate, TripStatus.STOP, 0);
             passengers.add(passenger);
         }
         if (passengers.size() == passengerNumbers) {
@@ -148,7 +148,7 @@ public class Main {
         String username = getUsernameFromInput();
         DriverDataAccess driverDao = new DriverDataAccess();
         if (driverDao.findDriverByUsername(username) != null) {
-            if(driverDao.findStatusByUsername(username) == Status.WAIT){
+            if(driverDao.findStatusByUsername(username) == TripStatus.WAIT){
                 int choiceNumber;
                 do{
                     System.out.println("You are waiting for a trip request.");
@@ -156,7 +156,7 @@ public class Main {
                     String choice = getChoiceNumber();
                     choiceNumber = Integer.parseInt(choice);
                 }while (choiceNumber != 1);
-            }else if(driverDao.findStatusByUsername(username) == Status.ONGOING){
+            }else if(driverDao.findStatusByUsername(username) == TripStatus.ONGOING){
                 System.out.println(driverDao.getDriverInformationByUsername(username));
                 int choiceNumber;
                 do{
@@ -238,7 +238,7 @@ public class Main {
         long nationalCode = getNationalCodeFromInput();
         Date birthDate = getDateFromInput();
         String plaque = getCarPlaqueFromInput();
-        Driver driver = new Driver(name, family, username, phoneNumber, nationalCode, birthDate, Status.STOP, plaque, carId);
+        Driver driver = new Driver(name, family, username, phoneNumber, nationalCode, birthDate, TripStatus.STOP, plaque, carId);
         driverDao.saveNewDriver(driver);
         System.out.println("Your information was successfully registered.");
     }
@@ -307,7 +307,7 @@ public class Main {
         String phoneNumber = getPhoneNumberFromInput();
         long nationalCode = getNationalCodeFromInput();
         Date birthDate = getDateFromInput();
-        Passenger passenger = new Passenger(name, family, username, phoneNumber, nationalCode, birthDate, Status.STOP, 0);
+        Passenger passenger = new Passenger(name, family, username, phoneNumber, nationalCode, birthDate, TripStatus.STOP, 0);
         passengerDao.saveNewPassenger(passenger);
         System.out.println("Your information was successfully registered.");
     }

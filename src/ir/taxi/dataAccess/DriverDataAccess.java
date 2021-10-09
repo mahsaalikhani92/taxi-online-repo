@@ -1,6 +1,6 @@
 package ir.taxi.dataAccess;
 
-import ir.taxi.enumeration.Status;
+import ir.taxi.enumeration.TripStatus;
 import ir.taxi.model.Driver;
 
 import java.sql.*;
@@ -48,13 +48,13 @@ public class DriverDataAccess extends DataBaseAccess {
         return null;
     }
 
-    public Status findStatusByUsername(String username) throws SQLException {
-        Status status = Status.WAIT;
+    public TripStatus findStatusByUsername(String username) throws SQLException {
+        TripStatus status = TripStatus.WAIT;
         if(getConnection() != null){
             Statement statement = getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(String.format("select status from drivers where username = '%s'", username));
             while (resultSet.next()) {
-                status = Status.valueOf(resultSet.getString("status"));
+                status = TripStatus.valueOf(resultSet.getString("status"));
             }
         }
         return status;
@@ -94,7 +94,7 @@ public class DriverDataAccess extends DataBaseAccess {
                 driver.setBirthDate(resultSet.getDate("birth_date"));
                 driver.setPlaque(resultSet.getString("plaque"));
                 driver.setCarId(resultSet.getInt("car_fk"));
-                driver.setStatus(Status.valueOf(resultSet.getString("status"))); //String to enum
+                driver.setStatus(TripStatus.valueOf(resultSet.getString("status"))); //String to enum
             }
             return driver;
         }
@@ -117,7 +117,7 @@ public class DriverDataAccess extends DataBaseAccess {
                 driver.setBirthDate(resultSet.getDate("birth_date"));
                 driver.setPlaque(resultSet.getString("plaque"));
                 driver.setCarId(resultSet.getInt("car_fk"));
-                driver.setStatus(Status.valueOf(resultSet.getString("status"))); //String to enum
+                driver.setStatus(TripStatus.valueOf(resultSet.getString("status"))); //String to enum
                 drivers.add(driver);
             }
             return drivers;
