@@ -3,6 +3,7 @@ package ir.taxi;
 import ir.taxi.dataAccess.CarDataAccess;
 import ir.taxi.dataAccess.DriverDataAccess;
 import ir.taxi.dataAccess.PassengerDataAccess;
+import ir.taxi.dataAccess.TripDataAccess;
 import ir.taxi.enumeration.*;
 import ir.taxi.model.Car;
 import ir.taxi.model.Driver;
@@ -165,7 +166,7 @@ public class Main {
                     choiceNumber = Integer.parseInt(choice);
                     switch (choiceNumber){
                         case 1:
-                            confirmCashReceiptByDriver();
+                            confirmCashReceiptByDriver(username);
                             break;
                         case 2:
                             //TODO
@@ -194,6 +195,10 @@ public class Main {
                 }
             } while (choiceNumber != 2);
         }
+    }
+
+    private void confirmCashReceiptByDriver(String username) throws SQLException, ClassNotFoundException {
+        TripDataAccess tripDao = new TripDataAccess();
     }
 
     private static Integer addNewCar() throws SQLException, ClassNotFoundException {
