@@ -79,6 +79,28 @@ public class DriverDataAccess extends DataBaseAccess {
         return;
     }
 
+    public Driver getDriverInformationByUsername(String username) throws SQLException {
+        if(getConnection() != null){
+            Statement statement = getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from drivers where username = '"+ username+"'");
+            Driver driver = new Driver();
+            while (resultSet.next()){
+                driver.setId(resultSet.getInt("driver_id"));
+                driver.setName(resultSet.getString("name"));
+                driver.setFamily(resultSet.getString("family"));
+                driver.setUsername(resultSet.getString("username"));
+                driver.setPhoneNumber(resultSet.getString("phone_number"));
+                driver.setNationalCode(resultSet.getLong("national_code"));
+                driver.setBirthDate(resultSet.getDate("birth_date"));
+                driver.setPlaque(resultSet.getString("plaque"));
+                driver.setCarId(resultSet.getInt("car_fk"));
+                driver.setStatus(Status.valueOf(resultSet.getString("status"))); //String to enum
+            }
+            return driver;
+        }
+        return null;
+    }
+
     public List<Driver> getListOfDrivers() throws SQLException {
         if (getConnection() != null) {
             List<Driver> drivers = new ArrayList<>();
