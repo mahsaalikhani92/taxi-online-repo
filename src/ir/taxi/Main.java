@@ -148,7 +148,15 @@ public class Main {
         String username = getUsernameFromInput();
         DriverDataAccess driverDao = new DriverDataAccess();
         if (driverDao.findDriverByUsername(username) != null) {
-
+            if(driverDao.findStatusByUsername(username) == Status.WAIT){
+                int choiceNumber;
+                do{
+                    System.out.println("You are waiting for a trip request.");
+                    System.out.println("1. Exit");
+                    String choice = getChoiceNumber();
+                    choiceNumber = Integer.parseInt(choice);
+                }while (choiceNumber != 1);
+            }
             int choiceNumber;
             do{
                 DriverLoginMenu.showDriverLoginMenu();
