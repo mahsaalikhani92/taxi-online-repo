@@ -13,14 +13,17 @@ public class Person {
     private String phoneNumber;
     private long nationalCode;
     private Date birthDate;
+    private String status;
 
-    public Person(String name, String family, String username, String phoneNumber, long nationalCode, Date birthDate) {
+    public Person(int id, String name, String family, String username, String phoneNumber, long nationalCode, Date birthDate, String status) {
+        this.id = id;
         this.name = name;
         this.family = family;
         this.username = username;
         this.phoneNumber = phoneNumber;
         this.nationalCode = nationalCode;
         this.birthDate = birthDate;
+        this.status = status;
     }
 
     public Person() {
@@ -80,6 +83,14 @@ public class Person {
 
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
