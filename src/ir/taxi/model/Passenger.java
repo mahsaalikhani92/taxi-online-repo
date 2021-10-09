@@ -11,8 +11,8 @@ public class Passenger extends Person {
 
     private int balance;
 
-    public Passenger(String name, String family, String username, String phoneNumber, long nationalCode, Date birthDate, int balance, Status status) {
-        super(name, family, username, phoneNumber, nationalCode, birthDate);
+    public Passenger(int id, String name, String family, String username, String phoneNumber, long nationalCode, Date birthDate, String status, int balance) {
+        super(id, name, family, username, phoneNumber, nationalCode, birthDate, status);
         this.balance = balance;
     }
 
@@ -30,8 +30,6 @@ public class Passenger extends Person {
     @Override
     public String toString() {
         return super.toString() + "," +
-                "balance=" + balance +
-                ", status=" + status +
-                '}';
+                "balance=" + balance;
     }
 }
