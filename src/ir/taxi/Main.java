@@ -196,10 +196,6 @@ public class Main {
         }
     }
 
-    private static void confirmCashReceiptByDriver(){
-        if()
-    }
-
     private static Integer addNewCar() throws SQLException, ClassNotFoundException {
         System.out.println("Enter car information");
         String model = getCarModelFromInput();
