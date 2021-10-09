@@ -28,4 +28,13 @@ public class TripDataAccess extends DataBaseAccess{
         }
         return payStatus;
     }
+    public void updatePayStatusAfterPayingCash(String username) throws SQLException {
+        if(getConnection() != null){
+            Statement statement = getConnection().createStatement();
+            String sqlQuery = "update trip set pay_status = '"+PayStatus.PAYED.name() +"' " +
+                    "where driver_fk = (select driver_fk from trip inner join drivers" +
+                    "on trip.driver_fk = drivers.driver_id where drivers.username = '"+username+"'";
+            statement.executeUpdate(sqlQuery);
+        }
+    }
 }
