@@ -209,6 +209,7 @@ public class Main {
         if(tripDao.findPayStatusByDriverUsername(username) == PayStatus.PAYED){
             DriverDataAccess driverDao = new DriverDataAccess();
             driverDao.updateDriverLocation(username);
+            driverDao.updateDriverStatusToWaitByUsername(username);
             System.out.println("Driver location is updated.");
         }
     }
