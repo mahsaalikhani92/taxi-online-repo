@@ -60,6 +60,14 @@ public class DriverDataAccess extends DataBaseAccess {
         }
         return status;
     }
+    public void updateDriverStatusToWaitByUsername(String username) throws SQLException {
+        if(getConnection() != null){
+            Statement statement = getConnection().createStatement();
+            String sqlQuery = "update drivers set status = '"+ TripStatus.WAIT +"' " +
+                    "where username = '"+username+"'";
+            statement.executeUpdate(sqlQuery);
+        }
+    }
 
     public void saveNewDriver(Driver driver) throws SQLException {
         if (getConnection() != null) {
