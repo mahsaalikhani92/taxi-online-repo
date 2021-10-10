@@ -19,6 +19,10 @@ public class ValidationUtil {
         return input.matches("[0-9]+");
     }
 
+    public static boolean isDouble(String input){
+        return input.matches("-?\\\\d+(.\\\\d+)?"); //-?\\d+(.\\d+)?
+    }
+
     public static boolean isAlphabetic(String input) {
         return input.matches("^[a-zA-Z0-9]+$");
     }
