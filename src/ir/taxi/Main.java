@@ -204,8 +204,13 @@ public class Main {
         }
     }
 
-    private static void TravelFinishByDriver(String username){
-
+    private static void TravelFinishByDriver(String username) throws SQLException, ClassNotFoundException {
+        TripDataAccess tripDao = new TripDataAccess();
+        if(tripDao.findPayStatusByDriverUsername(username) == PayStatus.PAYED){
+            DriverDataAccess driverDao = new DriverDataAccess();
+            driverDao.updateDriverLocation(username);
+            System.out.println("Driver location is updated.");
+        }
     }
 
     private static Integer addNewCar() throws SQLException, ClassNotFoundException {
