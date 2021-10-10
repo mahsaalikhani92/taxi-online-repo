@@ -2,7 +2,9 @@ package ir.taxi.dataAccess;
 
 import ir.taxi.enumeration.PayStatus;
 import ir.taxi.enumeration.TripStatus;
+import ir.taxi.model.Trip;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -51,6 +53,23 @@ public class TripDataAccess extends DataBaseAccess{
             }
         }
         return coordination;
+    }
+
+    public void saveTrip(Trip trip) throws SQLException {
+        if(getConnection() != null){
+            String sqlQuery = "insert into trip (passenger_fk, driver_fk, origin_lat, origin_long, destination_lat, destination_long," +
+                    "price, trip_date, pay_status) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement stmt = getConnection().prepareStatement(sqlQuery);
+            stmt.setInt(1, trip.getPassengerId());
+            stmt.setInt(2, trip.getDriverId());
+            stmt.setDouble(3, trip.getOriginLat());
+            stmt.setDouble(4, trip.getOriginLong());
+            stmt.setDouble(5, trip.getDestinationLat());
+            stmt.setDouble(6, trip.getDestinationLong());
+            stmt.setInt(7, trip.getPrice());
+            stmt.setDate(8, trip.getTripDate());
+            stmt.setString(9, trip.getPayStatus().name());
+        }
     }
 
 }
