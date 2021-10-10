@@ -4,9 +4,10 @@ package ir.taxi.enumeration;
  * @author Mahsa Alikhani m-58
  */
 public enum PassengerLoginMenu {
-    INCREASE("1. Increase account balance"),
-    TAKE("2. Choose vehicle"),
-    EXIT("3. Exit");
+    TRAVEL1("1. Travel request (pay by cash)"),
+    TRAVEL2("2. Travel request (pay by account balance)"),
+    INCREASE("3. Increase account balance"),
+    EXIT("4. Exit");
 
     private String expression;
 
