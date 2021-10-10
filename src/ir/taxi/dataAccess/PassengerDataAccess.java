@@ -110,6 +110,14 @@ public class PassengerDataAccess extends DataBaseAccess {
         }
         return status;
     }
+    public void updateStatusToONGOINGByUsername(String username) throws SQLException {
+        if(getConnection() != null){
+            Statement statement = getConnection().createStatement();
+            String sqlQuery = "update passengers set status = '"+ TripStatus.ONGOING +"' " +
+                    "where username = '"+username+"'";
+            statement.executeUpdate(sqlQuery);
+        }
+    }
 
     public List<ir.taxi.model.Passenger> getListOfPassengers() throws SQLException {
         if (getConnection() != null) {
