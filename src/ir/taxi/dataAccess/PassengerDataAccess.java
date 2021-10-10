@@ -2,6 +2,7 @@ package ir.taxi.dataAccess;
 
 import ir.taxi.enumeration.PayStatus;
 import ir.taxi.enumeration.TripStatus;
+import ir.taxi.model.Driver;
 import ir.taxi.model.Passenger;
 
 import java.sql.*;
@@ -85,6 +86,26 @@ public class PassengerDataAccess extends DataBaseAccess {
             }
         }
         return 0;
+    }
+    public Passenger getPassengerInformationByUsername(String username) throws SQLException {
+        if(getConnection() != null){
+            Statement statement = getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from passengers where username = '"+ username+"'");
+            Passenger passenger = new Passenger();
+            while (resultSet.next()){
+                passenger.setId(resultSet.getInt("driver_id"));
+                passenger.setName(resultSet.getString("name"));
+                passenger.setFamily(resultSet.getString("family"));
+                passenger.setUsername(resultSet.getString("username"));
+                passenger.setPhoneNumber(resultSet.getString("phone_number"));
+                passenger.setNationalCode(resultSet.getLong("national_code"));
+                passenger.setBirthDate(resultSet.getDate("birth_date"));
+                passenger.setBalance(resultSet.getInt("balance"));
+                passenger.setStatus(TripStatus.valueOf(resultSet.getString("status"))); //String to enum
+            }
+            return passenger;
+        }
+        return null;
     }
 
     public int findPassengerIdByUsername(String username) throws SQLException {
