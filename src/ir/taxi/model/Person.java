@@ -3,6 +3,7 @@ package ir.taxi.model;
 import ir.taxi.enumeration.TripStatus;
 
 import java.sql.Date;
+import java.util.Objects;
 
 /**
  * @author Mahsa Alikhani m-58
@@ -105,5 +106,18 @@ public class Person {
                 ", nationalCode=" + nationalCode +
                 ", birthDate=" + birthDate +
                 ", status='" + status + '\'';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return id == person.id && nationalCode == person.nationalCode && Objects.equals(username, person.username);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, nationalCode);
     }
 }
