@@ -99,7 +99,17 @@ public class PassengerDataAccess extends DataBaseAccess {
         return 0;
     }
 
-    public
+    public TripStatus findStatusByUsername(String username) throws SQLException {
+        TripStatus status = TripStatus.STOP;
+        if(getConnection() != null){
+            Statement statement = getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery(String.format("select status from passengers where username = '%s'", username));
+            while (resultSet.next()) {
+                status = TripStatus.valueOf(resultSet.getString("status"));
+            }
+        }
+        return status;
+    }
 
     public List<ir.taxi.model.Passenger> getListOfPassengers() throws SQLException {
         if (getConnection() != null) {
