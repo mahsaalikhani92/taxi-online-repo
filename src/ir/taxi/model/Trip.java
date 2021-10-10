@@ -20,7 +20,7 @@ public class Trip {
     private Date tripDate;
     private PayStatus payStatus;
 
-    public Trip(int passengerId, int driverId, double originLat, double originLong, double destinationLat, double destinationLong, int price, Date tripDate, PayStatus payStatus) {
+    public Trip(int passengerId, int driverId, double originLat, double originLong, double destinationLat, double destinationLong, Date tripDate, PayStatus payStatus) {
         this.passengerId = passengerId;
         this.driverId = driverId;
         this.originLat = originLat;
