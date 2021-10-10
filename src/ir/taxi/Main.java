@@ -266,6 +266,7 @@ public class Main {
         String username = getUsernameFromInput();
         PassengerDataAccess passengerDao = new PassengerDataAccess();
         if (passengerDao.findPassengerByUsername(username) != null) {
+            //print passenger information here//////***
             System.out.println(username);
             int choiceNumber;
             do {
@@ -274,12 +275,15 @@ public class Main {
                 choiceNumber = Integer.parseInt(choice);
                 switch (choiceNumber) {
                     case 1:
-                        increasePassengerBalance(username, passengerDao);
+                        getOriginDestination(username);
                         break;
                     case 2:
-                        chooseVehicleByPassenger();
+                        //TODO
                         break;
                     case 3:
+                        increasePassengerBalance(username, passengerDao);
+                        break;
+                    case 4:
                         break;
                     default:
                         System.out.println("Invalid number!");
@@ -303,6 +307,23 @@ public class Main {
                 }
             } while (choiceNumber != 2);
         }
+    }
+
+    private static void getOriginDestination(String username) throws SQLException, ClassNotFoundException {
+        String input;
+        do{
+            System.out.println("Enter the origin and destination of your travel:");
+            input = scanner.nextLine();
+        }while (!ValidationUtil.isDouble(input));
+        String[] coordinate = input.split("\\s+");
+        String[] origin = coordinate[0].split(",");
+        String[] destination = coordinate[1].split(",");
+        double originLat = Double.parseDouble(origin[0]);
+        double originLong = Double.parseDouble(origin[1]);
+        double destinationLat = Double.parseDouble(destination[0]);
+        double destinationLong = Double.parseDouble(destination[1]);
+        TripDataAccess tripDao = new TripDataAccess();
+
     }
 
     private static void increasePassengerBalance(String username, PassengerDataAccess passengerDao) throws SQLException {
