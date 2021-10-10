@@ -68,6 +68,14 @@ public class DriverDataAccess extends DataBaseAccess {
             statement.executeUpdate(sqlQuery);
         }
     }
+    public void updateDriverStatusToONGOINGByUsername(String username) throws SQLException {
+        if(getConnection() != null){
+            Statement statement = getConnection().createStatement();
+            String sqlQuery = "update drivers set status = '"+ TripStatus.ONGOING +"' " +
+                    "where username = '"+username+"'";
+            statement.executeUpdate(sqlQuery);
+        }
+    }
 
     public void saveNewDriver(Driver driver) throws SQLException {
         if (getConnection() != null) {
