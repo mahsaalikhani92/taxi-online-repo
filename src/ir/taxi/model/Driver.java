@@ -11,6 +11,8 @@ public class Driver extends Person{
 
     private String plaque;
     private int carId;
+    private double currentLocationLat;
+    private double currentLocationLong;
 
     public Driver(String name, String family, String username, String phoneNumber, long nationalCode, Date birthDate, TripStatus status, String plaque, int carId) {
         super(name, family, username, phoneNumber, nationalCode, birthDate, status);
@@ -35,6 +37,22 @@ public class Driver extends Person{
 
     public void setCarId(int carId) {
         this.carId = carId;
+    }
+
+    public double getCurrentLocationLat() {
+        return currentLocationLat;
+    }
+
+    public void setCurrentLocationLat(double currentLocationLat) {
+        this.currentLocationLat = currentLocationLat;
+    }
+
+    public double getCurrentLocationLong() {
+        return currentLocationLong;
+    }
+
+    public void setCurrentLocationLong(double currentLocationLong) {
+        this.currentLocationLong = currentLocationLong;
     }
 
     @Override
