@@ -1,5 +1,6 @@
 package ir.taxi.dataAccess;
 
+import ir.taxi.enumeration.PayStatus;
 import ir.taxi.enumeration.TripStatus;
 import ir.taxi.model.Driver;
 
@@ -99,6 +100,17 @@ public class DriverDataAccess extends DataBaseAccess {
             return driver;
         }
         return null;
+    }
+
+    public void updateDriverLocation(String username) throws SQLException, ClassNotFoundException {
+        TripDataAccess tripDao = new TripDataAccess();
+        List<Double>destinationCoordinate = tripDao.findDestinationCoordinationByUsername(username);
+        if(getConnection() != null){
+            Statement statement = getConnection().createStatement();
+            String sqlQuery = "update drivers set current_lat = '"+ destinationCoordinate.get(0) +"', current_long = '"+ destinationCoordinate.get(1) +"' " +
+                    "where username = '"+username+"'";
+            statement.executeUpdate(sqlQuery);
+        }
     }
 
     public List<Driver> getListOfDrivers() throws SQLException {
