@@ -76,16 +76,22 @@ public class DriverDataAccess extends DataBaseAccess {
             statement.executeUpdate(sqlQuery);
         }
     }
-    public List<Double>findDriverLocationByWaitStatus() throws SQLException {
+    public List<Driver>findDriverByWaitStatus() throws SQLException {
         if(getConnection() != null){
             Statement statement = getConnection().createStatement();
-            ResultSet resultSet = statement.executeQuery("select current_lat, current_long from drivers where status = STOP");
-            List<Double>driverCoordinate = new ArrayList<>();
+            ResultSet resultSet = statement.executeQuery("select driver_id, username, plaque, current_lat, current_long" +
+                    " from drivers where status = STOP");
+            List<Driver>drivers = new ArrayList<>();
             while (resultSet.next()){
-                driverCoordinate.add(resultSet.getDouble("current_lat"));
-                driverCoordinate.add(resultSet.getDouble("current_long"));
+                Driver driver = new Driver();
+                driver.setId(resultSet.getInt("driver_id"));
+                driver.setUsername(resultSet.getString("username"));
+                driver.setPlaque(resultSet.getString("plaque"));
+                driver.setCurrentLocationLat(resultSet.getDouble("current_lat"));
+                driver.setCurrentLocationLong(resultSet.getDouble("current_long"));
+                drivers.add(driver);
             }
-            return driverCoordinate;
+            return drivers;
         }
         return null;
     }
