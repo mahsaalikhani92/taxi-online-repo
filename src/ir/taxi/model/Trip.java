@@ -32,6 +32,9 @@ public class Trip {
         this.payStatus = payStatus;
     }
 
+    public Trip() {
+    }
+
     public int calculateTripPrice(double origLat, double origLong, double destLat, double destLong){
         double distance = Math.sqrt((Math.exp(origLat) - Math.exp(destLat)) + ((Math.exp(origLong)) - Math.exp(destLong)));
         return (int) (1000 * distance);
