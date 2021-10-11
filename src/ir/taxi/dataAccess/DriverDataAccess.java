@@ -79,13 +79,15 @@ public class DriverDataAccess extends DataBaseAccess {
     public List<Driver>findDriverByWaitStatus() throws SQLException {
         if(getConnection() != null){
             Statement statement = getConnection().createStatement();
-            ResultSet resultSet = statement.executeQuery("select driver_id, username, plaque, current_lat, current_long" +
+            ResultSet resultSet = statement.executeQuery("select driver_id, username, name, family, plaque, current_lat, current_long" +
                     " from drivers where status = STOP");
             List<Driver>drivers = new ArrayList<>();
             while (resultSet.next()){
                 Driver driver = new Driver();
                 driver.setId(resultSet.getInt("driver_id"));
                 driver.setUsername(resultSet.getString("username"));
+                driver.setName(resultSet.getString("name"));
+                driver.setFamily(resultSet.getString("family"));
                 driver.setPlaque(resultSet.getString("plaque"));
                 driver.setCurrentLocationLat(resultSet.getDouble("current_lat"));
                 driver.setCurrentLocationLong(resultSet.getDouble("current_long"));
