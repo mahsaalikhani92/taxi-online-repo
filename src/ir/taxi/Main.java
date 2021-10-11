@@ -5,16 +5,11 @@ import ir.taxi.dataAccess.DriverDataAccess;
 import ir.taxi.dataAccess.PassengerDataAccess;
 import ir.taxi.dataAccess.TripDataAccess;
 import ir.taxi.enumeration.*;
-import ir.taxi.model.Car;
-import ir.taxi.model.Driver;
-import ir.taxi.model.Passenger;
-import ir.taxi.model.Taxi;
+import ir.taxi.model.*;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.*;
 import java.sql.Date;
-import java.util.List;
-import java.util.Scanner;
 
 /**
  * @author Mahsa Alikhani m-58
@@ -266,8 +261,7 @@ public class Main {
         String username = getUsernameFromInput();
         PassengerDataAccess passengerDao = new PassengerDataAccess();
         if (passengerDao.findPassengerByUsername(username) != null) {
-            //print passenger information here//////***
-            System.out.println(username);
+            System.out.println(passengerDao.getPassengerInformationByUsername(username));
             int choiceNumber;
             do {
                 PassengerLoginMenu.showPassengerLoginMenu();
@@ -275,10 +269,14 @@ public class Main {
                 choiceNumber = Integer.parseInt(choice);
                 switch (choiceNumber) {
                     case 1:
-                        getOriginDestination(username);
+                        if(passengerDao.findStatusByUsername(username) == TripStatus.STOP){
+                            getOriginDestination(username);
+                        }
                         break;
                     case 2:
-                        //TODO
+                        if(passengerDao.findStatusByUsername(username) == TripStatus.STOP){
+                            //TODO
+                        }
                         break;
                     case 3:
                         increasePassengerBalance(username, passengerDao);
@@ -322,8 +320,34 @@ public class Main {
         double originLong = Double.parseDouble(origin[1]);
         double destinationLat = Double.parseDouble(destination[0]);
         double destinationLong = Double.parseDouble(destination[1]);
-        TripDataAccess tripDao = new TripDataAccess();
+        findAvailableDriver(username, originLat, originLong, destinationLat, destinationLong);
+    }
+    private static void findAvailableDriver(String username, double originLat, double originLong, double destinationLat, double destinationLong) throws SQLException, ClassNotFoundException {
+        DriverDataAccess driverDao = new DriverDataAccess();
+        List<Driver>foundDrivers = driverDao.findDriverByWaitStatus();
+        List<Double>distances = new ArrayList<>();
+        for (Driver item:foundDrivers) {
+            double locLat = item.getCurrentLocationLat();
+            double locLong = item.getCurrentLocationLong();
+            double distance = Math.sqrt((Math.exp(locLat) - Math.exp(originLat)) + ((Math.exp(locLong)) - Math.exp(originLong)));
+            distances.add(distance);
+        }
+        double minDistance = Collections.min(distances);
+        int index = distances.indexOf(minDistance);
+        int availableDriverId = foundDrivers.get(index).getId();
 
+        setupTrip(username, originLat, originLong, destinationLat, destinationLong, driverDao, foundDrivers, index, availableDriverId);
+    }
+
+    private static void setupTrip(String username, double originLat, double originLong, double destinationLat, double destinationLong, DriverDataAccess driverDao, List<Driver> foundDrivers, int index, int availableDriverId) throws ClassNotFoundException, SQLException {
+        PassengerDataAccess passengerDao = new PassengerDataAccess();
+        int passengerID = passengerDao.findPassengerIdByUsername(username);
+        Date tripDate = getDateFromInput();
+        Trip trip = new Trip(passengerID, availableDriverId, originLat, originLong, destinationLat, destinationLong, tripDate, PayStatus.CASH);
+        TripDataAccess tripDao = new TripDataAccess();
+        tripDao.saveTrip(trip);
+        passengerDao.updateStatusToONGOINGByUsername(username);
+        driverDao.updateDriverStatusToONGOINGByUsername(foundDrivers.get(index).getUsername());
     }
 
     private static void increasePassengerBalance(String username, PassengerDataAccess passengerDao) throws SQLException {
