@@ -76,6 +76,19 @@ public class DriverDataAccess extends DataBaseAccess {
             statement.executeUpdate(sqlQuery);
         }
     }
+    public List<Double>findDriverByWaitStatus() throws SQLException {
+        if(getConnection() != null){
+            Statement statement = getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery("select current_lat, current_long from drivers where status = STOP");
+            List<Double>driverCoordinate = new ArrayList<>();
+            while (resultSet.next()){
+                driverCoordinate.add(resultSet.getDouble("current_lat"));
+                driverCoordinate.add(resultSet.getDouble("current_long"));
+            }
+            return driverCoordinate;
+        }
+        return null;
+    }
 
     public void saveNewDriver(Driver driver) throws SQLException {
         if (getConnection() != null) {
