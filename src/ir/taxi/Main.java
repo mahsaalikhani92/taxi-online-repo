@@ -270,12 +270,43 @@ public class Main {
                 switch (choiceNumber) {
                     case 1:
                         if(passengerDao.findStatusByUsername(username) == TripStatus.STOP){
-                            getOriginDestination(username);
+                            Double[] point = getOriginDestination(username);
+                            double originLat = point[0];
+                            double originLong = point[1];
+                            double destinationLat = point[2];
+                            double destinationLong = point[3];
+                            findAvailableDriver(username, originLat, originLong, destinationLat, destinationLong);
                         }
                         break;
                     case 2:
                         if(passengerDao.findStatusByUsername(username) == TripStatus.STOP){
-                            //TODO
+                            Double[] point = getOriginDestination(username);
+                            double originLat = point[0];
+                            double originLong = point[1];
+                            double destinationLat = point[2];
+                            double destinationLong = point[3];
+                            Trip trip = new Trip();
+                            int tripPrice = trip.calculateTripPrice(originLat, originLong, destinationLat, destinationLong);
+                            if(passengerDao.findBalanceByUserName(username) < tripPrice){
+                                System.out.println("Your balance is not enough!");
+                                do{
+                                    System.out.println("1. Increase account balance");
+                                    System.out.println("2. Exit");
+                                    choice = getChoiceNumber();
+                                    choiceNumber = Integer.parseInt(choice);
+                                }while (choiceNumber == 2);
+                                switch (choiceNumber){
+                                    case 1:
+                                        increasePassengerBalance(username, passengerDao);
+                                        break;
+                                    case 2:
+                                        break;
+                                    default:
+                                        System.out.println("Invalid value");
+                                }
+                            }else{
+                                findAvailableDriver(username, originLat, originLong, destinationLat, destinationLong);
+                            }
                         }
                         break;
                     case 3:
@@ -307,20 +338,25 @@ public class Main {
         }
     }
 
-    private static void getOriginDestination(String username) throws SQLException, ClassNotFoundException {
+    private static Double[] getOriginDestination(String username) throws SQLException, ClassNotFoundException {
         String input;
         do{
             System.out.println("Enter the origin and destination of your travel:");
             input = scanner.nextLine();
         }while (!ValidationUtil.isDouble(input));
+        Double[] point = new Double[4];
         String[] coordinate = input.split("\\s+");
         String[] origin = coordinate[0].split(",");
         String[] destination = coordinate[1].split(",");
         double originLat = Double.parseDouble(origin[0]);
+        point[0] = originLat;
         double originLong = Double.parseDouble(origin[1]);
+        point[1] = originLong;
         double destinationLat = Double.parseDouble(destination[0]);
+        point[2] = destinationLat;
         double destinationLong = Double.parseDouble(destination[1]);
-        findAvailableDriver(username, originLat, originLong, destinationLat, destinationLong);
+        point[3] = destinationLong;
+        return point;
     }
     private static void findAvailableDriver(String username, double originLat, double originLong, double destinationLat, double destinationLong) throws SQLException, ClassNotFoundException {
         DriverDataAccess driverDao = new DriverDataAccess();
