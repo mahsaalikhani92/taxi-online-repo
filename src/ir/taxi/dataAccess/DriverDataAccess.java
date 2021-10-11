@@ -76,7 +76,7 @@ public class DriverDataAccess extends DataBaseAccess {
             statement.executeUpdate(sqlQuery);
         }
     }
-    public List<Double>findDriverByWaitStatus() throws SQLException {
+    public List<Double>findDriverLocationByWaitStatus() throws SQLException {
         if(getConnection() != null){
             Statement statement = getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery("select current_lat, current_long from drivers where status = STOP");
