@@ -442,7 +442,7 @@ public class Main {
             amount = scanner.next();
         } while (!ValidationUtil.isNumeric(amount));
         double amountNumber = Double.parseDouble(amount);
-        passengerDao.updateBalance(username, amountNumber);
+        passengerDao.IncreaseBalance(username, amountNumber);
     }
 
     private static void passengerRegister(PassengerDataAccess passengerDao) throws SQLException{

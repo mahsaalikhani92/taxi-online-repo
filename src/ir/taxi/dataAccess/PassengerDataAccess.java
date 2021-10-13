@@ -66,13 +66,12 @@ public class PassengerDataAccess extends DataBaseAccess {
         return;
     }
 
-    public void updateBalance(String username, double amount) throws SQLException {
+    public void increaseBalance(String username, double amount) throws SQLException {
         double increasedBalance = findBalanceByUserName(username) + amount;
         if(getConnection() != null){
             Statement statement = getConnection().createStatement();
             String sqlQuery = ("update passengers set balance = '"+increasedBalance+"' where username ='"+ username+"'");
             statement.executeUpdate(sqlQuery);
-            System.out.println("Your account balance has been updated.");
         }
     }
 
