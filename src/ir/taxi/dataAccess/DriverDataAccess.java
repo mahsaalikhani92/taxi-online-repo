@@ -71,13 +71,15 @@ public class DriverDataAccess extends DataBaseAccess {
         return null;
     }
 
-    public TripStatus findStatusByUsername(String username) throws SQLException {
+    public TripStatus findStatusByUsername(String username) throws Exception {
         TripStatus status = TripStatus.WAIT;
         if(getConnection() != null){
             Statement statement = getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(String.format("select status from drivers where username = '%s'", username));
             while (resultSet.next()) {
                 status = TripStatus.valueOf(resultSet.getString("status"));
+                if(status == null)
+                    throw new Exception("driver status in null.");
             }
         }
         return status;

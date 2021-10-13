@@ -161,36 +161,40 @@ public class Main {
         String username = getUsernameFromInput();
         DriverDataAccess driverDao = new DriverDataAccess();
         if (driverDao.findDriverByUsername(username) != null) {
-            if(driverDao.findStatusByUsername(username) == TripStatus.WAIT){
-                Double[] point = getDriverLocation();
-                driverDao.UpdateDriverLocationByUsername(username, point);
-                int choiceNumber;
-                do{
-                    System.out.println("You are waiting for a trip request.");
-                    System.out.println("1. Exit");
-                    String choice = getChoiceNumber();
-                    choiceNumber = Integer.parseInt(choice);
-                }while (choiceNumber != 1);
-            }else if(driverDao.findStatusByUsername(username) == TripStatus.ONGOING){
-                System.out.println(driverDao.getDriverInformationByUsername(username));
-                int choiceNumber;
-                do{
-                    DriverLoginMenu.showDriverLoginMenu();
-                    String choice = getChoiceNumber();
-                    choiceNumber = Integer.parseInt(choice);
-                    switch (choiceNumber){
-                        case 1:
-                            confirmCashReceiptByDriver(username);
-                            break;
-                        case 2:
-                            TravelFinishByDriver(username);
-                            break;
-                        case 3:
-                            break;
-                        default:
-                            System.out.println("Invalid number!");
-                    }
-                }while (choiceNumber != 3);
+            try {
+                if(driverDao.findStatusByUsername(username) == TripStatus.WAIT){
+                    Double[] point = getDriverLocation();
+                    driverDao.UpdateDriverLocationByUsername(username, point);
+                    int choiceNumber;
+                    do{
+                        System.out.println("You are waiting for a trip request.");
+                        System.out.println("1. Exit");
+                        String choice = getChoiceNumber();
+                        choiceNumber = Integer.parseInt(choice);
+                    }while (choiceNumber != 1);
+                }else if(driverDao.findStatusByUsername(username) == TripStatus.ONGOING){
+                    System.out.println(driverDao.getDriverInformationByUsername(username));
+                    int choiceNumber;
+                    do{
+                        DriverLoginMenu.showDriverLoginMenu();
+                        String choice = getChoiceNumber();
+                        choiceNumber = Integer.parseInt(choice);
+                        switch (choiceNumber){
+                            case 1:
+                                confirmCashReceiptByDriver(username);
+                                break;
+                            case 2:
+                                TravelFinishByDriver(username);
+                                break;
+                            case 3:
+                                break;
+                            default:
+                                System.out.println("Invalid number!");
+                        }
+                    }while (choiceNumber != 3);
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         } else {
             int choiceNumber;
