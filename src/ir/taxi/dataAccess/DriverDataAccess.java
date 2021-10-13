@@ -112,7 +112,7 @@ public class DriverDataAccess extends DataBaseAccess {
         if(getConnection() != null){
             Statement statement = getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery("select driver_id, username, name, family, plaque, current_lat, current_long" +
-                    " from drivers where status = STOP");
+                    " from drivers where status = 'WAIT'");
             List<Driver>drivers = new ArrayList<>();
             while (resultSet.next()){
                 Driver driver = new Driver();
