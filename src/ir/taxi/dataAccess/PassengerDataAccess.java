@@ -120,6 +120,27 @@ public class PassengerDataAccess extends DataBaseAccess {
         return 0;
     }
 
+    public List<Passenger> findPassengerById(int id) throws SQLException {
+        if(getConnection() != null){
+            Statement statement = getConnection().createStatement();
+            String sqlQuery = String.format("select name, family, phone_number, balance, status from passengers" +
+                    " where passenger_id = %d", id);
+            ResultSet resultSet = statement.executeQuery(sqlQuery);
+            List<Passenger> passengerInfo = new ArrayList<>();
+            while (resultSet.next()){
+                Passenger passenger = new Passenger();
+                passenger.setName(resultSet.getString("name"));
+                passenger.setFamily(resultSet.getString("family"));
+                passenger.setPhoneNumber(resultSet.getString("phone_number"));
+                passenger.setBalance(resultSet.getInt("balance"));
+                passenger.setStatus(TripStatus.valueOf(resultSet.getString("status")));
+                passengerInfo.add(passenger);
+            }
+            return passengerInfo;
+        }
+        return null;
+    }
+
     public TripStatus findStatusByUsername(String username) throws SQLException {
         TripStatus status = TripStatus.STOP;
         if(getConnection() != null){
