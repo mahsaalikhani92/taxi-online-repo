@@ -49,6 +49,16 @@ public class DriverDataAccess extends DataBaseAccess {
         }
         return null;
     }
+    public int findDriverIdByUsername(String username) throws SQLException {
+        if (getConnection() != null) {
+            Statement statement = getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery(String.format("select driver_id from drivers where username = '%s'", username));
+            while (resultSet.next()) {
+                return resultSet.getInt("driver_id");
+            }
+        }
+        return 0;
+    }
 
     public List<Driver> findDriverById(int id) throws SQLException {
         if(getConnection() != null){
