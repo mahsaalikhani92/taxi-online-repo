@@ -168,6 +168,14 @@ public class PassengerDataAccess extends DataBaseAccess {
             statement.executeUpdate(sqlQuery);
         }
     }
+    public void updateStatusToSTOPById(int id) throws SQLException {
+        if(getConnection() != null){
+            Statement statement = getConnection().createStatement();
+            String sqlQuery = "update passengers set status = '"+ TripStatus.STOP +"' " +
+                    "where passenger_id = '"+id+"'";
+            statement.executeUpdate(sqlQuery);
+        }
+    }
 
     public List<ir.taxi.model.Passenger> getListOfPassengers() throws SQLException {
         if (getConnection() != null) {
