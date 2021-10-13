@@ -425,7 +425,7 @@ public class Main {
         int availableDriverId = foundDrivers.get(index).getId();
         PassengerDataAccess passengerDao = new PassengerDataAccess();
         int passengerID = passengerDao.findPassengerIdByUsername(username);
-        Date tripDate = getBirthDateFromInput();
+        Date tripDate = getTripDateFromInput();
         Trip trip = new Trip(passengerID, availableDriverId, originLat, originLong, destinationLat, destinationLong, tripDate, payStatus);
         TripDataAccess tripDao = new TripDataAccess();
         tripDao.saveTrip(trip);
