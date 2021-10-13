@@ -441,8 +441,8 @@ public class Main {
             System.out.println("Enter amount in RIAL:");
             amount = scanner.next();
         } while (!ValidationUtil.isNumeric(amount));
-        double amountNumber = Double.parseDouble(amount);
-        passengerDao.IncreaseBalance(username, amountNumber);
+        int amountNumber = Integer.parseInt(amount);
+        passengerDao.increaseBalance(username, amountNumber);
     }
 
     private static void passengerRegister(PassengerDataAccess passengerDao) throws SQLException{
