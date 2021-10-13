@@ -143,7 +143,7 @@ public class DriverDataAccess extends DataBaseAccess {
             stmt.setDate(6, driver.getBirthDate());
             stmt.setInt(7, driver.getCarId());
             stmt.setString(8, driver.getPlaque());
-            stmt.setString(8, driver.getStatus().name()); //to string
+            stmt.setString(9, driver.getStatus().name()); //to string
             stmt.executeUpdate();
         }
         return;
