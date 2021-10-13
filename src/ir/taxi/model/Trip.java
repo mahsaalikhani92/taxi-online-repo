@@ -121,6 +121,15 @@ public class Trip {
     }
 
     @Override
+    public String toString() {
+        return "Ongoing Trip" +
+                "Origin: " + originLat + ", " + originLong +"\n" +
+                "Destination: " + destinationLat + ", " + destinationLong + "\n" +
+                "Price: " + price + "\n" +
+                "Date: " + tripDate;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
