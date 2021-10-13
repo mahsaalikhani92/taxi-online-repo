@@ -100,7 +100,7 @@ public class Main {
             String username = getUsernameFromInput();
             String phoneNumber = getPhoneNumberFromInput();
             long nationalCode = getNationalCodeFromInput();
-            Date birthDate = getDateFromInput();
+            Date birthDate = getBirthDateFromInput();
             String plaque = getCarPlaqueFromInput();
             int carId = autoIds.get(i);
             Driver driver = new Driver(driverName, driverFamily, username, phoneNumber, nationalCode, birthDate, TripStatus.STOP, plaque, carId);
@@ -145,7 +145,7 @@ public class Main {
             String username = getUsernameFromInput();
             String phoneNumber = getPhoneNumberFromInput();
             long nationalCode = getNationalCodeFromInput();
-            Date birthDate = getDateFromInput();
+            Date birthDate = getBirthDateFromInput();
             Passenger passenger = new Passenger(passengerName, passengerFamily, username, phoneNumber, nationalCode, birthDate, TripStatus.STOP, 0);
             passengers.add(passenger);
         }
@@ -275,7 +275,7 @@ public class Main {
         } while (driverDao.findDriverByUsername(username) != null);
         String phoneNumber = getPhoneNumberFromInput();
         long nationalCode = getNationalCodeFromInput();
-        Date birthDate = getDateFromInput();
+        Date birthDate = getBirthDateFromInput();
         String plaque = getCarPlaqueFromInput();
         Driver driver = new Driver(name, family, username, phoneNumber, nationalCode, birthDate, TripStatus.WAIT, plaque, carId);
         driverDao.saveNewDriver(driver);
@@ -425,7 +425,7 @@ public class Main {
         int availableDriverId = foundDrivers.get(index).getId();
         PassengerDataAccess passengerDao = new PassengerDataAccess();
         int passengerID = passengerDao.findPassengerIdByUsername(username);
-        Date tripDate = getDateFromInput();
+        Date tripDate = getBirthDateFromInput();
         Trip trip = new Trip(passengerID, availableDriverId, originLat, originLong, destinationLat, destinationLong, tripDate, payStatus);
         TripDataAccess tripDao = new TripDataAccess();
         tripDao.saveTrip(trip);
@@ -454,7 +454,7 @@ public class Main {
         } while (passengerDao.findPassengerByUsername(username) != null);
         String phoneNumber = getPhoneNumberFromInput();
         long nationalCode = getNationalCodeFromInput();
-        Date birthDate = getDateFromInput();
+        Date birthDate = getBirthDateFromInput();
         Passenger passenger = new Passenger(name, family, username, phoneNumber, nationalCode, birthDate, TripStatus.STOP, 0);
         passengerDao.saveNewPassenger(passenger);
         System.out.println("Your information was successfully registered.");
@@ -477,7 +477,7 @@ public class Main {
         return plaque;
     }
 
-    private static Date getDateFromInput(){
+    private static Date getBirthDateFromInput(){
         String date;
         do {
             System.out.println("Enter birth date like 1370-02-12:");
@@ -485,6 +485,15 @@ public class Main {
         } while (!ValidationUtil.isValidFormatDate(date));
         Date birthDate = java.sql.Date.valueOf(date);//converting string into sql date
         return birthDate;
+    }
+    private static Date getTripDateFromInput(){
+        String date;
+        do {
+            System.out.println("Enter trip date like 1400-07-01:");
+            date = scanner.next();
+        } while (!ValidationUtil.isValidFormatDate(date));
+        Date TripDate = java.sql.Date.valueOf(date);//converting string into sql date
+        return TripDate;
     }
 
     private static long getNationalCodeFromInput() {
