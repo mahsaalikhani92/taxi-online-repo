@@ -277,7 +277,7 @@ public class Main {
         long nationalCode = getNationalCodeFromInput();
         Date birthDate = getDateFromInput();
         String plaque = getCarPlaqueFromInput();
-        Driver driver = new Driver(name, family, username, phoneNumber, nationalCode, birthDate, TripStatus.STOP, plaque, carId);
+        Driver driver = new Driver(name, family, username, phoneNumber, nationalCode, birthDate, TripStatus.WAIT, plaque, carId);
         driverDao.saveNewDriver(driver);
         System.out.println("Your information was successfully registered.");
     }
