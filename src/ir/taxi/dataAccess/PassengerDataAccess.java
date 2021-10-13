@@ -93,7 +93,7 @@ public class PassengerDataAccess extends DataBaseAccess {
             ResultSet resultSet = statement.executeQuery("select * from passengers where username = '"+ username+"'");
             Passenger passenger = new Passenger();
             while (resultSet.next()){
-                passenger.setId(resultSet.getInt("driver_id"));
+                passenger.setId(resultSet.getInt("passenger_id"));
                 passenger.setName(resultSet.getString("name"));
                 passenger.setFamily(resultSet.getString("family"));
                 passenger.setUsername(resultSet.getString("username"));
