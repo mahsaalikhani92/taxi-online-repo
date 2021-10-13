@@ -162,7 +162,8 @@ public class Main {
         DriverDataAccess driverDao = new DriverDataAccess();
         if (driverDao.findDriverByUsername(username) != null) {
             if(driverDao.findStatusByUsername(username) == TripStatus.WAIT){
-                //TODO
+                Double[] point = getDriverLocation();
+                driverDao.UpdateDriverLocationByUsername(username, point);
                 int choiceNumber;
                 do{
                     System.out.println("You are waiting for a trip request.");
