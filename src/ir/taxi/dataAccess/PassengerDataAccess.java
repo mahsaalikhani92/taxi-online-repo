@@ -111,7 +111,7 @@ public class PassengerDataAccess extends DataBaseAccess {
     public int findPassengerIdByUsername(String username) throws SQLException {
         if(getConnection() != null){
             Statement statement = getConnection().createStatement();
-            String sqlQuery = String.format("select passenger_id from passengers where username = %s", username);
+            String sqlQuery = String.format("select passenger_id from passengers where username = '%s'", username);
             ResultSet resultSet = statement.executeQuery(sqlQuery);
             while (resultSet.next()){
                 return resultSet.getInt("passenger_id");
