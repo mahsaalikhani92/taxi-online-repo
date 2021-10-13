@@ -72,4 +72,24 @@ public class TripDataAccess extends DataBaseAccess{
         }
     }
 
+    public List<Trip> getOngoingTravels() throws SQLException {
+        if(getConnection() != null){
+            List<Trip>ongoingTrips = new ArrayList<>();
+            Statement statement = getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery("select passenger_fk, driver_fk, origin_lat, origin_long, destination_lat, destination_long from trip" +
+                    " where pay_status = CASH or pay_status = ACCOUNT");
+            while (resultSet.next()){
+                Trip trip = new Trip();
+                trip.setPassengerId(resultSet.getInt("passenger_fk"));
+                trip.setDriverId(resultSet.getInt("driver_fk"));
+                trip.setOriginLat(resultSet.getInt("origin_lat"));
+                trip.setOriginLong(resultSet.getInt("origin_long"));
+                trip.setDestinationLat(resultSet.getInt("destination_lat"));
+                trip.setDestinationLong(resultSet.getInt("destination_long"));
+                ongoingTrips.add(trip);
+            }
+            return ongoingTrips;
+        }
+        return null;
+    }
 }
