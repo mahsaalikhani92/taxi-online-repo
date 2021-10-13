@@ -222,7 +222,9 @@ public class Main {
             DriverDataAccess driverDao = new DriverDataAccess();
             driverDao.updateDriverLocation(username);
             driverDao.updateDriverStatusToWaitByUsername(username);
-            //change passenger status >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+            PassengerDataAccess passengerDao = new PassengerDataAccess();
+            int passengerId = tripDao.findPassengerIdByDriverUsername(username);
+            passengerDao.updateStatusToSTOPById(passengerId);
             System.out.println("Driver location is updated.");
         }
     }
