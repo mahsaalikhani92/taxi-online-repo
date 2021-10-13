@@ -20,7 +20,7 @@ public class ValidationUtil {
     }
 
     public static boolean isDouble(String input){
-        return input.matches("-?\\\\d+(.\\\\d+)?"); //-?\\d+(.\\d+)?
+        return input.matches("-?\\d+(.\\d+)?"); //-?\\d+(.\\d+)?
     }
 
     public static boolean isAlphabetic(String input) {
