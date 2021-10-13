@@ -3,6 +3,7 @@ package ir.taxi.dataAccess;
 import ir.taxi.enumeration.PayStatus;
 import ir.taxi.enumeration.TripStatus;
 import ir.taxi.model.Driver;
+import ir.taxi.model.Passenger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -45,6 +46,27 @@ public class DriverDataAccess extends DataBaseAccess {
             while (resultSet.next()) {
                 return resultSet.getString("username");
             }
+        }
+        return null;
+    }
+
+    public List<Driver> findDriverById(int id) throws SQLException {
+        if(getConnection() != null){
+            Statement statement = getConnection().createStatement();
+            String sqlQuery = String.format("select name, family, phone_number, plaque, status from drivers" +
+                    " where driver_id = %d", id);
+            ResultSet resultSet = statement.executeQuery(sqlQuery);
+            List<Driver> driverInfo = new ArrayList<>();
+            while (resultSet.next()){
+                Driver driver = new Driver();
+                driver.setName(resultSet.getString("name"));
+                driver.setFamily(resultSet.getString("family"));
+                driver.setPhoneNumber(resultSet.getString("phone_number"));
+                driver.setPlaque(resultSet.getString("plaque"));
+                driver.setStatus(TripStatus.valueOf(resultSet.getString("status")));
+                driverInfo.add(driver);
+            }
+            return driverInfo;
         }
         return null;
     }
