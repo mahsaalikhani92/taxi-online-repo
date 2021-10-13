@@ -343,7 +343,7 @@ public class Main {
                     default:
                         System.out.println("Invalid number!");
                 }
-            } while (choiceNumber != 2);
+            } while (choiceNumber != 4);
         } else {
             System.out.println("Username " + username + " doesn't exist, Register or Exit");
             int choiceNumber;
@@ -432,7 +432,7 @@ public class Main {
         passengerDao.updateStatusToONGOINGByUsername(username);
         driverDao.updateDriverStatusToONGOINGByUsername(foundDrivers.get(index).getUsername());
         System.out.println("Your request accepted by " + foundDrivers.get(index).getName() + ", "+
-                foundDrivers.get(index).getFamily() + ", " + foundDrivers.get(index).getPlaque());
+                foundDrivers.get(index).getFamily() + ", plaque number: " + foundDrivers.get(index).getPlaque());
     }
 
     private static void increasePassengerBalance(String username, PassengerDataAccess passengerDao) throws SQLException {
