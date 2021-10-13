@@ -82,6 +82,14 @@ public class DriverDataAccess extends DataBaseAccess {
         }
         return status;
     }
+    public void UpdateDriverLocationByUsername(String username, double locLat, double locLong) throws SQLException {
+        if(getConnection() != null){
+            Statement statement = getConnection().createStatement();
+            String sqlQuery = String.format("update drivers set current_lat = '"+ locLat +"' " +
+                    "current_long = '"+ locLong +"' where username = '"+ username +"'");
+            statement.executeUpdate(sqlQuery);
+        }
+    }
     public void updateDriverStatusToWaitByUsername(String username) throws SQLException {
         if(getConnection() != null){
             Statement statement = getConnection().createStatement();
