@@ -332,6 +332,7 @@ public class Main {
                                 }
                             }else{
                                 findAvailableDriver(username, originLat, originLong, destinationLat, destinationLong, PayStatus.ACCOUNT);
+                                decreasePassengerBalance(username, passengerDao, tripPrice);
                             }
                         }
                         break;
@@ -443,6 +444,11 @@ public class Main {
         } while (!ValidationUtil.isNumeric(amount));
         int amountNumber = Integer.parseInt(amount);
         passengerDao.increaseBalance(username, amountNumber);
+        System.out.println("Your balance increased.");
+    }
+    private static void decreasePassengerBalance(String username, PassengerDataAccess passengerDao, int tripPrice) throws SQLException {
+        passengerDao.increaseBalance(username, tripPrice);
+        System.out.println("Your balance decreased.");
     }
 
     private static void passengerRegister(PassengerDataAccess passengerDao) throws SQLException{
