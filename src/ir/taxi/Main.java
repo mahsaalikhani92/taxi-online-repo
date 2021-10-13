@@ -162,7 +162,7 @@ public class Main {
         DriverDataAccess driverDao = new DriverDataAccess();
         if (driverDao.findDriverByUsername(username) != null) {
             try {
-                if(driverDao.findStatusByUsername(username) == TripStatus.WAIT){
+                if(driverDao.findStatusByUsername(username) == TripStatus.WAIT){ /////if not
                     Double[] point = getDriverLocation();
                     driverDao.UpdateDriverLocationByUsername(username, point);
                     int choiceNumber;
@@ -365,17 +365,19 @@ public class Main {
     }
 
     private static Double[] getDriverLocation(){
-        String input;
-        do{
-            System.out.println("Enter your location:");
-            input = scanner.nextLine();
-        }while (!ValidationUtil.isDouble(input));
         Double[] point = new Double[2];
-        String[] coordinate = input.split(",");
-        double locationLat = Double.parseDouble(coordinate[0]);
-        point[0] = locationLat;
-        double locationLong = Double.parseDouble(coordinate[1]);
-        point[1] = locationLong;
+        String latitude;
+        do{
+            System.out.println("Enter your location latitude:");
+            latitude = scanner.next();
+        }while (!ValidationUtil.isDouble(latitude));
+        point[0] = Double.parseDouble(latitude);
+        String longitude;
+        do{
+            System.out.println("Enter your location longitude:");
+            longitude = scanner.next();
+        }while (!ValidationUtil.isDouble(longitude));
+        point[1] = Double.parseDouble(longitude);
         return point;
     }
 
