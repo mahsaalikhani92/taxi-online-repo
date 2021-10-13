@@ -162,6 +162,7 @@ public class Main {
         DriverDataAccess driverDao = new DriverDataAccess();
         if (driverDao.findDriverByUsername(username) != null) {
             if(driverDao.findStatusByUsername(username) == TripStatus.WAIT){
+                //TODO
                 int choiceNumber;
                 do{
                     System.out.println("You are waiting for a trip request.");
@@ -290,7 +291,7 @@ public class Main {
                 switch (choiceNumber) {
                     case 1:
                         if(passengerDao.findStatusByUsername(username) == TripStatus.STOP){
-                            Double[] point = getOriginDestination(username);
+                            Double[] point = getOriginDestination();
                             double originLat = point[0];
                             double originLong = point[1];
                             double destinationLat = point[2];
@@ -300,7 +301,7 @@ public class Main {
                         break;
                     case 2:
                         if(passengerDao.findStatusByUsername(username) == TripStatus.STOP){
-                            Double[] point = getOriginDestination(username);
+                            Double[] point = getOriginDestination();
                             double originLat = point[0];
                             double originLong = point[1];
                             double destinationLat = point[2];
@@ -358,7 +359,22 @@ public class Main {
         }
     }
 
-    private static Double[] getOriginDestination(String username) throws SQLException, ClassNotFoundException {
+    private static Double[] getDriverLocation(){
+        String input;
+        do{
+            System.out.println("Enter your location:");
+            input = scanner.nextLine();
+        }while (!ValidationUtil.isDouble(input));
+        Double[] point = new Double[2];
+        String[] coordinate = input.split(",");
+        double locationLat = Double.parseDouble(coordinate[0]);
+        point[0] = locationLat;
+        double locationLong = Double.parseDouble(coordinate[1]);
+        point[1] = locationLong;
+        return point;
+    }
+
+    private static Double[] getOriginDestination() throws SQLException, ClassNotFoundException {
         String input;
         do{
             System.out.println("Enter the origin and destination of your travel:");
