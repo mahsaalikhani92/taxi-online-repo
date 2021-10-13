@@ -46,10 +46,15 @@ public class TripDataAccess extends DataBaseAccess{
     }
     public void updatePayStatusAfterPayingCash(String username) throws SQLException {
         if(getConnection() != null){
+            int driverId = 0;
             Statement statement = getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery("select trip.driver_fk from trip inner join drivers on trip.driver_fk = drivers.driver_id" +
+                    " where drivers.username = '"+username+"'");
+            while (resultSet.next()){
+                driverId = resultSet.getInt("driver_fk");
+            }
             String sqlQuery = "update trip set pay_status = '"+PayStatus.PAYED.name() +"' " +
-                    "where driver_fk = (select driver_fk from trip inner join drivers" +
-                    "on trip.driver_fk = drivers.driver_id where drivers.username = '"+username+"'";
+                    "where driver_fk = '"+driverId+"'";
             statement.executeUpdate(sqlQuery);
         }
     }
