@@ -382,23 +382,32 @@ public class Main {
     }
 
     private static Double[] getOriginDestination() throws SQLException, ClassNotFoundException {
-        String input;
-        do{
-            System.out.println("Enter the origin and destination of your travel:");
-            input = scanner.nextLine();
-        }while (!ValidationUtil.isDouble(input));
+        System.out.println("Enter the origin and destination of your travel:");
         Double[] point = new Double[4];
-        String[] coordinate = input.split("\\s+");
-        String[] origin = coordinate[0].split(",");
-        String[] destination = coordinate[1].split(",");
-        double originLat = Double.parseDouble(origin[0]);
-        point[0] = originLat;
-        double originLong = Double.parseDouble(origin[1]);
-        point[1] = originLong;
-        double destinationLat = Double.parseDouble(destination[0]);
-        point[2] = destinationLat;
-        double destinationLong = Double.parseDouble(destination[1]);
-        point[3] = destinationLong;
+        String originLat;
+        do{
+            System.out.println("Origin latitude:");
+            originLat = scanner.next();
+        }while (!ValidationUtil.isDouble(originLat));
+        point[0] = Double.parseDouble(originLat);
+        String originLong;
+        do{
+            System.out.println("Origin longitude:");
+            originLong = scanner.next();
+        }while (!ValidationUtil.isDouble(originLong));
+        point[1] = Double.parseDouble(originLong);
+        String destinationLat;
+        do{
+            System.out.println("Destination latitude:");
+            destinationLat = scanner.next();
+        }while (!ValidationUtil.isDouble(destinationLat));
+        point[2] = Double.parseDouble(destinationLat);
+        String destinationLong;
+        do{
+            System.out.println("Destination longitude:");
+            destinationLong = scanner.next();
+        }while (!ValidationUtil.isDouble(destinationLong));
+        point[3] = Double.parseDouble(destinationLong);
         return point;
     }
     private static void findAvailableDriver(String username, double originLat, double originLong, double destinationLat, double destinationLong, PayStatus payStatus) throws SQLException, ClassNotFoundException {
