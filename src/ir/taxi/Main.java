@@ -39,15 +39,32 @@ public class Main {
                     passengerSignUpOrLogin();
                     break;
                 case 5:
-                    showListOfDrivers();
+                    showOngoingTravels();
                     break;
                 case 6:
+                    showListOfDrivers();
+                    break;
+                case 7:
                     showListOfPassengers();
                     break;
                 default:
                     System.out.println("Invalid input!");
 
             }
+        }
+    }
+
+    private static void showOngoingTravels() throws SQLException, ClassNotFoundException {
+        TripDataAccess tripDao = new TripDataAccess();
+        PassengerDataAccess passengerDao = new PassengerDataAccess();
+        DriverDataAccess driverDao = new DriverDataAccess();
+        List<Trip> ongoingTrips =  tripDao.getOngoingTravels();
+        for (Trip item:ongoingTrips) {
+            System.out.println(item.toString());
+            List<Passenger> passengerCustomizedInfo = passengerDao.findPassengerById(item.getPassengerId());
+            System.out.println(passengerCustomizedInfo);
+            List<Driver> driverCustomizedInfo = driverDao.findDriverById(item.getDriverId());
+            System.out.println(driverCustomizedInfo);
         }
     }
 
@@ -205,6 +222,7 @@ public class Main {
             DriverDataAccess driverDao = new DriverDataAccess();
             driverDao.updateDriverLocation(username);
             driverDao.updateDriverStatusToWaitByUsername(username);
+            //change passenger status >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
             System.out.println("Driver location is updated.");
         }
     }
@@ -275,7 +293,7 @@ public class Main {
                             double originLong = point[1];
                             double destinationLat = point[2];
                             double destinationLong = point[3];
-                            findAvailableDriver(username, originLat, originLong, destinationLat, destinationLong);
+                            findAvailableDriver(username, originLat, originLong, destinationLat, destinationLong, PayStatus.CASH);
                         }
                         break;
                     case 2:
@@ -305,7 +323,7 @@ public class Main {
                                         System.out.println("Invalid value");
                                 }
                             }else{
-                                findAvailableDriver(username, originLat, originLong, destinationLat, destinationLong);
+                                findAvailableDriver(username, originLat, originLong, destinationLat, destinationLong, PayStatus.ACCOUNT);
                             }
                         }
                         break;
@@ -358,7 +376,7 @@ public class Main {
         point[3] = destinationLong;
         return point;
     }
-    private static void findAvailableDriver(String username, double originLat, double originLong, double destinationLat, double destinationLong) throws SQLException, ClassNotFoundException {
+    private static void findAvailableDriver(String username, double originLat, double originLong, double destinationLat, double destinationLong, PayStatus payStatus) throws SQLException, ClassNotFoundException {
         DriverDataAccess driverDao = new DriverDataAccess();
         List<Driver>foundDrivers = driverDao.findDriverByWaitStatus();
         List<Double>distances = new ArrayList<>();
@@ -371,15 +389,10 @@ public class Main {
         double minDistance = Collections.min(distances);
         int index = distances.indexOf(minDistance);
         int availableDriverId = foundDrivers.get(index).getId();
-
-        setupTrip(username, originLat, originLong, destinationLat, destinationLong, driverDao, foundDrivers, index, availableDriverId);
-    }
-
-    private static void setupTrip(String username, double originLat, double originLong, double destinationLat, double destinationLong, DriverDataAccess driverDao, List<Driver> foundDrivers, int index, int availableDriverId) throws ClassNotFoundException, SQLException {
         PassengerDataAccess passengerDao = new PassengerDataAccess();
         int passengerID = passengerDao.findPassengerIdByUsername(username);
         Date tripDate = getDateFromInput();
-        Trip trip = new Trip(passengerID, availableDriverId, originLat, originLong, destinationLat, destinationLong, tripDate, PayStatus.CASH);
+        Trip trip = new Trip(passengerID, availableDriverId, originLat, originLong, destinationLat, destinationLong, tripDate, payStatus);
         TripDataAccess tripDao = new TripDataAccess();
         tripDao.saveTrip(trip);
         passengerDao.updateStatusToONGOINGByUsername(username);
