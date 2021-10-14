@@ -18,7 +18,7 @@ public class Main {
     private static final Scanner scanner = new Scanner(System.in);
     private static final Taxi taxi = new Taxi();
 
-    public static void main(String[] args) throws SQLException, ClassNotFoundException{
+    public static void main(String[] args) throws Exception {
         while (true) {
             MainMenu.showMainMenu();
             String choice = getChoiceNumber();
@@ -162,9 +162,11 @@ public class Main {
         DriverDataAccess driverDao = new DriverDataAccess();
         if (driverDao.findDriverByUsername(username) != null) {
             try {
-                if(driverDao.findStatusByUsername(username) == TripStatus.WAIT){ /////if not
-                    Double[] point = getDriverLocation();
-                    driverDao.UpdateDriverLocationByUsername(username, point);
+                if(driverDao.findStatusByUsername(username) == TripStatus.WAIT){
+                    if(driverDao.findDriverLocationByUsername(username) == true){ //true = null
+                        Double[] point = getDriverLocation();
+                        driverDao.UpdateDriverLocationByUsername(username, point);
+                    }
                     int choiceNumber;
                     do{
                         System.out.println("You are waiting for a trip request.");
@@ -225,7 +227,7 @@ public class Main {
             System.out.println(e.getMessage());
         }
         if(tripDao.findPayStatusByDriverId(driverId) == PayStatus.CASH){
-            tripDao.updatePayStatusAfterPayingCash(driverId);
+            tripDao.updatePayStatusAfterPaying(driverId);
             System.out.println("Confirmed");
         }
     }
@@ -241,7 +243,7 @@ public class Main {
             PassengerDataAccess passengerDao = new PassengerDataAccess();
             int passengerId = tripDao.findPassengerIdByDriverId(driverId);
             passengerDao.updateStatusToSTOPById(passengerId);
-            System.out.println("Driver location is updated.");
+            System.out.println("Travel is finished and your location is updated.");
         }
     }
 
@@ -292,7 +294,7 @@ public class Main {
         System.out.println("Your information was successfully registered.");
     }
 
-    private static void passengerSignUpOrLogin() throws SQLException, ClassNotFoundException {
+    private static void passengerSignUpOrLogin() throws Exception {
         System.out.println("Username:");
         String username = getUsernameFromInput();
         PassengerDataAccess passengerDao = new PassengerDataAccess();
@@ -461,9 +463,13 @@ public class Main {
         passengerDao.increaseBalance(username, amountNumber);
         System.out.println("Your balance increased.");
     }
-    private static void decreasePassengerBalance(String username, PassengerDataAccess passengerDao, int tripPrice) throws SQLException {
-        passengerDao.increaseBalance(username, tripPrice);
+    private static void decreasePassengerBalance(String username, PassengerDataAccess passengerDao, int tripPrice) throws Exception {
+        passengerDao.decreaseBalance(username, tripPrice);
         System.out.println("Your balance decreased.");
+        DriverDataAccess driverDao = new DriverDataAccess();
+        int driverId = driverDao.findDriverIdByUsername(username);
+        TripDataAccess tripDao = new TripDataAccess();
+        tripDao.updatePayStatusAfterPaying(driverId);
     }
 
     private static void passengerRegister(PassengerDataAccess passengerDao) throws SQLException{

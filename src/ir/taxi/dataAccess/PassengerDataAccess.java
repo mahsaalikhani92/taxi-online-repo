@@ -75,7 +75,7 @@ public class PassengerDataAccess extends DataBaseAccess {
         }
     }
     public void decreaseBalance(String username, int price) throws SQLException {
-        double decreasedBalance = findBalanceByUserName(username) - price;
+        int decreasedBalance = findBalanceByUserName(username) - price;
         if(getConnection() != null){
             Statement statement = getConnection().createStatement();
             String sqlQuery = ("update passengers set balance = '"+decreasedBalance+"' where username ='"+ username+"'");

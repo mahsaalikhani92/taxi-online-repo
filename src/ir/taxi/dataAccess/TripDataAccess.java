@@ -42,7 +42,7 @@ public class TripDataAccess extends DataBaseAccess{
         }
         return foundId;
     }
-    public void updatePayStatusAfterPayingCash(int id) throws SQLException {
+    public void updatePayStatusAfterPaying(int id) throws SQLException {
         if(getConnection() != null){
             String sqlQuery = "update trip set pay_status = '"+PayStatus.PAYED.name() +"' " +
                     "where driver_fk = '"+id+"'";
@@ -87,7 +87,7 @@ public class TripDataAccess extends DataBaseAccess{
             List<Trip>ongoingTrips = new ArrayList<>();
             Statement statement = getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery("select passenger_fk, driver_fk, origin_lat, origin_long, destination_lat, destination_long from trip" +
-                    " where pay_status = CASH or pay_status = ACCOUNT");
+                    " where pay_status = 'CASH' or pay_status = 'ACCOUNT'");
             while (resultSet.next()){
                 Trip trip = new Trip();
                 trip.setPassengerId(resultSet.getInt("passenger_fk"));
