@@ -107,8 +107,8 @@ public class DriverDataAccess extends DataBaseAccess {
         }
     }
     public boolean findDriverLocationByUsername(String username) throws SQLException {
-        Double latitude = null;
-        Double longitude = null;
+        double latitude = 0.0;
+        double longitude = 0.0;
         if(getConnection() != null){
             Statement statement = getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery("select current_lat, current_long from drivers where username = '"+username+"'");
@@ -116,7 +116,7 @@ public class DriverDataAccess extends DataBaseAccess {
                 latitude = resultSet.getDouble("current_lat");
                 longitude = resultSet.getDouble("current_long");
             }
-            if(latitude == null && longitude == null){
+            if(latitude == 0.0 && longitude == 0.0){
                 return true;
             }
         }

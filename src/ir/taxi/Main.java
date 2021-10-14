@@ -344,7 +344,6 @@ public class Main {
                                 }
                             }else{
                                 findAvailableDriver(username, originLat, originLong, destinationLat, destinationLong, PayStatus.ACCOUNT, tripPrice);
-                                decreasePassengerBalance(username, passengerDao, tripPrice);
                             }
                         }
                         break;
@@ -378,7 +377,7 @@ public class Main {
     }
 
     private static int calculateTripPrice(double origLat, double origLong, double destLat, double destLong){
-        double distance = Math.sqrt((Math.exp(origLat) - Math.exp(destLat)) + ((Math.exp(origLong)) - Math.exp(destLong)));
+        double distance = Math.sqrt((Math.exp(origLat - destLat)) + (Math.exp(origLong - destLong)));
         return (int) (1000 * distance);
     }
 
@@ -428,7 +427,7 @@ public class Main {
         point[3] = Double.parseDouble(destinationLong);
         return point;
     }
-    private static void findAvailableDriver(String username, double originLat, double originLong, double destinationLat, double destinationLong, PayStatus payStatus, int tripPrice) throws SQLException, ClassNotFoundException {
+    private static void findAvailableDriver(String username, double originLat, double originLong, double destinationLat, double destinationLong, PayStatus payStatus, int tripPrice) throws Exception {
         DriverDataAccess driverDao = new DriverDataAccess();
         List<Driver>foundDrivers = driverDao.findDriverByWaitStatus();
         List<Double>distances = new ArrayList<>();
@@ -451,6 +450,10 @@ public class Main {
         driverDao.updateDriverStatusToONGOINGByUsername(foundDrivers.get(index).getUsername());
         System.out.println("Your request accepted by " + foundDrivers.get(index).getName() + ", "+
                 foundDrivers.get(index).getFamily() + ", plaque number: " + foundDrivers.get(index).getPlaque());
+        if(tripDao.findPayStatusByDriverId(availableDriverId) == PayStatus.ACCOUNT){
+            decreasePassengerBalance(username, passengerDao, tripPrice);
+            tripDao.updatePayStatusAfterPaying(availableDriverId);
+        }
     }
 
     private static void increasePassengerBalance(String username, PassengerDataAccess passengerDao) throws SQLException {
@@ -466,10 +469,6 @@ public class Main {
     private static void decreasePassengerBalance(String username, PassengerDataAccess passengerDao, int tripPrice) throws Exception {
         passengerDao.decreaseBalance(username, tripPrice);
         System.out.println("Your balance decreased.");
-        DriverDataAccess driverDao = new DriverDataAccess();
-        int driverId = driverDao.findDriverIdByUsername(username);
-        TripDataAccess tripDao = new TripDataAccess();
-        tripDao.updatePayStatusAfterPaying(driverId);
     }
 
     private static void passengerRegister(PassengerDataAccess passengerDao) throws SQLException{

@@ -86,7 +86,7 @@ public class TripDataAccess extends DataBaseAccess{
         if(getConnection() != null){
             List<Trip>ongoingTrips = new ArrayList<>();
             Statement statement = getConnection().createStatement();
-            ResultSet resultSet = statement.executeQuery("select passenger_fk, driver_fk, origin_lat, origin_long, destination_lat, destination_long from trip" +
+            ResultSet resultSet = statement.executeQuery("select passenger_fk, driver_fk, origin_lat, origin_long, destination_lat, destination_long, price, trip_date from trip" +
                     " where pay_status = 'CASH' or pay_status = 'ACCOUNT'");
             while (resultSet.next()){
                 Trip trip = new Trip();
@@ -96,6 +96,8 @@ public class TripDataAccess extends DataBaseAccess{
                 trip.setOriginLong(resultSet.getInt("origin_long"));
                 trip.setDestinationLat(resultSet.getInt("destination_lat"));
                 trip.setDestinationLong(resultSet.getInt("destination_long"));
+                trip.setPrice(resultSet.getInt("price"));
+                trip.setTripDate(resultSet.getDate("trip_date"));
                 ongoingTrips.add(trip);
             }
             return ongoingTrips;

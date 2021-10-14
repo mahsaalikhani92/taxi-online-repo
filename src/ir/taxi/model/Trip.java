@@ -117,7 +117,7 @@ public class Trip {
 
     @Override
     public String toString() {
-        return "Ongoing Trip" +
+        return "Ongoing Trip\n" +
                 "Origin: " + originLat + ", " + originLong +"\n" +
                 "Destination: " + destinationLat + ", " + destinationLong + "\n" +
                 "Price: " + price + "\n" +
