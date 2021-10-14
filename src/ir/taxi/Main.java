@@ -217,26 +217,26 @@ public class Main {
 
     private static void confirmCashReceiptByDriver(String username) throws SQLException, ClassNotFoundException {
         TripDataAccess tripDao = new TripDataAccess();
-        if(tripDao.findPayStatusByDriverUsername(username) == PayStatus.CASH){
-            DriverDataAccess driverDao = new DriverDataAccess();
-            int driverId = 0;
-            try {
-                driverId = driverDao.findDriverIdByUsername(username);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
+        DriverDataAccess driverDao = new DriverDataAccess();
+        int driverId = 0;
+        try {
+            driverId = driverDao.findDriverIdByUsername(username);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        if(tripDao.findPayStatusByDriverId(driverId) == PayStatus.CASH){
             tripDao.updatePayStatusAfterPayingCash(driverId);
         }
     }
 
     private static void TravelFinishByDriver(String username) throws Exception {
+        DriverDataAccess driverDao = new DriverDataAccess();
+        int driverId = driverDao.findDriverIdByUsername(username);
         TripDataAccess tripDao = new TripDataAccess();
-        if(tripDao.findPayStatusByDriverUsername(username) == PayStatus.PAYED){
-            DriverDataAccess driverDao = new DriverDataAccess();
+        if(tripDao.findPayStatusByDriverId(driverId) == PayStatus.PAYED){
             driverDao.updateDriverLocation(username);
             driverDao.updateDriverStatusToWaitByUsername(username);
             PassengerDataAccess passengerDao = new PassengerDataAccess();
-            int driverId = driverDao.findDriverIdByUsername(username);
             int passengerId = tripDao.findPassengerIdByDriverId(driverId);
             passengerDao.updateStatusToSTOPById(passengerId);
             System.out.println("Driver location is updated.");
