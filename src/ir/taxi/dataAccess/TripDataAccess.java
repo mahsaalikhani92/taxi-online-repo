@@ -20,12 +20,11 @@ public class TripDataAccess extends DataBaseAccess{
         super();
     }
 
-    public PayStatus findPayStatusByDriverUsername(String username) throws SQLException {
+    public PayStatus findPayStatusByDriverId(int id) throws SQLException {
         PayStatus payStatus = null;
         if(getConnection() != null){
             Statement statement = getConnection().createStatement();
-            ResultSet resultSet = statement.executeQuery(String.format("select pay_status from trip inner join drivers" +
-                    "on trip.driver_fk = drivers.driver_id where drivers.username = %s", username));
+            ResultSet resultSet = statement.executeQuery(String.format("select pay_status from trip where driver_fk = %d", id));
             while (resultSet.next()){
                 payStatus = PayStatus.valueOf(resultSet.getString("pay_status"));
             }
