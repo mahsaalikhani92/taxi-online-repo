@@ -20,24 +20,19 @@ public class Trip {
     private Date tripDate;
     private PayStatus payStatus;
 
-    public Trip(int passengerId, int driverId, double originLat, double originLong, double destinationLat, double destinationLong, Date tripDate, PayStatus payStatus) {
+    public Trip(int passengerId, int driverId, double originLat, double originLong, double destinationLat, double destinationLong, int price, Date tripDate, PayStatus payStatus) {
         this.passengerId = passengerId;
         this.driverId = driverId;
         this.originLat = originLat;
         this.originLong = originLong;
         this.destinationLat = destinationLat;
         this.destinationLong = destinationLong;
-        this.price = calculateTripPrice(originLat, originLong, destinationLat, destinationLong);
+        this.price = price;
         this.tripDate = tripDate;
         this.payStatus = payStatus;
     }
 
     public Trip() {
-    }
-
-    public int calculateTripPrice(double origLat, double origLong, double destLat, double destLong){
-        double distance = Math.sqrt((Math.exp(origLat) - Math.exp(destLat)) + ((Math.exp(origLong)) - Math.exp(destLong)));
-        return (int) (1000 * distance);
     }
 
     public int getId() {
