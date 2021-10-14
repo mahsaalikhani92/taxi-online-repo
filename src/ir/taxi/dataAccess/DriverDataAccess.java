@@ -111,8 +111,7 @@ public class DriverDataAccess extends DataBaseAccess {
         Double longitude = null;
         if(getConnection() != null){
             Statement statement = getConnection().createStatement();
-            ResultSet resultSet = statement.executeQuery(String.format("select current_lat, current_long from drivers" +
-                    "where username = '%s'", username));
+            ResultSet resultSet = statement.executeQuery("select current_lat, current_long from drivers where username = '"+username+"'");
             while (resultSet.next()){
                 latitude = resultSet.getDouble("current_lat");
                 longitude = resultSet.getDouble("current_long");
