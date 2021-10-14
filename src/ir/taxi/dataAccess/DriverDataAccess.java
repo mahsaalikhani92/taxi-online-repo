@@ -185,12 +185,10 @@ public class DriverDataAccess extends DataBaseAccess {
         return null;
     }
 
-    public void updateDriverLocation(String username) throws SQLException, ClassNotFoundException {
-        TripDataAccess tripDao = new TripDataAccess();
-        List<Double>destinationCoordinate = tripDao.findDestinationCoordinationByUsername(username);
+    public void updateDriverLocation(List<Double> destinationCoordinate, String username) throws SQLException {
         if(getConnection() != null){
             Statement statement = getConnection().createStatement();
-            String sqlQuery = "update drivers set current_lat = '"+ destinationCoordinate.get(0) +"', current_long = '"+ destinationCoordinate.get(1) +"' " +
+            String sqlQuery = "update drivers set current_lat = '"+destinationCoordinate.get(0)+"', current_long = '"+destinationCoordinate.get(1)+"' " +
                     "where username = '"+username+"'";
             statement.executeUpdate(sqlQuery);
         }

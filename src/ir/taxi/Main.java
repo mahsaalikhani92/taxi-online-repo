@@ -226,6 +226,7 @@ public class Main {
         }
         if(tripDao.findPayStatusByDriverId(driverId) == PayStatus.CASH){
             tripDao.updatePayStatusAfterPayingCash(driverId);
+            System.out.println("Confirmed");
         }
     }
 
@@ -234,7 +235,8 @@ public class Main {
         int driverId = driverDao.findDriverIdByUsername(username);
         TripDataAccess tripDao = new TripDataAccess();
         if(tripDao.findPayStatusByDriverId(driverId) == PayStatus.PAYED){
-            driverDao.updateDriverLocation(username);
+            List<Double>destinationCoordinate = tripDao.findDestinationCoordinationByUsername(username);
+            driverDao.updateDriverLocation(destinationCoordinate, username);
             driverDao.updateDriverStatusToWaitByUsername(username);
             PassengerDataAccess passengerDao = new PassengerDataAccess();
             int passengerId = tripDao.findPassengerIdByDriverId(driverId);
