@@ -106,6 +106,24 @@ public class DriverDataAccess extends DataBaseAccess {
             statement.executeUpdate(sqlQuery);
         }
     }
+    public boolean findDriverLocationByUsername(String username) throws SQLException {
+        Double latitude = null;
+        Double longitude = null;
+        if(getConnection() != null){
+            Statement statement = getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery(String.format("select current_lat, current_long from drivers" +
+                    "where username = '%s'", username));
+            while (resultSet.next()){
+                latitude = resultSet.getDouble("current_lat");
+                longitude = resultSet.getDouble("current_long");
+            }
+            if(latitude == null && longitude == null){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void updateDriverStatusToWaitByUsername(String username) throws SQLException {
         if(getConnection() != null){
             Statement statement = getConnection().createStatement();
