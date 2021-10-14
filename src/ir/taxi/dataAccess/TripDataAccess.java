@@ -50,12 +50,12 @@ public class TripDataAccess extends DataBaseAccess{
             statement.executeUpdate(sqlQuery);
         }
     }
-    public List<Double> findDestinationCoordinationByUsername(String username) throws SQLException {
+    public List<Double> findDestinationCoordinationById(int id) throws SQLException {
         List<Double> coordination = new ArrayList<Double>();
         if(getConnection() != null){
             Statement statement = getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(String.format("select destination_lat, destination_long" +
-                    " from trip where username = '%s'", username));
+                    " from trip where username = %d", id));
             while (resultSet.next()){
                 coordination.add(resultSet.getDouble("destination_lat"));
                 coordination.add(resultSet.getDouble("destination_long"));

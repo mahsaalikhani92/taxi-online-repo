@@ -235,7 +235,7 @@ public class Main {
         int driverId = driverDao.findDriverIdByUsername(username);
         TripDataAccess tripDao = new TripDataAccess();
         if(tripDao.findPayStatusByDriverId(driverId) == PayStatus.PAYED){
-            List<Double>destinationCoordinate = tripDao.findDestinationCoordinationByUsername(username);
+            List<Double>destinationCoordinate = tripDao.findDestinationCoordinationById(driverId);
             driverDao.updateDriverLocation(destinationCoordinate, username);
             driverDao.updateDriverStatusToWaitByUsername(username);
             PassengerDataAccess passengerDao = new PassengerDataAccess();
