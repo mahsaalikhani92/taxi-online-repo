@@ -80,6 +80,7 @@ public class TripDataAccess extends DataBaseAccess{
             stmt.setInt(7, trip.getPrice());
             stmt.setDate(8, trip.getTripDate());
             stmt.setString(9, trip.getPayStatus().name());
+            stmt.executeUpdate();
         }
     }
 
