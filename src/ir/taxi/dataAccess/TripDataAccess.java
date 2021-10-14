@@ -55,7 +55,7 @@ public class TripDataAccess extends DataBaseAccess{
         if(getConnection() != null){
             Statement statement = getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(String.format("select destination_lat, destination_long" +
-                    " from trip where username = %s", username));
+                    " from trip where username = '%s'", username));
             while (resultSet.next()){
                 coordination.add(resultSet.getDouble("destination_lat"));
                 coordination.add(resultSet.getDouble("destination_long"));
