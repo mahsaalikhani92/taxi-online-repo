@@ -309,7 +309,8 @@ public class Main {
                             double originLong = point[1];
                             double destinationLat = point[2];
                             double destinationLong = point[3];
-                            findAvailableDriver(username, originLat, originLong, destinationLat, destinationLong, PayStatus.CASH);
+                            int tripPrice = calculateTripPrice(originLat, originLong, destinationLat, destinationLong);
+                            findAvailableDriver(username, originLat, originLong, destinationLat, destinationLong, PayStatus.CASH, tripPrice);
                         }
                         break;
                     case 2:
@@ -319,8 +320,7 @@ public class Main {
                             double originLong = point[1];
                             double destinationLat = point[2];
                             double destinationLong = point[3];
-                            Trip trip = new Trip();
-                            int tripPrice = trip.calculateTripPrice(originLat, originLong, destinationLat, destinationLong);
+                            int tripPrice = calculateTripPrice(originLat, originLong, destinationLat, destinationLong);
                             if(passengerDao.findBalanceByUserName(username) < tripPrice){
                                 System.out.println("Your balance is not enough!");
                                 do{
@@ -339,7 +339,7 @@ public class Main {
                                         System.out.println("Invalid value");
                                 }
                             }else{
-                                findAvailableDriver(username, originLat, originLong, destinationLat, destinationLong, PayStatus.ACCOUNT);
+                                findAvailableDriver(username, originLat, originLong, destinationLat, destinationLong, PayStatus.ACCOUNT, tripPrice);
                                 decreasePassengerBalance(username, passengerDao, tripPrice);
                             }
                         }
@@ -371,6 +371,11 @@ public class Main {
                 }
             } while (choiceNumber != 2);
         }
+    }
+
+    private static int calculateTripPrice(double origLat, double origLong, double destLat, double destLong){
+        double distance = Math.sqrt((Math.exp(origLat) - Math.exp(destLat)) + ((Math.exp(origLong)) - Math.exp(destLong)));
+        return (int) (1000 * distance);
     }
 
     private static Double[] getDriverLocation(){
@@ -419,7 +424,7 @@ public class Main {
         point[3] = Double.parseDouble(destinationLong);
         return point;
     }
-    private static void findAvailableDriver(String username, double originLat, double originLong, double destinationLat, double destinationLong, PayStatus payStatus) throws SQLException, ClassNotFoundException {
+    private static void findAvailableDriver(String username, double originLat, double originLong, double destinationLat, double destinationLong, PayStatus payStatus, int tripPrice) throws SQLException, ClassNotFoundException {
         DriverDataAccess driverDao = new DriverDataAccess();
         List<Driver>foundDrivers = driverDao.findDriverByWaitStatus();
         List<Double>distances = new ArrayList<>();
@@ -435,7 +440,7 @@ public class Main {
         PassengerDataAccess passengerDao = new PassengerDataAccess();
         int passengerID = passengerDao.findPassengerIdByUsername(username);
         Date tripDate = getTripDateFromInput();
-        Trip trip = new Trip(passengerID, availableDriverId, originLat, originLong, destinationLat, destinationLong, tripDate, payStatus);
+        Trip trip = new Trip(passengerID, availableDriverId, originLat, originLong, destinationLat, destinationLong, tripPrice, tripDate, payStatus);
         TripDataAccess tripDao = new TripDataAccess();
         tripDao.saveTrip(trip);
         passengerDao.updateStatusToONGOINGByUsername(username);
